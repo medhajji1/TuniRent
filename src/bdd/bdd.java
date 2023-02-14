@@ -38,10 +38,6 @@ public class bdd {
        return bddtest;
    }
    
-   public void disconnect() throws SQLException{
-       if(connection != null){
-           connection.close();
-       }
-   }
+ 
    
 }

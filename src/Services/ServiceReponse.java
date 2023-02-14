@@ -22,8 +22,7 @@ public class ServiceReponse {
    
         Connection connection;
         public ServiceReponse(){
-            connection =bdd.getinstance().get_connection();
-        
+            connection =bdd.getinstance().get_connection();       
         }
         PreparedStatement ps=null;
     public void ajouter( reponse p) throws SQLException {
