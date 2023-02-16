@@ -37,7 +37,7 @@ public class TuniRentReclamation {
         //sr.ajouter(Rp1);
         //sr.modifier(Rp2);
         //sr.supprimer(1);
-        sr.getAll();
+        //sr.getAll();
     }
     
 }
