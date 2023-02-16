@@ -20,6 +20,11 @@ public class reponse {
         this.id_reclamation = id_reclamation;
         this.message = message;
     }
+
+    public reponse(String message) {
+        this.message = message;
+    }
+    
     public int getId_reclamation() {
         return id_reclamation;
     }
