@@ -7,8 +7,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="489.0" prefWidth="429.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/19" fx:controller="GUI.AjouterReclamationController">
+<AnchorPane id="AnchorPane" prefHeight="489.0" prefWidth="429.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.AjouterReclamationController">
    <children>
       <Text fill="#9e0101" layoutX="160.0" layoutY="42.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Reclamation">
          <font>
@@ -24,8 +23,11 @@
       <Text layoutX="14.0" layoutY="216.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Numero telephone" />
       <TextField fx:id="sujet" layoutX="120.0" layoutY="245.0" />
       <Text layoutX="14.0" layoutY="262.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sujet" />
-      <TextArea fx:id="msg" layoutX="121.0" layoutY="288.0" prefHeight="111.0" prefWidth="177.0" />
-      <Text layoutX="14.0" layoutY="348.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Message" />
-      <Button fx:id="btn" layoutX="272.0" layoutY="429.0" mnemonicParsing="false" onAction="#Addreclamation" onKeyTyped="#handleKeyType" style="-fx-background-color: LIGHTSKYBLUE; -fx-cursor: not-allowed;" text="Envoyer" textFill="WHITE" />
+      <TextArea fx:id="msg" layoutX="120.0" layoutY="297.0" prefHeight="111.0" prefWidth="177.0" />
+      <Text layoutX="17.0" layoutY="357.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Message" />
+      <Button fx:id="btn" layoutX="269.0" layoutY="441.0" mnemonicParsing="false" onAction="#Addreclamation" onKeyTyped="#handleKeyType" style="-fx-background-color: LIGHTSKYBLUE; -fx-cursor: not-allowed;" text="Envoyer" textFill="WHITE" />
+      <Text fill="#a1a0a0" layoutX="271.0" layoutY="121.0" strokeType="OUTSIDE" strokeWidth="0.0" text="exemple :mohamed hadji" wrappingWidth="136.423828125" />
+      <Text fill="#a1a0a0" layoutX="275.0" layoutY="167.0" strokeType="OUTSIDE" strokeWidth="0.0" text="exemple@gmail.com" wrappingWidth="129.341796875" />
+      <Text fill="#a1a0a0" layoutX="275.0" layoutY="216.0" strokeType="OUTSIDE" strokeWidth="0.0" text="8 numero" wrappingWidth="129.341796875" />
    </children>
 </AnchorPane>

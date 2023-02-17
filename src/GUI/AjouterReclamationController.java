@@ -59,12 +59,14 @@ public class AjouterReclamationController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        btn.setDisable(true);
         np.textProperty().addListener((observable, oldValue, newValue) -> {
             if (!nomPattern.matcher(newValue).matches()) {
                 np.setStyle("-fx-border-color: red;");
             } else {
                 np.setStyle("");
             }
+            handleKeyType();
         });
 
         mail.textProperty().addListener((observable, oldValue, newValue) -> {
@@ -73,6 +75,7 @@ public class AjouterReclamationController implements Initializable {
             } else {
                 mail.setStyle("");
             }
+            handleKeyType();
         });
 
         sujet.textProperty().addListener((observable, oldValue, newValue) -> {
@@ -81,29 +84,41 @@ public class AjouterReclamationController implements Initializable {
             } else {
                 sujet.setStyle("");
             }
+            handleKeyType();
         });
 
+        msg.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!sujetPattern.matcher(newValue).matches()) {
+                msg.setStyle("-fx-border-color: red;");
+            } else {
+                msg.setStyle("");
+            }
+            handleKeyType();
+        });
+        
         numtel.textProperty().addListener((observable, oldValue, newValue) -> {
             if (!numtelPattern.matcher(newValue).matches()) {
                 numtel.setStyle("-fx-border-color: red;");
             } else {
                 numtel.setStyle("");
             }
+            handleKeyType();
         });
+        
     }
 
     @FXML
     private void Addreclamation(ActionEvent event) throws IOException {
         ServiceReclamation sp = new ServiceReclamation();
+        if (np.getText().isEmpty() || mail.getText().isEmpty() || numtel.getText().isEmpty() 
+            || sujet.getText().isEmpty() || msg.getText().isEmpty()) {
+        Alert a = new Alert(Alert.AlertType.WARNING, "Tous les champs sont obligatoires", ButtonType.OK);
+        a.showAndWait();
+        return;
+                    }
         //int numtel = Integer.parseInt(tfNumtel.getText());
         reclamation p = new reclamation(np.getText(), mail.getText(),numtel.getText(), sujet.getText(), msg.getText());
         sp.ajouter(p);
-        boolean hasInvalidInput = !nomPattern.matcher(np.getText()).matches()
-                || !emailPattern.matcher(mail.getText()).matches()
-                || !sujetPattern.matcher(sujet.getText()).matches()
-                || !messagePattern.matcher(msg.getText()).matches()
-                || !numtelPattern.matcher(numtel.getText()).matches();
-        btn.setDisable(hasInvalidInput);
         Alert a = new Alert(Alert.AlertType.INFORMATION, "Votre demande a ete envoyer!", ButtonType.OK);
         a.showAndWait();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("AfficheDemande.fxml"));
@@ -117,14 +132,15 @@ public class AjouterReclamationController implements Initializable {
         apc.setMessage(msg.getText());
     }
     
-
+    
     @FXML
-    private void handleKeyType(javafx.scene.input.KeyEvent event) {
+    private void handleKeyType() {
+        boolean hasInvalidInput = !nomPattern.matcher(np.getText()).matches()
+                || !emailPattern.matcher(mail.getText()).matches()
+                || !sujetPattern.matcher(sujet.getText()).matches()
+                || !messagePattern.matcher(msg.getText()).matches()
+                || !numtelPattern.matcher(numtel.getText()).matches();
+        btn.setDisable(hasInvalidInput);
         
-    }
-public void loadPage(String page) throws IOException
-    {
-        Parent root =  null;
-            root =FXMLLoader.load(getClass().getResource(page+".fxml"));  
     }
 }
