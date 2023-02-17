@@ -114,23 +114,27 @@ public class AfficheDemandeController implements Initializable {
                 System.out.println("error : "+ex.getMessage());                        
     }
 }
-
+            
+    public void modifier(int selectedReclamationId, String nom, String email, String numtel, String sujet, String message) {
+            ServiceReclamation SR = new ServiceReclamation();
+            SR.modifier(selectedReclamationId, nom, email, numtel, sujet, message);
+}
     @FXML
     private void Modifier(ActionEvent event) {
-     ServiceReclamation SR = new ServiceReclamation();
-    String nom = lblNom.getText();
-    String email = lblEmail.getText();
-    String numtel = lblNumtel.getText();
-    String sujet = lblSujet.getText();
-    String message = lblMessage.getText();
-    SR.modifier(selectedReclamationId, nom, email, numtel, sujet, message);
-    FXMLLoader loader = new FXMLLoader(getClass().getResource("ajouterReclamation.fxml"));
-    try {
-        Parent root = loader.load(); 
-        AjouterReclamationController controller = loader.getController();
-        lblNom.getScene().setRoot(root);
-    } catch (IOException ex) {
-        System.out.println("error : "+ex.getMessage());                        
-    }        
+            int reclamationId = selectedReclamationId;
+           String nom = lblNom.getText();
+           String email = lblEmail.getText();
+           String numtel = lblNumtel.getText();
+           String sujet = lblSujet.getText();
+           String message = lblMessage.getText();
+           modifier(reclamationId, nom, email, numtel, sujet, message);
+           FXMLLoader loader = new FXMLLoader(getClass().getResource("ajouterReclamation.fxml"));
+           try {
+               Parent root = loader.load(); 
+               AjouterReclamationController controller = loader.getController();
+               lblNom.getScene().setRoot(root);
+           } catch (IOException ex) {
+               System.out.println("error : "+ex.getMessage());                        
+           } 
     }
-    }
+}
