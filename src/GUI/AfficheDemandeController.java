@@ -5,43 +5,132 @@
  */
 package GUI;
 
+import Services.ServiceReclamation;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import static sun.rmi.registry.RegistryImpl.getID;
 
 /**
  * FXML Controller class
  *
- * @author yadii
+ * @author maroo
  */
 public class AfficheDemandeController implements Initializable {
 
+    @FXML
+    private Label lblNom;
+    @FXML
+    private Label lblEmail;
+    @FXML
+    private Label lblNumtel;
+    @FXML
+    private Label lblSujet;
+    @FXML
+    private Label lblMessage;
+    @FXML
+    private Button cancelid;
+    @FXML
+    private Button supprimer;
+    @FXML
+    private Button Modifier;
+    private int selectedReclamationId;
+    
+    
+    
+    public void setSelectedReclamationId(int selectedReclamationId) {
+        this.selectedReclamationId = selectedReclamationId;
+    }
+
     /**
      * Initializes the controller class.
-     */
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
-        // TODO
-    }    
+     * @param url
+     * @param rb
+     */   
+       @Override
+        public void initialize(URL url, ResourceBundle rb) {
 
-    void setNom(String text) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        }
+        public void setNom(String nom) {
+                if (lblNom != null) {
+                    lblNom.setText(nom);
+                }
     }
 
-    void setEmail(String text) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+        public void setEmail(String email){
+            if (lblEmail != null) {
+                    lblEmail.setText(email);
+                }
+        }
 
-    void setNumtel(String text) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+        public void setNumtel(String numtel){
+            if (lblNumtel != null) {
+                    lblNumtel.setText(numtel);
+                }
+        }
 
-    void setSujet(String text) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+                public void setSujet(String sujet){
+             if (lblSujet != null) {
+                 lblSujet.setText(sujet);
+             }
+                }
 
-    void setMessage(String text) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+         public void setMessage(String message){
+             if (lblMessage != null) {
+                 lblMessage.setText(message);
+                }
+         }
+
+        @FXML
+        private void cancel(ActionEvent event) {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("AjouterReclamation.fxml"));
+            try {
+                Parent root = loader.load();
+                //AjouterReclamationController SBC = loader.getController();
+                //SBC.loadPage("AjouterReclamation");
+                lblNom.getScene().setRoot(root);
+            } catch (IOException ex) {
+                System.out.println("error : "+ex.getMessage());
+            }
+        }
+
+    @FXML
+            private void Supprimer(ActionEvent event) {
+                   ServiceReclamation SR = new ServiceReclamation();
+                     SR.supprimer(selectedReclamationId);
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("ajouterReclamation.fxml"));
+            try {
+                Parent root = loader.load(); 
+                AjouterReclamationController controller = loader.getController();
+                lblNom.getScene().setRoot(root);
+            } catch (IOException ex) {
+                System.out.println("error : "+ex.getMessage());                        
     }
-    
 }
+
+    @FXML
+    private void Modifier(ActionEvent event) {
+     ServiceReclamation SR = new ServiceReclamation();
+    String nom = lblNom.getText();
+    String email = lblEmail.getText();
+    String numtel = lblNumtel.getText();
+    String sujet = lblSujet.getText();
+    String message = lblMessage.getText();
+    SR.modifier(selectedReclamationId, nom, email, numtel, sujet, message);
+    FXMLLoader loader = new FXMLLoader(getClass().getResource("ajouterReclamation.fxml"));
+    try {
+        Parent root = loader.load(); 
+        AjouterReclamationController controller = loader.getController();
+        lblNom.getScene().setRoot(root);
+    } catch (IOException ex) {
+        System.out.println("error : "+ex.getMessage());                        
+    }        
+    }
+    }

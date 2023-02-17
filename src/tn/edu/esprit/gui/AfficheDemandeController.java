@@ -5,7 +5,6 @@
  */
 package tn.edu.esprit.gui;
 
-import GUI.AjouterReclamationController;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -43,39 +42,59 @@ public class AfficheDemandeController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        // Get the parameter values and update the labels
+        String nom = (String) rb.getObject("nom");
+        String email = (String) rb.getObject("email");
+        String numtel = (String) rb.getObject("numtel");
+        String sujet = (String) rb.getObject("sujet");
+        String message = (String) rb.getObject("message");
+        setNom(nom);
+        setEmail(email);
+        setNumtel(numtel);
+        setSujet(sujet);
+        setMessage(message);
     }    
-    public void setNom(String nom){
-        lblNom.setText(nom);
-    }
+
+    public void setNom(String nom) {
+            if (lblNom != null) {
+                lblNom.setText(nom);
+            }
+}
     
     public void setEmail(String email){
-        lblEmail.setText(email);
+        if (lblEmail != null) {
+                lblEmail.setText(email);
+            }
     }
-public void setNumtel(String numtel){
-        lblNumtel.setText(numtel);
+    
+    public void setNumtel(String numtel){
+        if (lblNumtel != null) {
+                lblNumtel.setText(numtel);
+            }
     }
     
     public void setSujet(String sujet){
-        lblSujet.setText(sujet);
-    }
-    public void setMessage(String message){
-        lblMessage.setText(message);
+        if (lblSujet != null) {
+                lblNumtel.setText(sujet);
+            }
     }
 
+    public void setMessage(String message){
+        if (lblMessage != null) {
+                lblNumtel.setText(message);
+            }
+    }
 
     @FXML
     private void cancel(ActionEvent event) {
-           FXMLLoader loader = new FXMLLoader(getClass().getResource("AjouterReclamation.fxml"));
-                        try {
-                        Parent root = loader.load(); 
-                             AjouterReclamationController SBC = loader.getController();
-                             SBC.loadPage("AjouterReclamation"); 
-                           lblNom.getScene().setRoot(root);
-                        } catch (IOException ex) {
-                         System.out.println("error : "+ex.getMessage());                        
-                        }
-        
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("AjouterReclamation.fxml"));
+        try {
+            Parent root = loader.load();
+            //AjouterReclamationController SBC = loader.getController();
+            //SBC.loadPage("AjouterReclamation");
+            lblNom.getScene().setRoot(root);
+        } catch (IOException ex) {
+            System.out.println("error : "+ex.getMessage());
+        }
     }
-  
 }

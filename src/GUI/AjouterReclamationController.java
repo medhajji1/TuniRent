@@ -7,13 +7,9 @@ package GUI;
 
 import Services.ServiceReclamation;
 import entities.reclamation;
-import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.net.URL;
-import java.sql.SQLException;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.util.regex.Pattern;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -45,21 +41,22 @@ public class AjouterReclamationController implements Initializable {
     private TextArea msg;
     @FXML
     private Button btn;
-
+    private int selectedReclamationId;
     /**
      * Initializes the controller class.
      * @param url
      * @param rb
      */
-    private Pattern nomPattern = Pattern.compile("[a-zA-Z]+\\s[a-zA-Z]+");
-    private Pattern emailPattern = Pattern.compile("\\b[\\w.%-]+@[-.\\w]+\\.[A-Za-z]{2,4}\\b");
-    private Pattern sujetPattern = Pattern.compile("[a-zA-Z ]+");
-    private Pattern messagePattern = Pattern.compile("[a-zA-Z ]+");
-    private Pattern numtelPattern = Pattern.compile("\\d{8}");
+    private final Pattern nomPattern = Pattern.compile("[a-zA-Z]+\\s[a-zA-Z]+");
+    private final Pattern emailPattern = Pattern.compile("\\b[\\w.%-]+@[-.\\w]+\\.[A-Za-z]{2,4}\\b");
+    private final Pattern sujetPattern = Pattern.compile("[a-zA-Z ]+");
+    private final Pattern messagePattern = Pattern.compile("[a-zA-Z ]+");
+    private final Pattern numtelPattern = Pattern.compile("\\d{8}");
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        btn.setDisable(true);
+          handleKeyType(); 
+          btn.setDisable(true);
         np.textProperty().addListener((observable, oldValue, newValue) -> {
             if (!nomPattern.matcher(newValue).matches()) {
                 np.setStyle("-fx-border-color: red;");
@@ -88,7 +85,7 @@ public class AjouterReclamationController implements Initializable {
         });
 
         msg.textProperty().addListener((observable, oldValue, newValue) -> {
-            if (!sujetPattern.matcher(newValue).matches()) {
+            if (!messagePattern.matcher(newValue).matches()) {
                 msg.setStyle("-fx-border-color: red;");
             } else {
                 msg.setStyle("");
@@ -104,11 +101,10 @@ public class AjouterReclamationController implements Initializable {
             }
             handleKeyType();
         });
-        
     }
-
+    
     @FXML
-    private void Addreclamation(ActionEvent event) throws IOException {
+   private void Addreclamation(ActionEvent event) throws IOException {
         ServiceReclamation sp = new ServiceReclamation();
         if (np.getText().isEmpty() || mail.getText().isEmpty() || numtel.getText().isEmpty() 
             || sujet.getText().isEmpty() || msg.getText().isEmpty()) {
@@ -122,17 +118,18 @@ public class AjouterReclamationController implements Initializable {
         Alert a = new Alert(Alert.AlertType.INFORMATION, "Votre demande a ete envoyer!", ButtonType.OK);
         a.showAndWait();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("AfficheDemande.fxml"));
-        Parent root = loader.load();
-        np.getScene().setRoot(root);
-        AfficheDemandeController apc = loader.getController();
-        apc.setNom(np.getText());
-        apc.setEmail(mail.getText());
-        apc.setNumtel(numtel.getText());
-        apc.setSujet(sujet.getText());
-        apc.setMessage(msg.getText());
+                Parent root = loader.load();
+                np.getScene().setRoot(root);          
+                GUI.AfficheDemandeController apc = loader.getController();
+                apc.setSelectedReclamationId(selectedReclamationId);
+                apc.setNom(np.getText());
+                apc.setEmail(mail.getText());
+                apc.setNumtel(numtel.getText());
+                apc.setSujet(sujet.getText());
+                apc.setMessage(msg.getText());
+        
     }
-    
-    
+ 
     @FXML
     private void handleKeyType() {
         boolean hasInvalidInput = !nomPattern.matcher(np.getText()).matches()
@@ -143,4 +140,4 @@ public class AjouterReclamationController implements Initializable {
         btn.setDisable(hasInvalidInput);
         
     }
-}
+    }

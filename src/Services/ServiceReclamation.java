@@ -65,21 +65,21 @@ public class ServiceReclamation {
     }
 
     public void modifier(reclamation r) {
-        String requeteUpdate = "UPDATE reclamation SET nom=?, email=?, numtel=?, sujet=?, message=? WHERE id_reclamation=?";
+         String requeteUpdate = "UPDATE reclamation SET nom=?, email=?, numtel=?, sujet=?, message=? WHERE id_reclamation=?";
 
             try {
-            PreparedStatement st = connection.prepareStatement(requeteUpdate);
-            st.setString(1, r.getNom());
-            st.setString(2, r.getEmail());
-            st.setString(3, r.getNumtel());
-            st.setString(4, r.getSujet());
-            st.setString(5, r.getMessage());
-            st.setInt(6, r.getId());
-            st.executeUpdate();
-            System.out.println("Reclamation modifiée");
-        } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
-    }
+                PreparedStatement st = connection.prepareStatement(requeteUpdate);
+                st.setString(1, r.getNom());
+                st.setString(2, r.getEmail());
+                st.setString(3, r.getNumtel());
+                st.setString(4, r.getSujet());
+                st.setString(5, r.getMessage());
+                st.setInt(6, r.getId());
+                st.executeUpdate();
+                System.out.println("Reclamation modifiée");
+            } catch (SQLException ex) {
+                System.out.println(ex.getMessage());
+            }
     }
 
     public List<reclamation> getAll() {
@@ -108,4 +108,21 @@ public class ServiceReclamation {
     }
         return list;
     }   
+
+   public void modifier(int selectedReclamationId, String nom, String email, String numtel, String sujet, String message) {
+    String requeteUpdate = "UPDATE reclamation SET nom=?, email=?, numtel=?, sujet=?, message=? WHERE id_reclamation=?";
+    try {
+        PreparedStatement st = connection.prepareStatement(requeteUpdate);
+        st.setString(1, nom);
+        st.setString(2, email);
+        st.setString(3, numtel);
+        st.setString(4, sujet);
+        st.setString(5, message);
+        st.setInt(6, selectedReclamationId);
+        st.executeUpdate();
+        System.out.println("Reclamation modifiée");
+    } catch (SQLException ex) {
+        System.out.println(ex.getMessage());
+    }
+}
 }

@@ -6,53 +6,55 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane id="AnchorPane" minHeight="900.0" minWidth="1200.0" prefHeight="1200.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.edu.esprit.gui.AfficheDemandeController">
+<AnchorPane id="AnchorPane" minHeight="766.0" minWidth="498.0" prefHeight="766.0" prefWidth="498.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.AfficheDemandeController">
    <children>
-      <Label layoutX="540.0" layoutY="208.0" text="Nom">
+      <Label layoutX="124.0" layoutY="166.0" text="Nom">
          <font>
             <Font size="20.0" />
          </font></Label>
-      <Label layoutX="538.0" layoutY="261.0" text="Email">
+      <Label layoutX="122.0" layoutY="219.0" text="Email">
          <font>
             <Font size="20.0" />
          </font></Label>
-      <Label layoutX="538.0" layoutY="300.0" text="Numero telephone">
+      <Label layoutX="122.0" layoutY="258.0" text="Numero telephone">
          <font>
             <Font size="20.0" />
          </font></Label>
-      <Label layoutX="540.0" layoutY="354.0" text="Sujet">
+      <Label layoutX="124.0" layoutY="312.0" text="Sujet">
          <font>
             <Font size="20.0" />
          </font></Label>
-      <Label layoutX="538.0" layoutY="411.0" text="Message">
+      <Label layoutX="122.0" layoutY="369.0" text="Message">
          <font>
             <Font size="20.0" />
          </font></Label>
-      <Label fx:id="lblNom" layoutX="746.0" layoutY="208.0" text="Label">
+      <Label fx:id="lblNom" layoutX="330.0" layoutY="166.0" text="Label">
          <font>
             <Font size="20.0" />
          </font></Label>
-      <Label fx:id="lblEmail" layoutX="746.0" layoutY="261.0" text="Label">
+      <Label fx:id="lblEmail" layoutX="330.0" layoutY="219.0" text="Label">
          <font>
             <Font size="20.0" />
          </font></Label>
-      <Label fx:id="lblNumtel" layoutX="746.0" layoutY="300.0" text="Label">
+      <Label fx:id="lblNumtel" layoutX="330.0" layoutY="258.0" text="Label">
          <font>
             <Font size="20.0" />
          </font></Label>
-      <Label fx:id="lblSujet" layoutX="746.0" layoutY="354.0" text="Label">
+      <Label fx:id="lblSujet" layoutX="330.0" layoutY="312.0" text="Label">
          <font>
             <Font size="20.0" />
          </font></Label>
-      <Label fx:id="lblMessage" layoutX="746.0" layoutY="411.0" text="Label">
+      <Label fx:id="lblMessage" layoutX="330.0" layoutY="369.0" text="Label">
          <font>
             <Font size="20.0" />
          </font></Label>
-      <Text fill="#2e9d02" layoutX="540.0" layoutY="97.0" strokeType="OUTSIDE" strokeWidth="0.0" text="votre demande a ete envoyé">
+      <Text fill="#2e9d02" layoutX="124.0" layoutY="55.0" strokeType="OUTSIDE" strokeWidth="0.0" text="votre demande a ete envoyé">
          <font>
             <Font size="20.0" />
          </font>
       </Text>
-      <Button fx:id="cancelid" layoutX="610.0" layoutY="507.0" mnemonicParsing="false" onAction="#cancel" prefHeight="25.0" prefWidth="108.0" style="-fx-background-color: #2e9d02;" text="Retour" textFill="WHITE" />
+      <Button fx:id="cancelid" layoutX="300.0" layoutY="433.0" mnemonicParsing="false" onAction="#cancel" prefHeight="25.0" prefWidth="84.0" style="-fx-background-color: #2e9d02;" text="Retour" textFill="WHITE" />
+      <Button fx:id="supprimer" layoutX="124.0" layoutY="433.0" mnemonicParsing="false" onAction="#Supprimer" prefHeight="25.0" prefWidth="78.0" style="-fx-background-color: red;" text="Supprimer" textFill="WHITE" />
+      <Button fx:id="Modifier" layoutX="211.0" layoutY="433.0" mnemonicParsing="false" onAction="#Modifier" prefHeight="25.0" prefWidth="78.0" style="-fx-background-color: red;" text="Modifier" textFill="WHITE" />
    </children>
 </AnchorPane>
