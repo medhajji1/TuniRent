@@ -5,14 +5,24 @@
  */
 package GUI;
 
+import Services.ServiceReclamation;
+import entities.reclamation;
 import java.awt.event.KeyEvent;
+import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.regex.Pattern;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 
@@ -83,18 +93,38 @@ public class AjouterReclamationController implements Initializable {
     }
 
     @FXML
-    private void Addreclamation(ActionEvent event) {
-        // Code pour ajouter la réclamation à la base de données
-    }
-    
-
-    @FXML
-    private void handleKeyType(javafx.scene.input.KeyEvent event) {
+    private void Addreclamation(ActionEvent event) throws IOException {
+        ServiceReclamation sp = new ServiceReclamation();
+        //int numtel = Integer.parseInt(tfNumtel.getText());
+        reclamation p = new reclamation(np.getText(), mail.getText(),numtel.getText(), sujet.getText(), msg.getText());
+        sp.ajouter(p);
         boolean hasInvalidInput = !nomPattern.matcher(np.getText()).matches()
                 || !emailPattern.matcher(mail.getText()).matches()
                 || !sujetPattern.matcher(sujet.getText()).matches()
                 || !messagePattern.matcher(msg.getText()).matches()
                 || !numtelPattern.matcher(numtel.getText()).matches();
         btn.setDisable(hasInvalidInput);
+        Alert a = new Alert(Alert.AlertType.INFORMATION, "Votre demande a ete envoyer!", ButtonType.OK);
+        a.showAndWait();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("AfficheDemande.fxml"));
+        Parent root = loader.load();
+        np.getScene().setRoot(root);
+        AfficheDemandeController apc = loader.getController();
+        apc.setNom(np.getText());
+        apc.setEmail(mail.getText());
+        apc.setNumtel(numtel.getText());
+        apc.setSujet(sujet.getText());
+        apc.setMessage(msg.getText());
+    }
+    
+
+    @FXML
+    private void handleKeyType(javafx.scene.input.KeyEvent event) {
+        
+    }
+public void loadPage(String page) throws IOException
+    {
+        Parent root =  null;
+            root =FXMLLoader.load(getClass().getResource(page+".fxml"));  
     }
 }
