@@ -59,18 +59,18 @@ public class AjouterReclamationController implements Initializable {
           btn.setDisable(true);
         np.textProperty().addListener((observable, oldValue, newValue) -> {
             if (!nomPattern.matcher(newValue).matches()) {
-                np.setStyle("-fx-border-color: red;");
+                np.setStyle("-fx-border-color: red;-fx-text-fill: red;");
             } else {
-                np.setStyle("");
+                np.setStyle("-fx-text-fill: green;");
             }
             handleKeyType();
         });
 
         mail.textProperty().addListener((observable, oldValue, newValue) -> {
             if (!emailPattern.matcher(newValue).matches()) {
-                mail.setStyle("-fx-border-color: red;");
+                mail.setStyle("-fx-border-color: red;-fx-text-fill: red;");
             } else {
-                mail.setStyle("");
+                mail.setStyle("-fx-text-fill: green;");
             }
             handleKeyType();
         });
@@ -86,18 +86,18 @@ public class AjouterReclamationController implements Initializable {
 
         msg.textProperty().addListener((observable, oldValue, newValue) -> {
             if (!messagePattern.matcher(newValue).matches()) {
-                msg.setStyle("-fx-border-color: red;");
+                msg.setStyle("-fx-border-color: red;-fx-text-fill: red;");
             } else {
-                msg.setStyle("");
+                msg.setStyle("-fx-text-fill: green;");
             }
             handleKeyType();
         });
         
         numtel.textProperty().addListener((observable, oldValue, newValue) -> {
             if (!numtelPattern.matcher(newValue).matches()) {
-                numtel.setStyle("-fx-border-color: red;");
+                numtel.setStyle("-fx-border-color: red;-fx-text-fill: red;");
             } else {
-                numtel.setStyle("");
+                numtel.setStyle("-fx-text-fill: green;");
             }
             handleKeyType();
         });

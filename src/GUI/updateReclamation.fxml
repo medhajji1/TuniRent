@@ -25,7 +25,7 @@
       <Text layoutX="14.0" layoutY="262.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sujet" />
       <TextArea fx:id="txtMessage" layoutX="120.0" layoutY="297.0" prefHeight="111.0" prefWidth="177.0" />
       <Text layoutX="17.0" layoutY="357.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Message" />
-      <Button fx:id="btnUpdate" layoutX="269.0" layoutY="441.0" mnemonicParsing="false" onAction="#updateReclamation" style="-fx-background-color: LIGHTSKYBLUE; -fx-cursor: not-allowed;" text="Modifier" textFill="WHITE" />
+      <Button fx:id="btnUpdate" layoutX="269.0" layoutY="441.0" mnemonicParsing="false" onAction="#updateReclamation" onKeyTyped="#handleKeyType" style="-fx-background-color: LIGHTSKYBLUE; -fx-cursor: not-allowed;" text="Modifier" textFill="WHITE" />
       <Text fill="#a1a0a0" layoutX="271.0" layoutY="121.0" strokeType="OUTSIDE" strokeWidth="0.0" text="exemple :mohamed hadji" wrappingWidth="136.423828125" />
       <Text fill="#a1a0a0" layoutX="275.0" layoutY="167.0" strokeType="OUTSIDE" strokeWidth="0.0" text="exemple@gmail.com" wrappingWidth="129.341796875" />
       <Text fill="#a1a0a0" layoutX="275.0" layoutY="216.0" strokeType="OUTSIDE" strokeWidth="0.0" text="8 numero" wrappingWidth="129.341796875" />

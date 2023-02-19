@@ -22,6 +22,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 /**
  * FXML Controller class
@@ -55,45 +56,45 @@ public class UpdateReclamationController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         txtNom.textProperty().addListener((observable, oldValue, newValue) -> {
             if (!nomPattern.matcher(newValue).matches()) {
-                txtNom.setStyle("-fx-border-color: red;");
+                    txtNom.setStyle("-fx-border-color: red;-fx-text-fill: red;");
             } else {
-                txtNom.setStyle("");
+                txtNom.setStyle("-fx-text-fill: green;");
             }
             
         });
 
         txtEmail.textProperty().addListener((observable, oldValue, newValue) -> {
             if (!emailPattern.matcher(newValue).matches()) {
-                txtEmail.setStyle("-fx-border-color: red;");
+                txtEmail.setStyle("-fx-border-color: red;-fx-text-fill: red;");
             } else {
-                txtEmail.setStyle("");
+                txtEmail.setStyle("-fx-text-fill: green;");
             }
             
         });
 
         txtSujet.textProperty().addListener((observable, oldValue, newValue) -> {
             if (!sujetPattern.matcher(newValue).matches()) {
-                txtSujet.setStyle("-fx-border-color: red;");
+                txtSujet.setStyle("-fx-border-color: red;-fx-text-fill: red;");
             } else {
-                txtSujet.setStyle("");
+                txtSujet.setStyle("-fx-text-fill: green;");
             }
             
         });
 
         txtMessage.textProperty().addListener((observable, oldValue, newValue) -> {
             if (!messagePattern.matcher(newValue).matches()) {
-                txtMessage.setStyle("-fx-border-color: red;");
+                txtMessage.setStyle("-fx-border-color: red;-fx-text-fill: red;");
             } else {
-                txtMessage.setStyle("");
+                txtMessage.setStyle("-fx-text-fill: green;");
             }
             
         });
         
         txtNumtel.textProperty().addListener((observable, oldValue, newValue) -> {
             if (!numtelPattern.matcher(newValue).matches()) {
-                txtNumtel.setStyle("-fx-border-color: red;");
+                txtNumtel.setStyle("-fx-border-color: red;-fx-text-fill: red;");
             } else {
-                txtNumtel.setStyle("");
+                txtNumtel.setStyle("-fx-text-fill: green;");
             }
             
         });
@@ -121,7 +122,7 @@ public class UpdateReclamationController implements Initializable {
             this.d.setSujet(sujet);
             this.d.setMessage(message);     
            SM.modifier(d);
-          // scene window ta3 update
+          // scene window update
         Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow(); 
          // Load the dashboard.fxml file
             FXMLLoader loader = new FXMLLoader(getClass().getResource("sidebar.fxml"));
@@ -130,5 +131,9 @@ public class UpdateReclamationController implements Initializable {
             Scene scene = new Scene(root);
             // Set the scene for the current stage
             currentStage.setScene(scene);
+    }
+
+    @FXML
+    private void handleKeyType(KeyEvent event) {
     }
 }
