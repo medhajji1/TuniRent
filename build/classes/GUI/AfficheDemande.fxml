@@ -53,8 +53,6 @@
             <Font size="20.0" />
          </font>
       </Text>
-      <Button fx:id="cancelid" layoutX="300.0" layoutY="433.0" mnemonicParsing="false" onAction="#cancel" prefHeight="25.0" prefWidth="84.0" style="-fx-background-color: #2e9d02;" text="Retour" textFill="WHITE" />
-      <Button fx:id="supprimer" layoutX="124.0" layoutY="433.0" mnemonicParsing="false" onAction="#Supprimer" prefHeight="25.0" prefWidth="78.0" style="-fx-background-color: red;" text="Supprimer" textFill="WHITE" />
-      <Button fx:id="Modifier" layoutX="211.0" layoutY="433.0" mnemonicParsing="false" onAction="#Modifier" prefHeight="25.0" prefWidth="78.0" style="-fx-background-color: red;" text="Modifier" textFill="WHITE" />
+      <Button fx:id="cancelid" layoutX="208.0" layoutY="435.0" mnemonicParsing="false" onAction="#cancel" prefHeight="25.0" prefWidth="84.0" style="-fx-background-color: #2e9d02;" text="Retour" textFill="WHITE" />
    </children>
 </AnchorPane>

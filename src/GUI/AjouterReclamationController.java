@@ -41,7 +41,7 @@ public class AjouterReclamationController implements Initializable {
     private TextArea msg;
     @FXML
     private Button btn;
-    private int selectedReclamationId;
+    private reclamation rec;
     /**
      * Initializes the controller class.
      * @param url
@@ -51,7 +51,7 @@ public class AjouterReclamationController implements Initializable {
     private final Pattern emailPattern = Pattern.compile("\\b[\\w.%-]+@[-.\\w]+\\.[A-Za-z]{2,4}\\b");
     private final Pattern sujetPattern = Pattern.compile("[a-zA-Z ]+");
     private final Pattern messagePattern = Pattern.compile("[a-zA-Z ]+");
-    private final Pattern numtelPattern = Pattern.compile("\\d{8}");
+    private final Pattern numtelPattern = Pattern.compile("[259]\\d{7}");
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -112,7 +112,6 @@ public class AjouterReclamationController implements Initializable {
         a.showAndWait();
         return;
                     }
-        //int numtel = Integer.parseInt(tfNumtel.getText());
         reclamation p = new reclamation(np.getText(), mail.getText(),numtel.getText(), sujet.getText(), msg.getText());
         sp.ajouter(p);
         Alert a = new Alert(Alert.AlertType.INFORMATION, "Votre demande a ete envoyer!", ButtonType.OK);
@@ -121,7 +120,6 @@ public class AjouterReclamationController implements Initializable {
                 Parent root = loader.load();
                 np.getScene().setRoot(root);          
                 GUI.AfficheDemandeController apc = loader.getController();
-                apc.setSelectedReclamationId(selectedReclamationId);
                 apc.setNom(np.getText());
                 apc.setEmail(mail.getText());
                 apc.setNumtel(numtel.getText());

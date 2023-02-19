@@ -7,24 +7,17 @@ package GUI;
 
 import Services.ServiceReclamation;
 import entities.reclamation;
-import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.scene.input.KeyEvent;
-import javafx.stage.Stage;
-
+import java.util.regex.Pattern;
+import javafx.scene.control.TextFormatter;
 /**
  * FXML Controller class
  *
@@ -44,50 +37,78 @@ public class UpdateReclamationController implements Initializable {
     private TextArea txtMessage;
     @FXML
     private Button btnUpdate;
-
-    private int selectedReclamationId;
-
-    public void setSelectedReclamationId(int selectedReclamationId) {
-        this.selectedReclamationId = selectedReclamationId;
-    }
-
+    reclamation d =null; 
+    /**
+     * Initializes the controller class.
+     */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+    Pattern charPattern = Pattern.compile("[a-zA-Z ]*"); // ken letter ou espace
+    Pattern emailPattern = Pattern.compile(".+@.+\\..+"); // @ ou . 
+    Pattern numtelPattern = Pattern.compile("[259]\\d{7}"); // 8 num ou yabda 2 5 9 
+            txtNom.setTextFormatter(new TextFormatter<>(change -> {
+                String newText = change.getControlNewText();
+                if (charPattern.matcher(newText).matches()) {
+                    return change;
+                }
+                return null;
+            }));
+            txtEmail.setTextFormatter(new TextFormatter<>(change -> {
+                String newText = change.getControlNewText();
+                if (emailPattern.matcher(newText).matches()) {
+                    return change;
+                }
+                return null;
+            }));
 
+            // Set up text formatter for numtel
+            txtNumtel.setTextFormatter(new TextFormatter<>(change -> {
+                String newText = change.getControlNewText();
+                if (numtelPattern.matcher(newText).matches()) {
+                    return change;
+                }
+                return null;
+    }));
+    // Set up text formatter for sujet and message
+    txtSujet.setTextFormatter(new TextFormatter<>(change -> {
+        String newText = change.getControlNewText();
+        if (newText.matches("[a-zA-Z]+")) {
+            return change;
+        }
+        return null;
+    }));
+    txtMessage.setTextFormatter(new TextFormatter<>(change -> {
+        String newText = change.getControlNewText();
+        if (!newText.isEmpty() && newText.matches("[a-zA-Z]+")) {
+            return change;
+        }
+        return null;
+    }));
     }
-
-    public void loadReclamation(int reclamationId) {
-        // Load the attributes of the selected reclamation into the text fields
-        ServiceReclamation SR = new ServiceReclamation();
-        reclamation r = SR.getreclamation(reclamationId);
-        txtNom.setText(r.getNom());
-        txtEmail.setText(r.getEmail());
-        txtNumtel.setText(r.getNumtel());
-        txtSujet.setText(r.getSujet());
-        txtMessage.setText(r.getMessage());
+    public void setelementtoupdate(reclamation d){
+        this.d=d;
+    System.out.println("les champs a etes modifier :"+ d.toString());
+    this.txtNom.setText(d.getNom());
+    this.txtEmail.setText(d.getEmail());
+    this.txtNumtel.setText(d.getNumtel());
+    this.txtSujet.setText(d.getSujet());
+    this.txtMessage.setText(d.getMessage());
     }
-
     @FXML
-    private void updateReclamation(ActionEvent event) throws IOException {
-        // Update the reclamation in the database with the new attribute values
+    private void updateReclamation(ActionEvent event) throws SQLException {
         String nom = txtNom.getText();
-        String email = txtEmail.getText();
-        String numtel = txtNumtel.getText();
-        String sujet = txtSujet.getText();
-        String message = txtMessage.getText();
-
-        ServiceReclamation SR = new ServiceReclamation();
-        SR.modifier(selectedReclamationId, nom, email, numtel, sujet, message);
-
-        // Switch back to the AfficheDemande page
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("AfficheDemande.fxml"));
-        Parent root = loader.load();
-        AfficheDemandeController afficheController = loader.getController();
-        afficheController.setSelectedReclamationId(selectedReclamationId);
-        afficheController.loadReclamation(selectedReclamationId);
-        Scene scene = new Scene(root);
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        stage.setScene(scene);
-        stage.show();
+            String email = txtEmail.getText();
+            String numtel = txtNumtel.getText();
+              String sujet = txtSujet.getText(); 
+              String message = txtMessage.getText();
+            ServiceReclamation SM =new ServiceReclamation(); 
+            this.d.setNom(nom);
+            this.d.setEmail(email);
+            this.d.setNumtel(numtel);
+            this.d.setSujet(sujet);
+            this.d.setMessage(message);     
+           SM.modifier(d);
+           
     }
+
 }

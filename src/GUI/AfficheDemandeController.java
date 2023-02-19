@@ -6,6 +6,7 @@
 package GUI;
 
 import Services.ServiceReclamation;
+import entities.reclamation;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -14,14 +15,17 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
-import static sun.rmi.registry.RegistryImpl.getID;
+import javafx.stage.Stage;
 
 /**
  * FXML Controller class
  *
- * @author maroo
+ * @author yadii
  */
 public class AfficheDemandeController implements Initializable {
 
@@ -37,28 +41,31 @@ public class AfficheDemandeController implements Initializable {
     private Label lblMessage;
     @FXML
     private Button cancelid;
-    @FXML
-    private Button supprimer;
-    @FXML
-    private Button Modifier;
+    reclamation dm = null;
     private int selectedReclamationId;
-    
-    
-    
-    public void setSelectedReclamationId(int selectedReclamationId) {
-        this.selectedReclamationId = selectedReclamationId;
-    }
-
+    @FXML
+    private Button modifier;
     /**
      * Initializes the controller class.
-     * @param url
-     * @param rb
-     */   
-       @Override
-        public void initialize(URL url, ResourceBundle rb) {
-
-        }
-        public void setNom(String nom) {
+     */
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+        // TODO
+    }    
+    public void setSelectedReclamationId(int selectedReclamationId) {
+    this.selectedReclamationId = selectedReclamationId;
+    }
+    public void setSelectedReclamation(reclamation rec) {
+    if (rec != null) {
+        selectedReclamationId = rec.getId();
+        setNom(rec.getNom());
+        setEmail(rec.getEmail());
+        setNumtel(rec.getNumtel());
+        setSujet(rec.getSujet());
+        setMessage(rec.getMessage());
+    }
+}
+     public void setNom(String nom) {
                 if (lblNom != null) {
                     lblNom.setText(nom);
                 }
@@ -93,48 +100,11 @@ public class AfficheDemandeController implements Initializable {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("AjouterReclamation.fxml"));
             try {
                 Parent root = loader.load();
-                //AjouterReclamationController SBC = loader.getController();
-                //SBC.loadPage("AjouterReclamation");
                 lblNom.getScene().setRoot(root);
+                Alert a = new Alert(Alert.AlertType.WARNING, "Tous les champs sont obligatoires", ButtonType.OK);
+            a.showAndWait();
             } catch (IOException ex) {
                 System.out.println("error : "+ex.getMessage());
             }
         }
-
-    @FXML
-            private void Supprimer(ActionEvent event) {
-                   ServiceReclamation SR = new ServiceReclamation();
-                     SR.supprimer(selectedReclamationId);
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("ajouterReclamation.fxml"));
-            try {
-                Parent root = loader.load(); 
-                AjouterReclamationController controller = loader.getController();
-                lblNom.getScene().setRoot(root);
-            } catch (IOException ex) {
-                System.out.println("error : "+ex.getMessage());                        
-    }
-}
-            
-    public void modifier(int selectedReclamationId, String nom, String email, String numtel, String sujet, String message) {
-            ServiceReclamation SR = new ServiceReclamation();
-            SR.modifier(selectedReclamationId, nom, email, numtel, sujet, message);
-}
-    @FXML
-    private void Modifier(ActionEvent event) {
-            int reclamationId = selectedReclamationId;
-           String nom = lblNom.getText();
-           String email = lblEmail.getText();
-           String numtel = lblNumtel.getText();
-           String sujet = lblSujet.getText();
-           String message = lblMessage.getText();
-           modifier(reclamationId, nom, email, numtel, sujet, message);
-           FXMLLoader loader = new FXMLLoader(getClass().getResource("ajouterReclamation.fxml"));
-           try {
-               Parent root = loader.load(); 
-               AjouterReclamationController controller = loader.getController();
-               lblNom.getScene().setRoot(root);
-           } catch (IOException ex) {
-               System.out.println("error : "+ex.getMessage());                        
-           } 
-    }
 }

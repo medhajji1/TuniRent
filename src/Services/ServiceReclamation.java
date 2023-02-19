@@ -11,8 +11,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
+import java.sql.Statement;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 /**
  *
@@ -64,7 +65,51 @@ public class ServiceReclamation {
         }
     }
 
-    public void modifier(reclamation r) {
+    public reclamation getreclamation(int id) {
+    String req = "SELECT * FROM reclamation WHERE id_reclamation = ?";
+    try {
+        PreparedStatement ps = connection.prepareStatement(req);
+        ps.setInt(1, id);
+        ResultSet rs = ps.executeQuery();
+        while (rs.next()) {
+            reclamation r = new reclamation();
+            r.setId(rs.getInt("id_reclamation"));
+            r.setNom(rs.getString("nom"));
+            r.setEmail(rs.getString("email"));
+            r.setNumtel(rs.getString("numtel"));
+            r.setSujet(rs.getString("sujet"));
+            r.setMessage(rs.getString("message"));
+            return r;
+        }
+    } catch (SQLException ex) {
+        System.out.println(ex.getMessage());
+    }
+    return null;
+}   
+    
+    public ObservableList<reclamation> getAll() {
+        ObservableList<reclamation>myList=FXCollections.observableArrayList();
+            try { 
+                String req = "SELECT * FROM reclamation";
+                ps=connection.prepareStatement(req);
+                    ResultSet rs = ps.executeQuery(req);
+              while(rs.next())
+              {
+                  reclamation R = new reclamation();
+                  R.setId(rs.getInt("id_reclamation"));
+                  R.setNom(rs.getString("nom"));
+                  R.setEmail(rs.getString("email"));
+                  R.setNumtel(rs.getString("numtel"));
+                  R.setSujet(rs.getString("sujet"));
+                  R.setMessage(rs.getString("message"));
+                  myList.add(R);
+              }
+            } catch (SQLException ex) {
+        System.err.println(ex.getMessage()); 
+            }
+         return myList;
+}
+    public boolean modifier(reclamation r) {
          String requeteUpdate = "UPDATE reclamation SET nom=?, email=?, numtel=?, sujet=?, message=? WHERE id_reclamation=?";
 
             try {
@@ -80,49 +125,19 @@ public class ServiceReclamation {
             } catch (SQLException ex) {
                 System.out.println(ex.getMessage());
             }
+            return true;
     }
 
-    public List<reclamation> getAll() {
-        List<reclamation> list = new ArrayList<>();
-        try {       
-            String req = "Select * from reclamation";
+    public void supprimer(reclamation rec) {
+        
+        try {
+            String req = "DELETE from reclamation where id_reclamation="+rec.getId();
             ps=connection.prepareStatement(req);
-            ResultSet rs = ps.executeQuery(req);
-            while(rs.next()){
-         String nom = rs.getString("nom");
-         String email = rs.getString("email");
-         String numtel = rs.getString("numtel");
-         String sujet = rs.getString("sujet");
-         String message = rs.getString("message");
-         System.out.println("nom: " + nom);
-         System.out.println("email: " + email);
-         System.out.println("numtel: " + numtel);
-         System.out.println("sujet: " + sujet);
-         System.out.println("message: " + message);
-         System.out.println("------------------------");
-      }
-      rs.close();
-      ps.close();
-      connection.close();
-   } catch(SQLException se) {
+            ps.executeUpdate(req);
+            System.out.println("reclamation a ete supprimer !");
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        
     }
-        return list;
-    }   
-
-   public void modifier(int selectedReclamationId, String nom, String email, String numtel, String sujet, String message) {
-    String requeteUpdate = "UPDATE reclamation SET nom=?, email=?, numtel=?, sujet=?, message=? WHERE id_reclamation=?";
-    try {
-        PreparedStatement st = connection.prepareStatement(requeteUpdate);
-        st.setString(1, nom);
-        st.setString(2, email);
-        st.setString(3, numtel);
-        st.setString(4, sujet);
-        st.setString(5, message);
-        st.setInt(6, selectedReclamationId);
-        st.executeUpdate();
-        System.out.println("Reclamation modifiée");
-    } catch (SQLException ex) {
-        System.out.println(ex.getMessage());
-    }
-}
 }
