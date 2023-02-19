@@ -12,6 +12,8 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -32,6 +34,12 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import javafx.util.Callback;
+import org.apache.pdfbox.exceptions.COSVisitorException;
+import org.apache.pdfbox.pdmodel.PDDocument;
+import org.apache.pdfbox.pdmodel.PDPage;
+import org.apache.pdfbox.pdmodel.PDPageContentStream;
+import org.apache.pdfbox.pdmodel.font.PDFont;
+import org.apache.pdfbox.pdmodel.font.PDType1Font;
 /**
  * FXML Controller class
  *
@@ -94,7 +102,7 @@ public class DdashboardController implements Initializable {
                      dm = tab.getSelectionModel().getSelectedItem();
                       System.out.println(dm);
                       
-                      FXMLLoader loader = new FXMLLoader(getClass().getResource("updateReclamation.fxml"));
+                      FXMLLoader loader = new FXMLLoader(getClass().getResource("updatereclamation.fxml"));
                         try {
                         Parent root = loader.load(); 
                         Scene scene = new Scene(root, 429, 489);
@@ -132,11 +140,17 @@ public class DdashboardController implements Initializable {
                       
                pdfbtn.setOnMouseClicked((MouseEvent event) -> {
                      dm = tab.getSelectionModel().getSelectedItem();
-                     String path="";
-                     if(dm != null){}
-                            
-                     
+                     if(dm != null){
+                          try {
+                              generatePDF(tab);
+                          } catch (IOException ex) {
+                              Logger.getLogger(DdashboardController.class.getName()).log(Level.SEVERE, null, ex);
+                          } catch (COSVisitorException ex) {
+                              Logger.getLogger(DdashboardController.class.getName()).log(Level.SEVERE, null, ex);
+                          }
+                     }
                       });
+               
             Reponsebutton.setOnMouseClicked((MouseEvent event) -> {
                      dm = tab.getSelectionModel().getSelectedItem();
                      
@@ -144,8 +158,8 @@ public class DdashboardController implements Initializable {
                             {  FXMLLoader loader = new FXMLLoader(getClass().getResource("EnvoyerReponse.fxml"));
                                try {
                                Parent root = loader.load(); 
-                                   AfficheDemandeController CDC = loader.getController();
-                                    //CDC.setdm(dm);
+                                   EnvoyerReponseController rep = loader.getController();
+                            rep.setelementtoupdate(dm);
                                     tab.getScene().setRoot(root);
                                } catch (IOException ex) {
                                  System.out.println("error :"+ex.getMessage());
@@ -155,10 +169,10 @@ public class DdashboardController implements Initializable {
       
                       
                       
-                        HBox managebtn = new HBox(updatebutton,deletebutton,Reponsebutton,pdfbtn);
-                        managebtn.setStyle("-fx-alignment:center");
-                        HBox.setMargin(deletebutton, new Insets(2, 2, 0, 3));
-                        deletebutton.setStyle("-fx-background-color:#ff1c1c;-fx-text-fill:white");
+                       HBox managebtn = new HBox(updatebutton,deletebutton,Reponsebutton,pdfbtn);
+                       managebtn.setStyle("-fx-alignment:center");
+                       HBox.setMargin(deletebutton, new Insets(2, 2, 0, 3));
+                       deletebutton.setStyle("-fx-background-color:#ff1c1c;-fx-text-fill:white");
                        HBox.setMargin(updatebutton, new Insets(2, 3, 0, 2));
                        updatebutton.setStyle("-fx-background-color:#1dad00;-fx-text-fill:white");
                        HBox.setMargin(Reponsebutton, new Insets(2, 4, 0, 1));
@@ -221,5 +235,62 @@ public class DdashboardController implements Initializable {
         numid.setCellValueFactory(new PropertyValueFactory<reclamation,Integer>("numtel"));
         sid.setCellValueFactory(new PropertyValueFactory<reclamation,String>("sujet"));   
         mid.setCellValueFactory(new PropertyValueFactory<reclamation,String>("message")); 
-        }   
+        }  
+    public void generatePDF(TableView<reclamation> table) throws IOException, COSVisitorException {
+        PDDocument document = new PDDocument();
+        PDFont font = PDType1Font.HELVETICA_BOLD;
+        float fontSize = 12;
+           // Set up PDF document and content stream
+           document = new PDDocument();
+           PDPage page = new PDPage();
+           document.addPage(page);
+           PDPageContentStream contentStream = new PDPageContentStream(document, page);
+           // Set leading
+           double leading = 14.5f;
+           contentStream.setLeading(leading);
+           // Set starting position
+           double startX = 25;
+           double startY = page.getMediaBox().getHeight() - leading;
+           contentStream.newLineAtOffset( (float) startX,(float) startY);
+           // Display column headers
+           ObservableList<TableColumn<reclamation, ?>> columns = table.getColumns();
+           for (TableColumn<reclamation, ?> column : columns) {
+               String header = column.getText();
+               contentStream.setFont(PDType1Font.HELVETICA, fontSize);
+               contentStream.showText( (String) header);
+               contentStream.newLineAtOffset((float) columns.get(0).getWidth(), 0);
+           }
+           contentStream.newLine();
+           // Display table rows
+           ObservableList<reclamation> items = table.getItems();
+           for (reclamation item : items) {
+               // Display cell values, handling null values
+               String nom = item.getNom() != null ? item.getNom() : "";
+               String email = item.getEmail() != null ? item.getEmail() : "";
+               String numtel = item.getNumtel() != null ? item.getNumtel() : "";
+               String sujet = item.getSujet() != null ? item.getSujet() : "";
+               String message = item.getMessage() != null ? item.getMessage() : "";
+               
+               // Set font and font size for cell values
+               contentStream.setFont(PDType1Font.HELVETICA, fontSize);
+               contentStream.showText(nom);
+                contentStream.newLineAtOffset((float) columns.get(0).getWidth(), 0);
+                contentStream.showText(email);
+                contentStream.newLineAtOffset((float) columns.get(1).getWidth(), 0);
+                contentStream.showText(numtel);
+                contentStream.newLineAtOffset((float) columns.get(2).getWidth(), 0);
+                contentStream.showText(sujet);
+                contentStream.newLineAtOffset((float) columns.get(3).getWidth(), 0);
+                contentStream.showText(message);
+                contentStream.newLineAtOffset((float) columns.get(4).getWidth(), 0);
+                contentStream.newLine();
+           }
+           // Clean up resources
+           contentStream.endText();
+           document.save("table.pdf");
+            document.close();
+            }
 }
+            
+    
+

@@ -26,11 +26,10 @@ public class ServiceReponse {
         }
         PreparedStatement ps=null;
     public void ajouter( reponse p) throws SQLException {
-        String requete = "INSERT INTO reponse (id_reclamation, id_rep, message) VALUES (?,?,?)";
+        String requete = "INSERT INTO reponse (id_reclamation, message) VALUES (?,?)";
         PreparedStatement pst = connection.prepareStatement(requete);
         pst.setInt(1, p.getId_reclamation());
-        pst.setInt(2, p.getId_rep());
-        pst.setString(3, p.getMessage());
+        pst.setString(2, p.getMessage());
         pst.executeUpdate();
     }
 

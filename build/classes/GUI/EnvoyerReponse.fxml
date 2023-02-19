@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane id="AnchorPane" fx:id="anchropane" minHeight="900.0" minWidth="1200.0" prefHeight="900.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.EnvoyerReponseController">
+   <children>
+      <TextField fx:id="tfEmail" layoutX="593.0" layoutY="242.0" prefHeight="33.0" prefWidth="187.0" />
+      <Button fx:id="btn_ajout" layoutX="600.0" layoutY="517.0" mnemonicParsing="false" onAction="#ajout" style="-fx-background-color: #1dad00;" text="Envoyer" textFill="WHITE" />
+      <TextArea fx:id="obj" layoutX="586.0" layoutY="320.0" prefHeight="90.0" prefWidth="200.0" />
+      <Button layoutX="716.0" layoutY="517.0" mnemonicParsing="false" style="-fx-background-color: #ff0303;" text="Annuler" textFill="WHITE" />
+      <Text layoutX="504.0" layoutY="263.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Email Client" wrappingWidth="72.986328125" />
+      <Text layoutX="517.0" layoutY="370.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Message" />
+   </children>
+</AnchorPane>
