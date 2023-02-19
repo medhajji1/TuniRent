@@ -7,6 +7,7 @@ package GUI;
 
 import Services.ServiceReclamation;
 import entities.reclamation;
+import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
@@ -17,7 +18,11 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import java.util.regex.Pattern;
-import javafx.scene.control.TextFormatter;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 /**
  * FXML Controller class
  *
@@ -38,52 +43,60 @@ public class UpdateReclamationController implements Initializable {
     @FXML
     private Button btnUpdate;
     reclamation d =null; 
+    private final Pattern nomPattern = Pattern.compile("[a-zA-Z]+\\s[a-zA-Z]+");
+    private final Pattern emailPattern = Pattern.compile("\\b[\\w.%-]+@[-.\\w]+\\.[A-Za-z]{2,4}\\b");
+    private final Pattern sujetPattern = Pattern.compile("[a-zA-Z ]+");
+    private final Pattern messagePattern = Pattern.compile("[a-zA-Z ]+");
+    private final Pattern numtelPattern = Pattern.compile("[259]\\d{7}");
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-    Pattern charPattern = Pattern.compile("[a-zA-Z ]*"); // ken letter ou espace
-    Pattern emailPattern = Pattern.compile(".+@.+\\..+"); // @ ou . 
-    Pattern numtelPattern = Pattern.compile("[259]\\d{7}"); // 8 num ou yabda 2 5 9 
-            txtNom.setTextFormatter(new TextFormatter<>(change -> {
-                String newText = change.getControlNewText();
-                if (charPattern.matcher(newText).matches()) {
-                    return change;
-                }
-                return null;
-            }));
-            txtEmail.setTextFormatter(new TextFormatter<>(change -> {
-                String newText = change.getControlNewText();
-                if (emailPattern.matcher(newText).matches()) {
-                    return change;
-                }
-                return null;
-            }));
+        txtNom.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!nomPattern.matcher(newValue).matches()) {
+                txtNom.setStyle("-fx-border-color: red;");
+            } else {
+                txtNom.setStyle("");
+            }
+            
+        });
 
-            // Set up text formatter for numtel
-            txtNumtel.setTextFormatter(new TextFormatter<>(change -> {
-                String newText = change.getControlNewText();
-                if (numtelPattern.matcher(newText).matches()) {
-                    return change;
-                }
-                return null;
-    }));
-    // Set up text formatter for sujet and message
-    txtSujet.setTextFormatter(new TextFormatter<>(change -> {
-        String newText = change.getControlNewText();
-        if (newText.matches("[a-zA-Z]+")) {
-            return change;
-        }
-        return null;
-    }));
-    txtMessage.setTextFormatter(new TextFormatter<>(change -> {
-        String newText = change.getControlNewText();
-        if (!newText.isEmpty() && newText.matches("[a-zA-Z]+")) {
-            return change;
-        }
-        return null;
-    }));
+        txtEmail.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!emailPattern.matcher(newValue).matches()) {
+                txtEmail.setStyle("-fx-border-color: red;");
+            } else {
+                txtEmail.setStyle("");
+            }
+            
+        });
+
+        txtSujet.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!sujetPattern.matcher(newValue).matches()) {
+                txtSujet.setStyle("-fx-border-color: red;");
+            } else {
+                txtSujet.setStyle("");
+            }
+            
+        });
+
+        txtMessage.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!messagePattern.matcher(newValue).matches()) {
+                txtMessage.setStyle("-fx-border-color: red;");
+            } else {
+                txtMessage.setStyle("");
+            }
+            
+        });
+        
+        txtNumtel.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!numtelPattern.matcher(newValue).matches()) {
+                txtNumtel.setStyle("-fx-border-color: red;");
+            } else {
+                txtNumtel.setStyle("");
+            }
+            
+        });
     }
     public void setelementtoupdate(reclamation d){
         this.d=d;
@@ -95,7 +108,7 @@ public class UpdateReclamationController implements Initializable {
     this.txtMessage.setText(d.getMessage());
     }
     @FXML
-    private void updateReclamation(ActionEvent event) throws SQLException {
+    private void updateReclamation(ActionEvent event) throws SQLException, IOException {
         String nom = txtNom.getText();
             String email = txtEmail.getText();
             String numtel = txtNumtel.getText();
@@ -108,7 +121,14 @@ public class UpdateReclamationController implements Initializable {
             this.d.setSujet(sujet);
             this.d.setMessage(message);     
            SM.modifier(d);
-           
+          // scene window ta3 update
+        Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow(); 
+         // Load the dashboard.fxml file
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("sidebar.fxml"));
+            Parent root = loader.load();
+            // Create a new scene with the dashboard.fxml file
+            Scene scene = new Scene(root);
+            // Set the scene for the current stage
+            currentStage.setScene(scene);
     }
-
 }

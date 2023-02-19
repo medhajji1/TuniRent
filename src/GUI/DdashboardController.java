@@ -181,29 +181,31 @@ public class DdashboardController implements Initializable {
                
             
         
-         FilteredList<reclamation> filterData = new FilteredList<>(list, b-> true);
-         search.textProperty().addListener((observable,oldValue,newValue)-> {
-            filterData.setPredicate(reclamation -> {
-				if (newValue == null || newValue.isEmpty()) {
-					return true;
-				}
-				String lowerCaseFilter = newValue.toLowerCase();				
-				if (reclamation.getNom().toLowerCase().contains(lowerCaseFilter)) {
-					return true; 
-				} else if (reclamation.getEmail().toLowerCase().contains(lowerCaseFilter)) {
-					return true; 
-				}
-                                else if (reclamation.getSujet().toLowerCase().contains(lowerCaseFilter)) {
-					return true; 
-				}
-                                else if (reclamation.getMessage().toLowerCase().contains(lowerCaseFilter)) {
-					return true; 
-				}
-				return false; 
-			});
-         });
-         
-     tab.setItems(list);   
+         FilteredList<reclamation> filteredList = new FilteredList<>(list, p -> true);
+        tab.setItems(filteredList);
+      search.textProperty().addListener((observable, oldValue, newValue) -> {
+    filteredList.setPredicate((reclamation reclamation) -> {
+        if (newValue == null || newValue.isEmpty()) {
+            return true;
+        }
+
+        String lowerCaseFilter = newValue.toLowerCase();
+            
+        if (reclamation.getNom().toLowerCase().contains(lowerCaseFilter)) {
+            return true;
+        } else if (reclamation.getEmail().toLowerCase().contains(lowerCaseFilter)) {
+            return true;
+        } else if (reclamation.getSujet().toLowerCase().contains(lowerCaseFilter)) {
+            return true;
+        } else if (reclamation.getMessage().toLowerCase().contains(lowerCaseFilter)) {
+            return true;
+        }else if (reclamation.getNumtel().contains(lowerCaseFilter)) {
+            return true;
+        }
+
+        return false;
+    });
+        });  
       
     }    
     private void TrieNom(ActionEvent event) throws SQLException {
