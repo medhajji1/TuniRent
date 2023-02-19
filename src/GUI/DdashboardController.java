@@ -213,7 +213,6 @@ public class DdashboardController implements Initializable {
              ServiceReclamation vs=new ServiceReclamation();
 
         ObservableList<reclamation> observableList = null;
-        //observableList = FXCollections.observableArrayList(vs.TrieNom());
         tab.setItems(observableList);
         
         tab.setItems(observableList);
