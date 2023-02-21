@@ -11,10 +11,13 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import tn.esprit.entity.Paiement;
 import tn.esprit.tools.MaConnection;
 
@@ -34,6 +37,7 @@ public void ajouter(Paiement t) {
     try {
         String sql = "insert into paiement(idContrat,montant,date,motif)"
                 + "values (?,?,?,?)";
+        System.out.println(sql);
         PreparedStatement ste = cnx.prepareStatement(sql);
         ste.setInt(1, t.getIdContrat());
         ste.setInt(2, t.getMontant());
@@ -44,6 +48,23 @@ public void ajouter(Paiement t) {
     } catch (SQLException ex) {
         System.out.println(ex.getMessage());
     }
+}
+public ObservableList<Paiement> getPaiementList() throws SQLException {
+           
+    ObservableList<Paiement> paiementList = FXCollections.observableArrayList();
+        
+    Statement stm = cnx.createStatement();
+    String query = "select id_paiement, id_contrat, montant, date, motif from paiement";
+
+    ResultSet rs = stm.executeQuery(query);
+    Paiement paiement;
+    while (rs.next()) {
+        Date date = rs.getDate("date");
+        paiement = new Paiement(rs.getInt("id_paiement"), rs.getInt("id_contrat"), rs.getInt("montant"), date, rs.getString("motif"));
+        paiementList.add(paiement);
+    }
+    return paiementList;
+
 }
 
 @Override
@@ -83,18 +104,18 @@ public List<Paiement> findById(int id) {
     return paiements;
 }
 
-public void supprimerPaiement(Paiement p) {
-    String sql = "delete from paiement where idPaiement=?";
+@Override
+public void supprimer(int id) {
     try {
+    String sql = "delete from paiement where idPaiement= " +id;    
         PreparedStatement ste = cnx.prepareStatement(sql);
-        ste.setInt(1, p.getIdPaiement());
         ste.executeUpdate();
     } catch (SQLException ex) {
         System.out.println(ex.getMessage());
     }
 }
 
-public void modifierPaiement(Paiement paiement) {
+public void modifier(Paiement paiement) {
     try {
         String sql = "update paiement set idContrat=?, montant=?, date=?, motif=? where idPaiement=?";
         PreparedStatement ste = cnx.prepareStatement(sql);
@@ -109,6 +130,8 @@ public void modifierPaiement(Paiement paiement) {
 
     }
     }
+
+    
 
     
 }

@@ -13,6 +13,8 @@ import java.util.List;
  */
 public interface InterfaceService <T> {
     public void ajouter(T t);
+    public void modifier(T t);
+    public void supprimer(int id);
     public List<T> getAll();
     public List<T> findById(int id);
     

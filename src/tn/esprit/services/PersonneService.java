@@ -71,11 +71,10 @@ public class PersonneService implements InterfaceService<Personne> {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    public void supprimerPersonne(Personne p) {
+    public void supprimer(int id) {
         String sql = "delete from personne where id=?";
         try {
             PreparedStatement ste = cnx.prepareStatement(sql);
-            ste.setInt(1, p.getId());
             ste.executeUpdate();
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
@@ -83,7 +82,7 @@ public class PersonneService implements InterfaceService<Personne> {
 
     }
 
-    public void modifierPersonne(String nom,Personne p) {
+    public void modifierP(String nom,Personne p) {
         String sql = "update personne set nom=? where id=?";
         try {
             PreparedStatement ste = cnx.prepareStatement(sql);
@@ -95,5 +94,11 @@ public class PersonneService implements InterfaceService<Personne> {
         }
 
     }
+
+    @Override
+    public void modifier(Personne t) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
 
 }

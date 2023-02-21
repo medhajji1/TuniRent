@@ -94,15 +94,32 @@ public class ContratService implements InterfaceService<Contrat> {
     return contrats;
     }
 
-    public void supprimerContrat(Contrat c) {
+    public void supprimer(int id) {
         String sql = "delete from contrat where idContrat=?";
         try {
             PreparedStatement ste = cnx.prepareStatement(sql);
-            ste.setInt(1, c.getIdContract());
+            ste.setInt(1, id);
             ste.executeUpdate();
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
     }
+
+    @Override
+    public void modifier(Contrat t) {
+    try {
+        String sql = "update contrat set idReservation=?, idProprietaire=?,idLocataire=?, date=?, motif=? where idContrat=?";
+        PreparedStatement ste = cnx.prepareStatement(sql);
+        ste.setInt(1, t.getIdReservation());
+        ste.setInt(2, t.getIdProprietaire());
+        ste.setDate(4, (Date) t.getDate());
+        ste.setInt(3, t.getIdLocataire());
+        ste.setInt(6, t.getIdContract());
+        ste.setString(5, t.getMotif());
+        ste.executeUpdate();
+    } catch (SQLException ex) {
+                System.out.println(ex.getMessage());
+
+    }    }
 
 }
