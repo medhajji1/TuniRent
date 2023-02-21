@@ -89,7 +89,7 @@ public class ServiceVoiture implements IService<Voiture, String> {
     @Override
     public Voiture one(String id) {
         try {
-            String req = "Select * from voiture, categorie where voiture.categorie = categorie.id and id = " + id;
+            String req = "Select * from voiture, categorie where voiture.categorie = categorie.id and voiture.immatriculation = '" + id + "'";
             Statement st = cnx.createStatement();
             ResultSet rs = st.executeQuery(req);
             while(rs.next()){

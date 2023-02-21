@@ -96,7 +96,6 @@ public class ServiceCategorie implements IService<Categorie, Integer> {
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
-        
         return null;
     }
     

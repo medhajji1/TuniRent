@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Accordion?>
+<?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="698.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gestion_voiture.CategorieController">
+   <children>
+      <Label fx:id="label" layoutX="103.0" layoutY="339.0" textFill="RED" />
+      <TabPane prefHeight="698.0" prefWidth="600.0" side="BOTTOM" tabClosingPolicy="UNAVAILABLE">
+        <tabs>
+          <Tab text="Create Category">
+            <fx:include source="create-categorie.fxml" />
+          </Tab>
+          <Tab text="All Categories">
+              <fx:include source="all-categories.fxml" />
+          </Tab>
+            <Tab text="Delete Category">
+              <fx:include source="delete-category.fxml" />
+            </Tab>
+            <Tab text="Update Category">
+              <fx:include source="update-category.fxml" />
+            </Tab>
+        </tabs>
+      </TabPane>
+      <ButtonBar layoutX="182.0" layoutY="624.0" prefHeight="40.0" prefWidth="200.0">
+         <buttons>
+            <Accordion />
+         </buttons>
+      </ButtonBar>
+   </children>
+</Pane>

@@ -24,7 +24,7 @@ public class ServiceReservation implements IService<Reservation, Integer> {
 
 
     @Override
-    public void ajouter(Reservation o) {
+    public void ajouter(Reservation o) throws Exception {
        try {
             String req = "INSERT INTO reservation (voiture, date_d, date_f) VALUES (?,?,?)";
 

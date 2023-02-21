@@ -5,16 +5,10 @@
  */
 package gestion_voiture.services;
 
-import java.util.List;
-
 /**
  *
  * @author moham
  */
-public interface IService <T, ID>{
-    public void ajouter(T p) throws Exception;
-    public void supprimer(ID id);
-    public void modifier(T p);
-    public List<T> tout();
-    public T one(ID id);
+public class Voiture {
+    
 }

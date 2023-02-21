@@ -11,51 +11,65 @@ import gestion_voiture.entities.Reservation;
 import gestion_voiture.services.ServiceCategorie;
 import gestion_voiture.services.ServiceVoiture;
 import gestion_voiture.services.ServiceReservation;
-import gestion_voiture.utils.DataSource;
+import java.io.IOException;
 import java.util.List;
+import javafx.application.Application;
+import static javafx.application.Application.launch;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+
+
+//import javafx.application.Application;
+import javafx.stage.Stage;
 
 /**
  *
  * @author moham
  */
-public class Gestion_voiture {
+public class Gestion_voiture extends Application {
+    
+    
+    
 
+    
+    
     public static void main(String[] args) {
-        testReservationService();
-        /* ServiceCategorie sc = new ServiceCategorie();
-        ServiceVoiture sv = new ServiceVoiture();
-        
-        Categorie c = new Categorie("lamborgini", "huracan");
-        sc.ajouter(c);
-       
-        
-        Categorie c = sc.one(7);
-        Voiture v = new Voiture("dgqsdgjq", c, 4750, "purple");
-        sv.ajouter(v); */
+        launch(args);
     }
 
-    public static void testCategoryService() {
+    
+    
+    // gestion categorie --
+    public static void testCategoryService() throws Exception {
         ServiceCategorie sc = new ServiceCategorie();
 
         System.out.println("Creating categories...");
 
-        Categorie c1 = new Categorie("bmw", "Clio");
-        Categorie c2 = new Categorie("Peugeot", "206");
-        Categorie c3 = new Categorie("Citroen", "C3");
+       // Categorie c1 = new Categorie("bmw", "Clio");
+        //Categorie c2 = new Categorie("Peugeot", "206");
+       // Categorie c3 = new Categorie("symbole","clio") ; 
+          //Categorie c4 = new Categorie("aaaaa","cliosssss") ; 
+           // Categorie c5 = new Categorie("symbolaaaaaaaae","clissso") ; 
+            //  Categorie c6 = new Categorie("symbasaole","clissaso") ; 
+                            Categorie c7 = new Categorie("bmw","cbm7") ; 
 
-        sc.ajouter(c1);
-        sc.ajouter(c2);
-        sc.ajouter(c3);
-
-        System.out.println("Show all categories...");
+       // sc.ajouter(c2);
+        //sc.ajouter(c3);
+        //sc.ajouter(c4);
+        // sc.ajouter(c5);
+       // sc.ajouter(c6);
+        sc.ajouter(c7);
+        
+        System.out.println("afficher  categories...");
         List<Categorie> categories = sc.tout();
         for (Categorie c : categories) {
             System.out.println(c);
         }
 
 
-        System.out.println("Delete category with id 2...");
-        sc.supprimer(2);
+        System.out.println("Delete category with id 3...");
+        sc.supprimer(3);
 
         System.out.println("Show all categories after delete...");
         categories = sc.tout();
@@ -64,8 +78,8 @@ public class Gestion_voiture {
         }
 
         System.out.println("Update category with id 1...");
-        c1.setModele("Clio 4");
-        sc.modifier(c1);
+        //c1.setModele("Clio 7");
+        //sc.modifier(c3);
 
         System.out.println("Show all categories after update...");
         categories = sc.tout();
@@ -74,6 +88,11 @@ public class Gestion_voiture {
         }
     }   
 
+    
+    // GEStion - voiture    --
+    
+    
+    
     public static void testVoitureService() {
         ServiceVoiture sv = new ServiceVoiture();
         ServiceCategorie sc = new ServiceCategorie();
@@ -82,13 +101,13 @@ public class Gestion_voiture {
 
         System.out.println("Creating voitures...");
 
-        Voiture v1 = new Voiture("AA-123-AA", categories.get(0), 10000, "Rouge");
-        Voiture v2 = new Voiture("BB-456-BB", categories.get(1), 20000, "Bleu");
-        Voiture v3 = new Voiture("CC-789-CC", categories.get(2), 30000, "Vert");
+        //Voiture v1 = new Voiture("EE-18-AA", categories.get(0), 10000, "oussema");
+        //Voiture v2 = new Voiture("BB-456-BB", categories.get(1), 20000, "Bleu");
+        //Voiture v3 = new Voiture("CC-789-CC", categories.get(3), 30000, "oussema");
 
-        sv.ajouter(v1);
-        sv.ajouter(v2);
-        sv.ajouter(v3);
+        //sv.ajouter(v1);
+        //sv.ajouter(v2);
+        // sv.ajouter(v3);
 
         System.out.println("Show all voitures...");
         List<Voiture> voitures = sv.tout();
@@ -97,7 +116,7 @@ public class Gestion_voiture {
         }
 
         System.out.println("Delete voiture with immatricule BB-456-BB...");
-        sv.supprimer("BB-456-BB");
+        //sv.supprimer("AA-123-AA");
 
         System.out.println("Show all voitures after delete...");
         voitures = sv.tout();
@@ -106,8 +125,8 @@ public class Gestion_voiture {
         }
 
         System.out.println("Update voiture with immatricule AA-123-AA...");
-        v1.setKilometrage(15000);
-        sv.modifier(v1);
+        //v1.setKilometrage(15000);
+        //sv.modifier(v1);
 
         System.out.println("Show all voitures after update...");
         voitures = sv.tout();
@@ -116,6 +135,11 @@ public class Gestion_voiture {
             System.out.println(v);
         }
     }
+    
+    
+    // gestion - reservation //
+    
+    
     
      public static void testReservationService() {
         ServiceReservation sr = new ServiceReservation();
@@ -128,12 +152,10 @@ public class Gestion_voiture {
         System.out.println("Creating reservations...");
 
         Reservation r1 = new Reservation(voitures.get(0), new java.util.Date(), new java.util.Date());
-        Reservation r2 = new Reservation(voitures.get(1), new java.util.Date(), new java.util.Date());
-        Reservation r3 = new Reservation(voitures.get(0), new java.util.Date(), new java.util.Date());
+       
 
-        sr.ajouter(r1);
-        sr.ajouter(r2);
-        sr.ajouter(r3);
+        //sr.ajouter(r1);
+     
 
         System.out.println("Show all reservations...");
         List<Reservation> reservations = sr.tout();
@@ -169,5 +191,21 @@ public class Gestion_voiture {
         }
 
 
+     }
+    @Override
+    public void start(Stage stage) throws Exception {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("main.fxml"));
+            DesignController controller = new DesignController();
+            loader.setController(controller);
+            Parent root = loader.load();
+            Scene scene = new Scene(root, 600, 736);
+            stage.setTitle("Tunirent");
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            System.out.println(e);
+        }
     }
 }
+
