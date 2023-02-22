@@ -28,7 +28,7 @@ public class ServiceReponse {
     public void ajouter( reponse p) throws SQLException {
         String requete = "INSERT INTO reponse (id_reclamation, message) VALUES (?,?)";
         PreparedStatement pst = connection.prepareStatement(requete);
-        pst.setInt(1, p.getId_reclamation());
+        pst.setInt(1, p.getRec().getId());
         pst.setString(2, p.getMessage());
         pst.executeUpdate();
     }
@@ -47,7 +47,7 @@ public class ServiceReponse {
     public void modifier(reponse p) throws SQLException {
         String requete = "UPDATE reponse SET id_reclamation=?, message=? WHERE id_rep=?";
         PreparedStatement pst = connection.prepareStatement(requete);
-        pst.setInt(1, p.getId_reclamation());
+        pst.setInt(1, p.getRec().getId());
         pst.setString(2, p.getMessage());
         pst.setInt(3, p.getId_rep());
         pst.executeUpdate();

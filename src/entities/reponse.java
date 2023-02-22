@@ -1,36 +1,46 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package entities;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
+@Entity
 public class reponse {
-    private int id_reclamation;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id_rep;
+
+    @ManyToOne
+    @JoinColumn(name = "id_reclamation")
+    public reclamation rec;
+
     private String message;
-    
-    public reponse(int id_reclamation, int id_rep, String message) {
-        this.id_reclamation = id_reclamation;
+
+    public reponse() {
+    }
+
+    public reponse(reclamation rec, String message) {
+        this.rec = rec;
+        this.message = message;
+    }
+     public reponse(int id_rep, reclamation rec, String message) {
         this.id_rep = id_rep;
+        this.rec = rec;
         this.message = message;
     }
-    public reponse(int id_reclamation, String message) {
-        this.id_reclamation = id_reclamation;
+     public reponse(String message) {
         this.message = message;
+    }
+    public reclamation getRec() {
+        return rec;
     }
 
-    public reponse(String message) {
-        this.message = message;
-    }
-    
-    public int getId_reclamation() {
-        return id_reclamation;
-    }
-
-    public void setId_reclamation(int id_reclamation) {
-        this.id_reclamation = id_reclamation;
+    public void setRec(reclamation rec) {
+        this.rec = rec;
     }
 
     public int getId_rep() {
@@ -47,5 +57,10 @@ public class reponse {
 
     public void setMessage(String message) {
         this.message = message;
+    }
+
+    @Override
+    public String toString() {
+        return "reponse{" + "rec=" + rec + ", id_rep=" + id_rep + ", message=" + message + '}';
     }
 }

@@ -55,18 +55,18 @@ public class EnvoyerReponseController implements Initializable {
     tfEmail.setEditable(false);
     }
     @FXML
-    private void ajout(ActionEvent event) throws SQLException {
-         ServiceReponse rep = new ServiceReponse();
-        if (obj.getText().isEmpty()) {
-            Alert a = new Alert(Alert.AlertType.WARNING, "Tous les champs sont obligatoires", ButtonType.OK);
-            a.showAndWait();
-            return;
-        }
-        reponse p = new reponse(obj.getText());
-        p.setId_reclamation(d.getId()); // Set the reclamation ID in the response object
-        rep.ajouter(p);
-        Alert a = new Alert(Alert.AlertType.INFORMATION, "Votre demande a été envoyée!", ButtonType.OK);
+private void ajout(ActionEvent event) throws SQLException {
+    ServiceReponse rep = new ServiceReponse();
+    if (obj.getText().isEmpty()) {
+        Alert a = new Alert(Alert.AlertType.WARNING, "Tous les champs sont obligatoires", ButtonType.OK);
         a.showAndWait();
+        return;
     }
+    reponse p = new reponse(obj.getText());
+    p.setRec(d); // Set the reclamation ID in the response object
+    rep.ajouter(p);
+    Alert a = new Alert(Alert.AlertType.INFORMATION, "Votre demande a été envoyée!", ButtonType.OK);
+    a.showAndWait();
+}
     
 }
