@@ -7,6 +7,7 @@ package GUI;
 
 import Services.ServiceReclamation;
 import entities.reclamation;
+import entities.reclamation.Category;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -44,7 +45,7 @@ public class AfficheDemandeController implements Initializable {
     reclamation dm = null;
     private int selectedReclamationId;
     @FXML
-    private Button modifier;
+    private Label lblCat;
     /**
      * Initializes the controller class.
      */
@@ -63,6 +64,8 @@ public class AfficheDemandeController implements Initializable {
         setNumtel(rec.getNumtel());
         setSujet(rec.getSujet());
         setMessage(rec.getMessage());
+        setMessage(rec.getMessage());
+        setCategory(rec.getCategory());
     }
 }
      public void setNom(String nom) {
@@ -107,4 +110,10 @@ public class AfficheDemandeController implements Initializable {
                 System.out.println("error : "+ex.getMessage());
             }
         }
+
+    public void setCategory(Category category) {
+    if (lblCat != null) {
+        lblCat.setText(category.name());
+    }
+}
 }

@@ -12,6 +12,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -30,8 +32,9 @@ public class ServiceReclamation {
 
     public void ajouter(reclamation p) {
         try {
-            String req ="INSERT INTO reclamation(nom,email,numtel,sujet,message) values ('"+p.getNom()+"', "
-                    + "'"+p.getEmail()+"', '"+p.getNumtel()+"', '"+p.getSujet()+"', '"+p.getMessage()+"')";
+            String req = "INSERT INTO reclamation(nom, email, numtel, sujet, message, category, status, severity_level, date_submitted) " +
+             "VALUES ('" + p.getNom() + "', '" + p.getEmail() + "', '" + p.getNumtel() + "', '" + p.getSujet() + "', '" + p.getMessage() + "', " +
+             "'" + p.getCategory() + "', '" + p.getStatus() + "', '" + p.getSeverityLevel() + "', NOW())";
             ps=connection.prepareStatement(req);
             ps.executeUpdate(req);
         } catch (SQLException ex) {
@@ -39,16 +42,21 @@ public class ServiceReclamation {
         }
     }
     
-    public void ajouter2(reclamation p) {
+    public void ajouter2(reclamation r) {
         try {
-            String req = "insert into demande_maintenance(nom,email,numtel,sujet,message) values (?,?,?,?,?)";
-            ps=connection.prepareStatement(req);
-            ps.setString(1, p.getNom());
-        ps.setString(2, p.getEmail());
-        ps.setString(3, p.getNumtel());
-        ps.setString(4, p.getSujet());
-        ps.setString(5, p.getMessage());
-            ps.executeUpdate();
+        String req = "INSERT INTO reclamation(nom, email, numtel, sujet, message, category, status, severity_level, date_submitted) VALUES (?, ?, ?, ?, ?, ?, ?, ?, CURRENT_TIMESTAMP)";
+        ps = connection.prepareStatement(req);
+        ps.setString(1, r.getNom());
+        ps.setString(2, r.getEmail());
+        ps.setString(3, r.getNumtel());
+        ps.setString(4, r.getSujet());
+        ps.setString(5, r.getMessage());
+        ps.setString(6, r.getCategory().name());
+        ps.setString(7, "open"); // Set status to 'open'
+        ps.setString(8, "high"); // Set severity_level to 'high'
+        ps.setTimestamp(9, Timestamp.valueOf(LocalDateTime.now())); // Set date_submitted to current timestamp
+        ps.executeUpdate();
+        System.out.println("Reclamation ajoutée !");
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
@@ -110,17 +118,19 @@ public class ServiceReclamation {
          return myList;
 }
     public boolean modifier(reclamation r) {
-         String requeteUpdate = "UPDATE reclamation SET nom=?, email=?, numtel=?, sujet=?, message=? WHERE id_reclamation=?";
+         String requeteUpdate = "UPDATE reclamation SET nom=?, email=?, numtel=?, sujet=?, message=?, category=?, status=? WHERE id_reclamation=?";
 
-            try {
-                PreparedStatement st = connection.prepareStatement(requeteUpdate);
-                st.setString(1, r.getNom());
-                st.setString(2, r.getEmail());
-                st.setString(3, r.getNumtel());
-                st.setString(4, r.getSujet());
-                st.setString(5, r.getMessage());
-                st.setInt(6, r.getId());
-                st.executeUpdate();
+                    try {
+                        PreparedStatement st = connection.prepareStatement(requeteUpdate);
+                        st.setString(1, r.getNom());
+                        st.setString(2, r.getEmail());
+                        st.setString(3, r.getNumtel());
+                        st.setString(4, r.getSujet());
+                        st.setString(5, r.getMessage());
+                        st.setString(6, r.getCategory().name());
+                        st.setString(7, r.getStatus().name());
+                        st.setInt(8, r.getId());
+                        st.executeUpdate();
                 System.out.println("Reclamation modifiée");
             } catch (SQLException ex) {
                 System.out.println(ex.getMessage());

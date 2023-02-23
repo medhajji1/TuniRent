@@ -4,8 +4,8 @@
  * and open the template in the editor.
  */
 package entities;
-import java.util.Objects;
 
+import java.time.LocalDateTime;
 
 /**
  *
@@ -13,27 +13,70 @@ import java.util.Objects;
  */
 public class reclamation {
     private int id;
-    private String nom, email,sujet,message,numtel;
-    
+    private String nom, email, sujet, message, numtel;
+    private Category category;
+    private Status status;
+    private SeverityLevel severityLevel;
+    private LocalDateTime dateSubmitted;
+
     public reclamation() {
     }
-    public reclamation(int id, String nom, String email, String numtel, String sujet, String message) {
-        this.id = id;
+
+    public reclamation(String nom, String email, String sujet, String message, String numtel) {
         this.nom = nom;
         this.email = email;
-        this.numtel = numtel;
         this.sujet = sujet;
         this.message = message;
+        this.numtel = numtel;
     }
-    public reclamation(String nom, String email, String numtel, String sujet, String message) {
+
+    
+    public enum Category {
+    QUALITÉ,
+    SERVICE,
+    FACTURATION
+        }
+    public enum Status {
+    OPEN,
+    CLOSED,
+    INPROGRESS,
+    RESOLVED
+}
+    public enum SeverityLevel {
+
+        LOW,
+        HIGH
+        }
+
+    public reclamation(String nom, String email, String sujet, String message, String numtel, Category category, Status status, SeverityLevel severityLevel, String dateSubmitted) {
         this.nom = nom;
         this.email = email;
-        this.numtel = numtel;
         this.sujet = sujet;
         this.message = message;
+        this.numtel = numtel;
+        this.category = category;
+        this.status = Status.OPEN;
+        this.severityLevel = SeverityLevel.HIGH;
+        this.dateSubmitted = LocalDateTime.now();
+    }
+   
+    public reclamation(String nom, String email, String sujet, String message, String numtel, Category category) {
+        this.nom = nom;
+        this.email = email;
+        this.sujet = sujet;
+        this.message = message;
+        this.numtel = numtel;
+        this.category = category;
+    }
+
+    public LocalDateTime getDateSubmitted() {
+        return dateSubmitted;
+    }
+
+    public void setDateSubmitted(LocalDateTime dateSubmitted) {
+        this.dateSubmitted = dateSubmitted;
     }
     
-
     public int getId() {
         return id;
     }
@@ -58,6 +101,17 @@ public class reclamation {
         return message;
     }
 
+    public Category getCategory() {
+        return category;
+    }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public SeverityLevel getSeverityLevel() {
+        return severityLevel;
+    }
     public void setId(int id) {
         this.id = id;
     }
@@ -82,9 +136,30 @@ public class reclamation {
         this.message = message;
     }
 
+    public void setCategory(Category category) {
+        this.category = category;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
+    }
+
+    public void setSeverityLevel(SeverityLevel severityLevel) {
+        this.severityLevel = severityLevel;
+    }
     @Override
     public String toString() {
-        return "reclamation{ "+ "nom=" + nom + ", email=" + email + ", numtel=" + numtel + ", sujet=" + sujet + ", message=" + message + '}';
+        return "reclamation{ " +
+                "nom=" + nom +
+                ", email=" + email +
+                ", numtel=" + numtel +
+                ", sujet=" + sujet +
+                ", message=" + message +
+                ", category=" + category +
+                ", status=" + status +
+                ", severityLevel=" + severityLevel +
+                ", dateSubmitted=" + dateSubmitted +
+                '}';
     }
 
     @Override
@@ -102,22 +177,6 @@ public class reclamation {
         if (this.id != other.id) {
             return false;
         }
-        if (this.numtel != other.numtel) {
-            return false;
-        }
-        if (!Objects.equals(this.nom, other.nom)) {
-            return false;
-        }
-        if (!Objects.equals(this.email, other.email)) {
-            return false;
-        }
-        if (!Objects.equals(this.sujet, other.sujet)) {
-            return false;
-        }
-        if (!Objects.equals(this.message, other.message)) {
-            return false;
-        }
         return true;
     }
-
 }
