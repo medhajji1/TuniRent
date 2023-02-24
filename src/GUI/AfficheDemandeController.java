@@ -10,6 +10,7 @@ import entities.reclamation;
 import entities.reclamation.Category;
 import java.io.IOException;
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -42,10 +43,13 @@ public class AfficheDemandeController implements Initializable {
     private Label lblMessage;
     @FXML
     private Button cancelid;
-    reclamation dm = null;
     private int selectedReclamationId;
     @FXML
     private Label lblCat;
+    @FXML
+    private Button delete;
+    @FXML
+    private Label lblID;
     /**
      * Initializes the controller class.
      */
@@ -73,7 +77,11 @@ public class AfficheDemandeController implements Initializable {
                     lblNom.setText(nom);
                 }
     }
-
+        public void setId(int id) {
+                if (lblID != null) {
+                    lblID.setText(String.valueOf(id));
+                }
+    }
         public void setEmail(String email){
             if (lblEmail != null) {
                     lblEmail.setText(email);
@@ -116,4 +124,27 @@ public class AfficheDemandeController implements Initializable {
         lblCat.setText(category.name());
     }
 }
+
+    @FXML
+    private void delete(ActionEvent event) {
+        if (selectedReclamationId > 0) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Êtes-vous sûr de vouloir supprimer cette réclamation ?", ButtonType.YES, ButtonType.NO);
+        alert.showAndWait();
+        if (alert.getResult() == ButtonType.YES) {
+            ServiceReclamation service = new ServiceReclamation();
+            service.supprimer(selectedReclamationId);
+            
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("ddashboard.fxml"));
+            try {
+                Parent root = loader.load();
+                cancelid.getScene().setRoot(root);
+            } catch (IOException ex) {
+                System.out.println("error : " + ex.getMessage());
+            }
+        }
+    } else {
+        Alert alert = new Alert(Alert.AlertType.WARNING, "Veuillez sélectionner une réclamation à supprimer.", ButtonType.OK);
+        alert.showAndWait();
+    }
+    }
 }

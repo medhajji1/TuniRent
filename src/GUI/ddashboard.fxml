@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
@@ -7,18 +8,26 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane id="AnchorPane" prefHeight="786.0" prefWidth="1191.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.DdashboardController">
+<AnchorPane id="AnchorPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="690.0" minWidth="1429.0" prefHeight="690.0" prefWidth="1500.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.DdashboardController">
    <children>
-      <TableView fx:id="tab" layoutX="49.0" layoutY="146.0" prefHeight="531.0" prefWidth="1094.0">
-        <columns>
-          <TableColumn fx:id="nid" prefWidth="158.0" text="nom et prenom" />
-          <TableColumn fx:id="eid" prefWidth="135.0" text="email" />
-            <TableColumn fx:id="numid" prefWidth="120.0" text="numtel" />
-            <TableColumn fx:id="sid" prefWidth="203.0" text="sujet" />
-            <TableColumn fx:id="mid" prefWidth="223.0" text="message" />
-            <TableColumn fx:id="Aid" maxWidth="421.0" prefWidth="254.0" text="actions" />
-        </columns>
-      </TableView>
+      <ScrollPane layoutY="159.0" prefHeight="531.0" prefWidth="1445.0">
+         <content>
+            <TableView fx:id="tab" prefHeight="516.0" prefWidth="1700.0">
+               <columns>
+                  <TableColumn fx:id="nid" prefWidth="143.0" text="nom et prenom" />
+                  <TableColumn fx:id="eid" prefWidth="139.0" text="email" />
+                  <TableColumn fx:id="numid" prefWidth="150.0" text="numtel" />
+                  <TableColumn fx:id="sid" prefWidth="146.0" text="sujet" />
+                  <TableColumn fx:id="mid" prefWidth="188.0" text="message" />
+                  <TableColumn fx:id="date" prefWidth="133.0" text="date d'envoi" />
+                  <TableColumn fx:id="status" prefWidth="105.0" text="status" />
+                  <TableColumn fx:id="cat" prefWidth="110.0" text="Categorie" />
+                  <TableColumn fx:id="severity" prefWidth="138.0" text="sévérité" />
+                  <TableColumn fx:id="Aid" maxWidth="421.0" prefWidth="190.0" text="actions" />
+               </columns>
+            </TableView>
+         </content>
+      </ScrollPane>
       <TextField fx:id="search" layoutX="230.0" layoutY="108.0" prefHeight="25.0" prefWidth="424.0" promptText="recherche" />
       <Text layoutX="106.0" layoutY="54.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Demande de Reclamation" wrappingWidth="312.423828125">
          <font>

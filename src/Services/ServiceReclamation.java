@@ -7,6 +7,9 @@ package Services;
 
 import bdd.bdd;
 import entities.reclamation;
+import entities.reclamation.Category;
+import entities.reclamation.SeverityLevel;
+import entities.reclamation.Status;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -52,7 +55,7 @@ public class ServiceReclamation {
         ps.setString(4, r.getSujet());
         ps.setString(5, r.getMessage());
         ps.setString(6, r.getCategory().name());
-        ps.setString(7, "open"); // Set status to 'open'
+        ps.setString(7, "new"); // Set status to 'open'
         ps.setString(8, "high"); // Set severity_level to 'high'
         ps.setTimestamp(9, Timestamp.valueOf(LocalDateTime.now())); // Set date_submitted to current timestamp
         ps.executeUpdate();
@@ -110,6 +113,13 @@ public class ServiceReclamation {
                   R.setNumtel(rs.getString("numtel"));
                   R.setSujet(rs.getString("sujet"));
                   R.setMessage(rs.getString("message"));
+                  Category category = Category.valueOf(rs.getString("category"));
+                  R.setCategory(category);
+                  Status status = Status.valueOf(rs.getString("status"));
+                  R.setStatus(status);
+                  SeverityLevel severity = SeverityLevel.valueOf(rs.getString("severity_level"));
+                  R.setSeverityLevel(severity);
+                  R.setDateSubmitted(rs.getTimestamp("date_submitted").toLocalDateTime());
                   myList.add(R);
               }
             } catch (SQLException ex) {

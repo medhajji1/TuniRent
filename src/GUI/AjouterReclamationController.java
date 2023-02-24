@@ -45,8 +45,7 @@ public class AjouterReclamationController implements Initializable {
     @FXML
     private TextArea msg;
     @FXML
-    private Button btn;
-    private reclamation rec;
+    private Button btn;    
     /**
      * Initializes the controller class.
      * @param url
@@ -121,7 +120,7 @@ private void Addreclamation(ActionEvent event) throws IOException {
         }
         this.selectedCategory = Category.valueOf(category.getSelectionModel().getSelectedItem().toUpperCase());
         reclamation p = new reclamation(np.getText(), mail.getText(), numtel.getText(), sujet.getText(), msg.getText(), selectedCategory);
-        p.setStatus(Status.OPEN);
+        p.setStatus(Status.NEW);
         p.setSeverityLevel(SeverityLevel.HIGH);
         p.setDateSubmitted(LocalDateTime.now());
         sp.ajouter(p);

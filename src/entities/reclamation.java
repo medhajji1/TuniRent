@@ -18,6 +18,7 @@ public class reclamation {
     private Status status;
     private SeverityLevel severityLevel;
     private LocalDateTime dateSubmitted;
+    private String emoji;
 
     public reclamation() {
     }
@@ -37,6 +38,7 @@ public class reclamation {
     FACTURATION
         }
     public enum Status {
+    NEW,    
     OPEN,
     CLOSED,
     INPROGRESS,
@@ -55,7 +57,7 @@ public class reclamation {
         this.message = message;
         this.numtel = numtel;
         this.category = category;
-        this.status = Status.OPEN;
+        this.status = Status.NEW;
         this.severityLevel = SeverityLevel.HIGH;
         this.dateSubmitted = LocalDateTime.now();
     }
