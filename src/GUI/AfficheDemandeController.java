@@ -16,6 +16,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -108,16 +109,20 @@ public class AfficheDemandeController implements Initializable {
 
         @FXML
         private void cancel(ActionEvent event) {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("AjouterReclamation.fxml"));
             try {
-                Parent root = loader.load();
-                lblNom.getScene().setRoot(root);
-                Alert a = new Alert(Alert.AlertType.WARNING, "Tous les champs sont obligatoires", ButtonType.OK);
-            a.showAndWait();
-            } catch (IOException ex) {
-                System.out.println("error : "+ex.getMessage());
+        // Load the FXML file of the new page
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("AjouterReclamation.fxml"));
+        Parent root = loader.load();
+        
+        // Set the loaded page as the root of the current Scene
+        Scene scene = new Scene(root);
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setScene(scene);
+        stage.show();
+    } catch (IOException e) {
+    }
             }
-        }
+        
 
     public void setCategory(Category category) {
     if (lblCat != null) {
@@ -132,7 +137,7 @@ public class AfficheDemandeController implements Initializable {
         alert.showAndWait();
         if (alert.getResult() == ButtonType.YES) {
             ServiceReclamation service = new ServiceReclamation();
-            service.supprimer(selectedReclamationId);
+            //service.supprimer(selectedReclamationId);
             
             FXMLLoader loader = new FXMLLoader(getClass().getResource("ddashboard.fxml"));
             try {

@@ -44,60 +44,18 @@ public class ServiceReclamation {
             System.out.println(ex.getMessage());
         }
     }
-    
-    public void ajouter2(reclamation r) {
-        try {
-        String req = "INSERT INTO reclamation(nom, email, numtel, sujet, message, category, status, severity_level, date_submitted) VALUES (?, ?, ?, ?, ?, ?, ?, ?, CURRENT_TIMESTAMP)";
-        ps = connection.prepareStatement(req);
-        ps.setString(1, r.getNom());
-        ps.setString(2, r.getEmail());
-        ps.setString(3, r.getNumtel());
-        ps.setString(4, r.getSujet());
-        ps.setString(5, r.getMessage());
-        ps.setString(6, r.getCategory().name());
-        ps.setString(7, "new"); // Set status to 'open'
-        ps.setString(8, "high"); // Set severity_level to 'high'
-        ps.setTimestamp(9, Timestamp.valueOf(LocalDateTime.now())); // Set date_submitted to current timestamp
-        ps.executeUpdate();
-        System.out.println("Reclamation ajoutée !");
-        } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
-        }
-    }
-
-    public void supprimer(int id) {
-        try {
-            String req = "DELETE FROM `reclamation` WHERE id_reclamation = " + id;
-            ps=connection.prepareStatement(req);
-            ps.executeUpdate(req);
-            System.out.println("reclamation a ete supprimer !");
-        } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
-        }
-    }
-
-    public reclamation getreclamation(int id) {
-    String req = "SELECT * FROM reclamation WHERE id_reclamation = ?";
+    public void update(reclamation rec) {
     try {
+        String req = "UPDATE reclamation SET status=?, severity_level=? WHERE id_reclamation=?";
         PreparedStatement ps = connection.prepareStatement(req);
-        ps.setInt(1, id);
-        ResultSet rs = ps.executeQuery();
-        while (rs.next()) {
-            reclamation r = new reclamation();
-            r.setId(rs.getInt("id_reclamation"));
-            r.setNom(rs.getString("nom"));
-            r.setEmail(rs.getString("email"));
-            r.setNumtel(rs.getString("numtel"));
-            r.setSujet(rs.getString("sujet"));
-            r.setMessage(rs.getString("message"));
-            return r;
-        }
+        ps.setString(1, rec.getStatus().toString());
+        ps.setString(2, rec.getSeverityLevel().toString());
+        ps.setInt(3, rec.getId());
+        ps.executeUpdate();
     } catch (SQLException ex) {
         System.out.println(ex.getMessage());
     }
-    return null;
-}   
-    
+}
     public ObservableList<reclamation> getAll() {
         ObservableList<reclamation>myList=FXCollections.observableArrayList();
             try { 
@@ -160,4 +118,18 @@ public class ServiceReclamation {
         }
         
     }
+    public void modifer2(reclamation rec) {
+       String requeteUpdate = "UPDATE reclamation SET severity_level=? status=? WHERE id_reclamation=?";
+
+                    try {
+                        PreparedStatement st = connection.prepareStatement(requeteUpdate);         
+                        st.setString(1, rec.getSeverityLevel().name());
+                        st.setString(2, rec.getStatus().name());
+                        st.setInt(3, rec.getId());
+                        st.executeUpdate();
+                System.out.println("Reclamation modifiée");
+            } catch (SQLException ex) {
+                System.out.println(ex.getMessage());
+            }
+}
 }

@@ -24,6 +24,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 
@@ -121,6 +122,9 @@ private void Addreclamation(ActionEvent event) throws IOException {
         this.selectedCategory = Category.valueOf(category.getSelectionModel().getSelectedItem().toUpperCase());
         reclamation p = new reclamation(np.getText(), mail.getText(), numtel.getText(), sujet.getText(), msg.getText(), selectedCategory);
         p.setStatus(Status.NEW);
+        SeverityLevel severity = SeverityLevel.HIGH;
+        Label label = new Label();
+        label.setStyle("-fx-text-fill: " + severity.getColor());
         p.setSeverityLevel(SeverityLevel.HIGH);
         p.setDateSubmitted(LocalDateTime.now());
         sp.ajouter(p);

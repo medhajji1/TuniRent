@@ -18,7 +18,7 @@ public class reclamation {
     private Status status;
     private SeverityLevel severityLevel;
     private LocalDateTime dateSubmitted;
-    private String emoji;
+    
 
     public reclamation() {
     }
@@ -29,6 +29,11 @@ public class reclamation {
         this.sujet = sujet;
         this.message = message;
         this.numtel = numtel;
+    }
+
+    public reclamation(Status status, SeverityLevel severityLevel) {
+        this.status = status;
+        this.severityLevel = severityLevel;
     }
 
     
@@ -45,10 +50,19 @@ public class reclamation {
     RESOLVED
 }
     public enum SeverityLevel {
+    LOW("green"),
+    HIGH("red");
 
-        LOW,
-        HIGH
-        }
+    private final String color;
+
+    SeverityLevel(String color) {
+        this.color = color;
+    }
+
+    public String getColor() {
+        return color;
+    }
+}
 
     public reclamation(String nom, String email, String sujet, String message, String numtel, Category category, Status status, SeverityLevel severityLevel, String dateSubmitted) {
         this.nom = nom;

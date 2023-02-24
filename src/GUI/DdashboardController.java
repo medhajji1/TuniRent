@@ -8,6 +8,7 @@ package GUI;
 import Services.ServiceReclamation;
 import entities.reclamation;
 import entities.reclamation.Category;
+import entities.reclamation.SeverityLevel;
 import entities.reponse;
 import java.io.IOException;
 import java.net.URL;
@@ -27,6 +28,7 @@ import javafx.geometry.Insets;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -98,6 +100,53 @@ public class DdashboardController implements Initializable {
         severity.setCellValueFactory(new PropertyValueFactory<reclamation, reclamation.SeverityLevel>("severityLevel"));
         date.setCellValueFactory(new PropertyValueFactory<reclamation, LocalDateTime>("dateSubmitted"));
         Callback<TableColumn<reclamation, String>, TableCell<reclamation, String>> cellFoctory = (TableColumn<reclamation, String> param) -> {
+                        status.setCellFactory(column -> {
+                 return new TableCell<reclamation, reclamation.Status>() {
+                     @Override
+                     protected void updateItem(reclamation.Status item, boolean empty) {
+                         super.updateItem(item, empty);
+                         if (empty || item == null) {
+                             setText(null);
+                             setStyle("");
+                         } else {
+                             setText(item.toString());
+                             if (item == reclamation.Status.RESOLVED) {
+                                 setStyle("-fx-text-fill: green;");
+                             } else if (item == reclamation.Status.NEW) {
+                                 setStyle("-fx-text-fill: lightblue;");
+                             } else if (item == reclamation.Status.INPROGRESS) {
+                                 setStyle("-fx-text-fill: orange;");
+                             }
+                             else if (item == reclamation.Status.CLOSED) {
+                                 setStyle("-fx-text-fill: red;");
+                             } else {
+                                 setStyle("");
+                             }
+                         }
+                     }
+                 };
+             });
+           severity.setCellFactory(column -> {
+                 return new TableCell<reclamation, reclamation.SeverityLevel>() {
+                     @Override
+                     protected void updateItem(reclamation.SeverityLevel item, boolean empty) {
+                         super.updateItem(item, empty);
+                         if (empty || item == null) {
+                             setText(null);
+                             setStyle("");
+                         } else {
+                             setText(item.toString());
+                             if (item == reclamation.SeverityLevel.HIGH) {
+                                 setStyle("-fx-text-fill: red;");
+                             } else if (item == reclamation.SeverityLevel.LOW) {
+                                 setStyle("-fx-text-fill: green;");
+                             } else {
+                                 setStyle("");
+                             }
+                         }
+                     }
+                 };
+             });
             final TableCell<reclamation, String> cell = new TableCell<reclamation, String>() {
                 @Override
                 public void updateItem(String item, boolean empty) {
@@ -139,8 +188,10 @@ public class DdashboardController implements Initializable {
                             dm = tab.getSelectionModel().getSelectedItem();
 
                             if (dm != null) {
+                                
                                 FXMLLoader loader = new FXMLLoader(getClass().getResource("supprimerDemande.fxml"));
                                 try {
+                                    
                                     Parent root = loader.load();
                                     SupprimerDemandeController CDC = loader.getController();
                                     CDC.setdm(dm);
@@ -153,20 +204,26 @@ public class DdashboardController implements Initializable {
                         });
 
                         Reponsebutton.setOnMouseClicked((MouseEvent event) -> {
-                            dm = tab.getSelectionModel().getSelectedItem();
-
-                            if (dm != null) {
-                                FXMLLoader loader = new FXMLLoader(getClass().getResource("EnvoyerReponse.fxml"));
-                                try {
-                                    Parent root = loader.load();
-                                    EnvoyerReponseController rep = loader.getController();
-                                    rep.setelementtoupdate(dm);
-                                    tab.getScene().setRoot(root);
-                                } catch (IOException ex) {
-                                    System.out.println("error :" + ex.getMessage());
-                                }
-                            }
-                        });
+                        dm = tab.getSelectionModel().getSelectedItem();
+                        ServiceReclamation SM = new ServiceReclamation();
+        if (dm != null) {
+                        dm.setStatus(reclamation.Status.INPROGRESS); // set the status to in progress
+                        dm.setSeverityLevel(reclamation.SeverityLevel.LOW); // set severity level to low
+                        SeverityLevel severity = SeverityLevel.LOW;
+                        Label label = new Label();
+                        label.setStyle("-fx-text-fill: " + severity.getColor());
+                        SM.update(dm); // update the record in the database
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("EnvoyerReponse.fxml"));
+        try {
+            Parent root = loader.load();
+            EnvoyerReponseController rep = loader.getController();
+            rep.setelementtoupdate(dm);
+            tab.getScene().setRoot(root);
+        } catch (IOException ex) {
+            System.out.println("error :" + ex.getMessage());
+        }
+    }
+});
 
                         HBox managebtn = new HBox(updatebutton, deletebutton, Reponsebutton, pdfbtn);
                         managebtn.setStyle("-fx-alignment:center");
@@ -183,12 +240,12 @@ public class DdashboardController implements Initializable {
 
                     }
                 }
-
+                    
             };
-
+            
             return cell;
         };
-        list.addAll(CRUD.getAll());
+       
         ///////////////////////////////////////////////////////////////////////////////////
         Aid.setCellFactory(cellFoctory);
 
@@ -212,8 +269,15 @@ public class DdashboardController implements Initializable {
                     return true;
                 } else if (reclamation.getNumtel().contains(lowerCaseFilter)) {
                     return true;
+                } else if (reclamation.getCategory().toString().toLowerCase().contains(lowerCaseFilter)) {
+                    return true;
+                } else if (reclamation.getStatus().toString().toLowerCase().contains(lowerCaseFilter)) {
+                    return true;
+                } else if (reclamation.getSeverityLevel().toString().toLowerCase().contains(lowerCaseFilter)) {
+                    return true;
+                } else if (reclamation.getDateSubmitted().toString().toLowerCase().contains(lowerCaseFilter)) {
+                    return true;
                 }
-
                 return false;
             });
         });
