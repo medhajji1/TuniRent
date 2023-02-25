@@ -4,10 +4,11 @@
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
-<?import javafx.collections.FXCollections?>
+
 <AnchorPane id="AnchorPane" prefHeight="551.0" prefWidth="429.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.AjouterReclamationController">
     <children>
         <Text fill="#9e0101" layoutX="160.0" layoutY="42.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Reclamation">
@@ -31,8 +32,7 @@
         <Text fill="#a1a0a0" layoutX="271.0" layoutY="121.0" strokeType="OUTSIDE" strokeWidth="0.0" text="exemple :mohamed hadji" wrappingWidth="136.423828125" />
         <Text fill="#a1a0a0" layoutX="275.0" layoutY="167.0" strokeType="OUTSIDE" strokeWidth="0.0" text="exemple@gmail.com" wrappingWidth="129.341796875" />
         <Text fill="#a1a0a0" layoutX="275.0" layoutY="216.0" strokeType="OUTSIDE" strokeWidth="0.0" text="8 numero" wrappingWidth="129.341796875" />
-      <ComboBox fx:id="category" layoutX="121.0" layoutY="245.0" promptText="Choisir">
-          
+      <ComboBox fx:id="category" layoutX="121.0" layoutY="245.0" promptText="Choisir">     
       </ComboBox>
-    </children>
+      </children>
 </AnchorPane>

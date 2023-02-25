@@ -61,7 +61,7 @@ public class ServiceReclamation {
             try { 
                 String req = "SELECT * FROM reclamation";
                 ps=connection.prepareStatement(req);
-                    ResultSet rs = ps.executeQuery(req);
+                ResultSet rs = ps.executeQuery(req);
               while(rs.next())
               {
                   reclamation R = new reclamation();

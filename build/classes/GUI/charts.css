@@ -1,0 +1,16 @@
+.chart {
+    -fx-background-color: #f4f4f4;
+}
+.label {
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+}
+.legend {
+    -fx-padding: 10px;
+    -fx-border-color: #ccc;
+    -fx-border-radius: 5px;
+    -fx-background-color: white;
+}
+.legend-item-symbol {
+    -fx-padding: 5px;
+}

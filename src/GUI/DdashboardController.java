@@ -6,13 +6,19 @@
 package GUI;
 
 import Services.ServiceReclamation;
+import bdd.bdd;
 import entities.reclamation;
 import entities.reclamation.Category;
 import entities.reclamation.SeverityLevel;
+import entities.reclamation.Status;
 import entities.reponse;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.time.LocalDateTime;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -25,9 +31,12 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
+import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.chart.PieChart;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
@@ -38,12 +47,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import javafx.util.Callback;
-import org.apache.pdfbox.exceptions.COSVisitorException;
-import org.apache.pdfbox.pdmodel.PDDocument;
-import org.apache.pdfbox.pdmodel.PDPage;
-import org.apache.pdfbox.pdmodel.PDPageContentStream;
-import org.apache.pdfbox.pdmodel.font.PDFont;
-import org.apache.pdfbox.pdmodel.font.PDType1Font;
 
 /**
  * FXML Controller class
@@ -79,12 +82,18 @@ public class DdashboardController implements Initializable {
     private TableColumn<reclamation, reclamation.Category> cat;
     @FXML
     private TableColumn<reclamation, reclamation.SeverityLevel> severity;
-
+    @FXML
+    private Button charts;
+    ResultSet rs;
+    Statement st;
+    PreparedStatement pst;
+    private Connection cnx;
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        
         tab.setItems(list);
         ServiceReclamation CRUD = new ServiceReclamation();
         list = CRUD.getAll();
@@ -283,7 +292,7 @@ public class DdashboardController implements Initializable {
         });
 
     }
-
+            
     private void TrieNom(ActionEvent event) throws SQLException {
 
         ServiceReclamation vs = new ServiceReclamation();
@@ -300,5 +309,22 @@ public class DdashboardController implements Initializable {
         severity.setCellValueFactory(new PropertyValueFactory<reclamation, reclamation.SeverityLevel>("severityLevel"));
         date.setCellValueFactory(new PropertyValueFactory<reclamation, LocalDateTime>("dateSubmitted"));
     }
+    
+    @FXML
+    private void charts(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("PieChart.fxml"));
+            Parent root = loader.load();
+            Scene scene = new Scene(root);
+            Stage stage = new Stage();
+            stage.setScene(scene);
 
-}
+            PieChartController pieChartController = loader.getController();
+            pieChartController.loadPieChartData();
+
+            stage.show();
+        } catch (IOException ex) {
+            System.out.println("Error loading PieChart.fxml: " + ex.getMessage());
+        }
+    }
+    }
