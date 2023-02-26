@@ -5,6 +5,8 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
@@ -36,6 +38,15 @@
          </font>
       </Text>
       <Text layoutX="150.0" layoutY="125.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Recherche" />
-      <Button fx:id="charts" layoutX="874.0" layoutY="108.0" mnemonicParsing="false" onAction="#charts" stylesheets="@charts.css" text="charts" />
+      <Button fx:id="charts" layoutX="874.0" layoutY="108.0" mnemonicParsing="false" onAction="#charts" stylesheets="@charts.css" text="Statistique" />
+      <Button fx:id="Triseverity" layoutX="1005.0" layoutY="100.0" mnemonicParsing="false" onAction="#Triseverity" prefHeight="40.0" prefWidth="46.0">
+         <graphic>
+            <ImageView>
+               <image>
+                  <Image url="@images/sort.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
    </children>
 </AnchorPane>

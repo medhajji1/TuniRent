@@ -7,6 +7,7 @@ package GUI;
 
 import java.io.FileOutputStream;
 import Services.ServiceReclamation;
+import bdd.bdd;
 import entities.reclamation;
 import entities.reponse;
 import java.io.File;
@@ -91,6 +92,9 @@ public class DdashboardController implements Initializable {
     Statement st;
     PreparedStatement pst;
     private Connection cnx;
+    @FXML
+    private Button Triseverity;
+    
     /**
      * Initializes the controller class.
      */
@@ -393,5 +397,18 @@ public class DdashboardController implements Initializable {
         } catch (IOException ex) {
             System.out.println("Error loading PieChart.fxml: " + ex.getMessage());
         }
+    }
+
+    @FXML
+    private void Triseverity(ActionEvent event) {
+        try {
+        cnx = bdd.getinstance().get_connection();
+        String req = "SELECT * FROM `reclamation` ORDER BY `reclamation`.`severity_level` ASC";
+        pst = cnx.prepareStatement(req);
+        ResultSet rs = pst.executeQuery();
+        // Process the sorted result set
+    } catch (SQLException ex) {
+        System.out.println("Error: " + ex.getMessage());
+    }
     }
     }

@@ -9,65 +9,67 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
+<?import javafx.scene.web.WebView?>
 
-<AnchorPane id="AnchorPane" prefHeight="634.0" prefWidth="395.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.AjouterReclamationController">
+<AnchorPane id="AnchorPane" prefHeight="711.0" prefWidth="410.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.AjouterReclamationController">
     <children>
-        <Text fill="#9e0101" layoutX="181.0" layoutY="102.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Reclamation">
+        <Text fill="#9e0101" layoutX="203.0" layoutY="103.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Reclamation">
             <font>
                 <Font size="20.0" />
             </font>
         </Text>
-        <Text layoutX="52.0" layoutY="140.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nom et Prenom" />
-        <TextField fx:id="np" layoutX="155.0" layoutY="123.0" prefHeight="25.0" prefWidth="177.0" />
-        <Text layoutX="52.0" layoutY="194.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Votre Email" />
-        <TextField fx:id="mail" layoutX="155.0" layoutY="177.0" prefHeight="25.0" prefWidth="177.0" />
-        <TextField fx:id="numtel" layoutX="155.0" layoutY="230.0" prefHeight="25.0" prefWidth="177.0" />
-        <Text layoutX="44.0" layoutY="247.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Numero telephone" />
-        <TextField fx:id="sujet" layoutX="127.0" layoutY="344.0" prefHeight="36.0" prefWidth="206.0" />
-        <Text layoutX="50.0" layoutY="367.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sujet" />
-        <Text layoutX="44.0" layoutY="311.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Categorie" />
-        <TextArea fx:id="msg" layoutX="126.0" layoutY="398.0" prefHeight="111.0" prefWidth="177.0" />
-        <Text layoutX="53.0" layoutY="458.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Message" />
-        <Button fx:id="btn" layoutX="248.0" layoutY="523.0" mnemonicParsing="false" onAction="#Addreclamation" onKeyTyped="#handleKeyType" style="-fx-background-color: LIGHTSKYBLUE; -fx-cursor: not-allowed;" text="Envoyer" textFill="WHITE" />
-        <Text fill="#a1a0a0" layoutX="180.0" layoutY="166.0" strokeType="OUTSIDE" strokeWidth="0.0" text="exemple :mohamed hadji" wrappingWidth="136.423828125" />
-        <Text fill="#a1a0a0" layoutX="183.0" layoutY="216.0" strokeType="OUTSIDE" strokeWidth="0.0" text="exemple@gmail.com" wrappingWidth="120.341796875" />
-        <Text fill="#a1a0a0" layoutX="217.0" layoutY="272.0" strokeType="OUTSIDE" strokeWidth="0.0" text="8 numero" wrappingWidth="51.328125" />
-      <ComboBox fx:id="category" layoutX="121.0" layoutY="294.0" prefHeight="25.0" prefWidth="212.0" promptText="Choisir">     
+        <Text layoutX="74.0" layoutY="141.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nom et Prenom" />
+        <TextField fx:id="np" layoutX="177.0" layoutY="124.0" prefHeight="25.0" prefWidth="177.0" />
+        <Text layoutX="74.0" layoutY="195.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Votre Email" />
+        <TextField fx:id="mail" layoutX="177.0" layoutY="178.0" prefHeight="25.0" prefWidth="177.0" />
+        <TextField fx:id="numtel" layoutX="177.0" layoutY="231.0" prefHeight="25.0" prefWidth="177.0" />
+        <Text layoutX="66.0" layoutY="248.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Numero telephone" />
+        <TextField fx:id="sujet" layoutX="149.0" layoutY="345.0" prefHeight="36.0" prefWidth="206.0" />
+        <Text layoutX="72.0" layoutY="368.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sujet" />
+        <Text layoutX="66.0" layoutY="312.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Categorie" />
+        <TextArea fx:id="msg" layoutX="148.0" layoutY="399.0" prefHeight="111.0" prefWidth="177.0" />
+        <Text layoutX="75.0" layoutY="459.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Message" />
+        <Button fx:id="btn" layoutX="270.0" layoutY="651.0" mnemonicParsing="false" onAction="#Addreclamation" onKeyTyped="#handleKeyType" style="-fx-background-color: LIGHTSKYBLUE; -fx-cursor: not-allowed;" text="Envoyer" textFill="WHITE" />
+        <Text fill="#a1a0a0" layoutX="202.0" layoutY="167.0" strokeType="OUTSIDE" strokeWidth="0.0" text="exemple :mohamed hadji" wrappingWidth="136.423828125" />
+        <Text fill="#a1a0a0" layoutX="205.0" layoutY="217.0" strokeType="OUTSIDE" strokeWidth="0.0" text="exemple@gmail.com" wrappingWidth="120.341796875" />
+        <Text fill="#a1a0a0" layoutX="239.0" layoutY="273.0" strokeType="OUTSIDE" strokeWidth="0.0" text="8 numero" wrappingWidth="51.328125" />
+      <ComboBox fx:id="category" layoutX="143.0" layoutY="295.0" prefHeight="25.0" prefWidth="212.0" promptText="Choisir">     
       </ComboBox>
-      <ImageView fitHeight="27.0" fitWidth="26.0" layoutX="9.0" layoutY="122.0">
+      <ImageView fitHeight="27.0" fitWidth="26.0" layoutX="31.0" layoutY="123.0">
          <image>
             <Image url="@images/np.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="25.0" fitWidth="26.0" layoutX="11.0" layoutY="177.0">
+      <ImageView fitHeight="25.0" fitWidth="26.0" layoutX="33.0" layoutY="178.0">
          <image>
             <Image url="@images/gmail.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="27.0" fitWidth="26.0" layoutX="11.0" layoutY="229.0">
+      <ImageView fitHeight="27.0" fitWidth="26.0" layoutX="33.0" layoutY="230.0">
          <image>
             <Image url="@images/call.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="25.0" fitWidth="26.0" layoutX="12.0" layoutY="294.0">
+      <ImageView fitHeight="25.0" fitWidth="26.0" layoutX="34.0" layoutY="295.0">
          <image>
             <Image url="@images/table.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="27.0" fitWidth="26.0" layoutX="12.0" layoutY="349.0">
+      <ImageView fitHeight="27.0" fitWidth="26.0" layoutX="34.0" layoutY="350.0">
          <image>
             <Image url="@images/purpose.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="27.0" fitWidth="26.0" layoutX="12.0" layoutY="440.0">
+      <ImageView fitHeight="27.0" fitWidth="26.0" layoutX="34.0" layoutY="441.0">
          <image>
             <Image url="@images/message.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="200.0" fitWidth="200.0" layoutX="-22.0" layoutY="-36.0">
+      <ImageView fitHeight="200.0" fitWidth="200.0" layoutY="-35.0">
          <image>
             <Image url="@images/unnamed.png" />
          </image>
       </ImageView>
+      <WebView fx:id="webview" layoutX="75.0" layoutY="539.0" prefHeight="78.0" prefWidth="304.0" />
       </children>
 </AnchorPane>

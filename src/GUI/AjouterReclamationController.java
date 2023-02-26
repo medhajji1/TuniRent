@@ -15,7 +15,7 @@
     import java.time.LocalDateTime;
     import java.util.ResourceBundle;
     import java.util.regex.Pattern;
-import javafx.embed.swing.SwingFXUtils;
+import javafx.concurrent.Worker;
     import javafx.event.ActionEvent;
     import javafx.fxml.FXML;
     import javafx.fxml.FXMLLoader;
@@ -28,6 +28,8 @@ import javafx.embed.swing.SwingFXUtils;
     import javafx.scene.control.Label;
     import javafx.scene.control.TextArea;
     import javafx.scene.control.TextField;
+import javafx.scene.web.WebEngine;
+    import javafx.scene.web.WebView;
 
     /**
      * FXML Controller class
@@ -60,10 +62,15 @@ import javafx.embed.swing.SwingFXUtils;
         private final Pattern numtelPattern = Pattern.compile("[259]\\d{7}");
         @FXML
         private ComboBox<String> category;
-        private Category selectedCategory;      
+        private Category selectedCategory; 
+            @FXML
+            private WebView webview;
+            WebEngine webEngine = null;     
         @Override
         public void initialize(URL url, ResourceBundle rb) {
-                category.getItems().addAll("qualité", "service", "facturation");
+        webEngine  = webview.getEngine();
+        webEngine.load("https://www.google.com/recaptcha/api2/anchor?ar=1&k=6LfEaFkUAAAAAGnIJMG983t2JyYg0McK4CUuRAdk&co=aHR0cHM6Ly93d3cudXBsb2FkLTRldmVyLmNvbTo0NDM.&hl=fr&v=Nh10qRQB5k2ucc5SCBLAQ4nA&size=normal&cb=fy9vwi71q7so");
+            category.getItems().addAll("qualité", "service", "facturation");
               btn.setDisable(true);
             np.textProperty().addListener((observable, oldValue, newValue) -> {
                 if (!nomPattern.matcher(newValue).matches()) {
@@ -154,4 +161,5 @@ import javafx.embed.swing.SwingFXUtils;
             btn.setDisable(hasInvalidInput);
 
         }
+
         }
