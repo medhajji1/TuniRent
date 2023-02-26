@@ -5,6 +5,7 @@
  */
 package GUI;
 
+import Services.Mail;
 import Services.ServiceReclamation;
 import Services.ServiceReponse;
 import entities.reclamation;
@@ -34,6 +35,9 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import javax.mail.Authenticator;
 import java.net.PasswordAuthentication;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.input.ScrollEvent;
 import javax.mail.Message;
 import javax.mail.Multipart;
 import javax.mail.internet.MimeBodyPart;
@@ -57,6 +61,8 @@ public class EnvoyerReponseController implements Initializable {
     @FXML
     private Button Annuler;
     String from,to,host,sub,content;
+    @FXML
+    private ImageView retour;
     /**
      * Initializes the controller class.
      */
@@ -75,51 +81,14 @@ public class EnvoyerReponseController implements Initializable {
     tfEmail.setEditable(false);
     }
     @FXML
-private void ajout(ActionEvent event) throws SQLException {
-        from ="mohamedhadji603@gmail.com";
+private void ajout(ActionEvent event) throws SQLException, Exception {
         to =tfEmail.getText();
-        host="localhost";
         content=obj.getText();
-        Properties P = new Properties();
-        P.put("mail.smtp.auth","true");
-        P.put("mail.smtp.starttls.enable","true");
-        P.put("mail.smtp.host","smtp.gmail.com");
-        P.put("mail.smtp.port","587");
-        Session session = Session.getInstance(P, new javax.mail.Authenticator() {
-
-            protected javax.mail.PasswordAuthentication getPasswordAuthentication() {
-
-                return new javax.mail.PasswordAuthentication("mohamedhadji603@gmail.com", "azeqsdwxc,;:!123456");
-
-            }
-
-        });
-        try {
-            MimeMessage m = new MimeMessage(session);
-            m.setFrom(new InternetAddress(from));
-            m.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
-            m.setSubject(sub); 
-            
-            Multipart emailContent = new MimeMultipart();
-            MimeBodyPart textBodypart= new MimeBodyPart();
-            textBodypart.setText("Demande de maintenance");
-            MimeBodyPart pdfAttachement = new MimeBodyPart();
-            //pdfAttachement.attachFile("src/pdfdemande/demamde de maintenance.pdf");
-            emailContent.addBodyPart(textBodypart);
-            emailContent.addBodyPart(pdfAttachement);
-            //m.setText(content);
-            m.setContent(emailContent);
-            //Transport.send(m);
-            System.out.println("email envoyer");
-        } catch (Exception e) {
-             e.printStackTrace();
-        }
-        
-            
+        new Mail().sendMail("Service Reclamation Tunirent",content,to);
         ServiceReclamation SM = new ServiceReclamation();
     if (d !=null){
         d.setStatus(reclamation.Status.RESOLVED); // set the status to in progress
-        d.setSeverityLevel(reclamation.SeverityLevel.HIGH); // set severity level to low
+        d.setSeverityLevel(reclamation.SeverityLevel.LOW); // set severity level to low
         SM.update(d);
     ServiceReponse rep = new ServiceReponse();
     if (obj.getText().isEmpty()) {
@@ -141,7 +110,7 @@ private void ajout(ActionEvent event) throws SQLException {
     if (d !=null) {
         try {
             d.setStatus(reclamation.Status.CLOSED); // set the status to closed
-            d.setSeverityLevel(reclamation.SeverityLevel.LOW); // set severity level to low
+            d.setSeverityLevel(reclamation.SeverityLevel.HIGH); // set severity level to high
             SM.update(d);
             FXMLLoader loader = new FXMLLoader(getClass().getResource("sidebar.fxml"));
             Parent root = loader.load();
@@ -154,4 +123,23 @@ private void ajout(ActionEvent event) throws SQLException {
         }
     }
 }
+    @FXML
+    private void retour(MouseEvent event) {
+        ServiceReclamation SM = new ServiceReclamation();
+    if (d !=null) {
+        try {
+            d.setStatus(reclamation.Status.INPROGRESS); // set the status to closed
+            d.setSeverityLevel(reclamation.SeverityLevel.HIGH); // set severity level to high
+            SM.update(d);
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("sidebar.fxml"));
+            Parent root = loader.load();
+            Scene scene = new Scene(root);
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    }
 }

@@ -112,8 +112,8 @@ public class UpdateReclamationController implements Initializable {
     private void updateReclamation(ActionEvent event) throws SQLException, IOException {
         String nom = txtNom.getText();
             String email = txtEmail.getText();
-            String numtel = txtNumtel.getText();
-              String sujet = txtSujet.getText(); 
+            String numtel = txtSujet.getText();
+              String sujet = txtNumtel.getText(); 
               String message = txtMessage.getText();
             ServiceReclamation SM =new ServiceReclamation(); 
             this.d.setNom(nom);

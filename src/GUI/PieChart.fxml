@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
 <?import javafx.scene.chart.PieChart?>
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.PieChartController">
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/19" fx:controller="GUI.PieChartController">
+   <ImageView fitHeight="400.0" fitWidth="500.0" layoutX="54.0" layoutY="-1.0" opacity="0.32">
+      <image>
+         <Image url="@images/Online%20world.gif" />
+      </image>
+   </ImageView>
     <PieChart fx:id="pieChart" layoutX="50.0" layoutY="50.0" prefHeight="300.0" prefWidth="500.0" />
 </AnchorPane>

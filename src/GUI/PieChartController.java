@@ -41,13 +41,14 @@ public class PieChartController implements Initializable {
         int openCount = countStatus(Status.OPEN);
         int inProgressCount = countStatus(Status.INPROGRESS);
         int closedCount = countStatus(Status.CLOSED);
-
+        int resolvedCount = countStatus(Status.RESOLVED);
         ObservableList<PieChart.Data> pieChartData =
                 FXCollections.observableArrayList(
                         new PieChart.Data("New", newCount),
                         new PieChart.Data("Open", openCount),
                         new PieChart.Data("In Progress", inProgressCount),
-                        new PieChart.Data("Closed", closedCount)
+                        new PieChart.Data("Closed", closedCount),
+                        new PieChart.Data("resolved", resolvedCount)
                 );
         pieChart.setData(pieChartData);
     }

@@ -11,9 +11,9 @@
 
 <AnchorPane id="AnchorPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="690.0" minWidth="1429.0" prefHeight="690.0" prefWidth="1500.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.DdashboardController">
    <children>
-      <ScrollPane layoutY="159.0" prefHeight="531.0" prefWidth="1445.0">
+      <ScrollPane layoutY="159.0" prefHeight="531.0" prefWidth="1394.0">
          <content>
-            <TableView fx:id="tab" prefHeight="516.0" prefWidth="1700.0">
+            <TableView fx:id="tab" prefHeight="516.0" prefWidth="1700.0" styleClass="table-view">
                <columns>
                   <TableColumn fx:id="nid" prefWidth="143.0" text="nom et prenom" />
                   <TableColumn fx:id="eid" prefWidth="139.0" text="email" />
@@ -24,9 +24,9 @@
                   <TableColumn fx:id="status" prefWidth="105.0" text="status" />
                   <TableColumn fx:id="cat" prefWidth="110.0" text="Categorie" />
                   <TableColumn fx:id="severity" prefWidth="138.0" text="sévérité" />
-                  <TableColumn fx:id="Aid" maxWidth="421.0" prefWidth="190.0" text="actions" />
+                  <TableColumn fx:id="Aid" maxWidth="421.0" prefWidth="246.0" text="actions" />
                </columns>
-            </TableView>
+            </TableView>             
          </content>
       </ScrollPane>
       <TextField fx:id="search" layoutX="230.0" layoutY="108.0" prefHeight="25.0" prefWidth="424.0" promptText="recherche" />

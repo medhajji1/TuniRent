@@ -5,13 +5,11 @@
  */
 package GUI;
 
+import java.io.FileOutputStream;
 import Services.ServiceReclamation;
-import bdd.bdd;
 import entities.reclamation;
-import entities.reclamation.Category;
-import entities.reclamation.SeverityLevel;
-import entities.reclamation.Status;
 import entities.reponse;
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
@@ -21,8 +19,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDateTime;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -31,13 +27,9 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
-import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.chart.PieChart;
 import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -45,9 +37,20 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Callback;
-
+import com.itextpdf.text.BaseColor;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.Element;
+import com.itextpdf.text.Font;
+import com.itextpdf.text.FontFactory;
+import com.itextpdf.text.Phrase;
+import com.itextpdf.text.pdf.PdfPCell;
+import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfWriter;
+import entities.reclamation.SeverityLevel;
+import javafx.scene.control.Label;
 /**
  * FXML Controller class
  *
@@ -101,8 +104,8 @@ public class DdashboardController implements Initializable {
         // TODO
         nid.setCellValueFactory(new PropertyValueFactory<reclamation, String>("nom"));
         eid.setCellValueFactory(new PropertyValueFactory<reclamation, String>("email"));
-        numid.setCellValueFactory(new PropertyValueFactory<reclamation, Integer>("numtel"));
-        sid.setCellValueFactory(new PropertyValueFactory<reclamation, String>("sujet"));
+        numid.setCellValueFactory(new PropertyValueFactory<reclamation, Integer>("sujet"));
+        sid.setCellValueFactory(new PropertyValueFactory<reclamation, String>("numtel"));
         mid.setCellValueFactory(new PropertyValueFactory<reclamation, String>("message"));
         cat.setCellValueFactory(new PropertyValueFactory<reclamation, reclamation.Category>("category"));
         status.setCellValueFactory(new PropertyValueFactory<reclamation, reclamation.Status>("status"));
@@ -192,7 +195,27 @@ public class DdashboardController implements Initializable {
                             }
 
                         });
-
+                           Reponsebutton.setOnMouseClicked((MouseEvent event) -> {
+                        dm = tab.getSelectionModel().getSelectedItem();
+                        ServiceReclamation SM = new ServiceReclamation();
+                            if (dm != null) {
+                                            dm.setStatus(reclamation.Status.INPROGRESS); // set the status to in progress
+                                            dm.setSeverityLevel(reclamation.SeverityLevel.LOW); // set severity level to low
+                                            SeverityLevel severity = SeverityLevel.LOW;
+                                            Label label = new Label();
+                                            label.setStyle("-fx-text-fill: " + severity.getColor());
+                                            SM.update(dm); // update the record in the database
+                                FXMLLoader loader = new FXMLLoader(getClass().getResource("EnvoyerReponse.fxml"));
+                            try {
+                                Parent root = loader.load();
+                                EnvoyerReponseController rep = loader.getController();
+                                rep.setelementtoupdate(dm);
+                                tab.getScene().setRoot(root);
+                            } catch (IOException ex) {
+                                System.out.println("error :" + ex.getMessage());
+                            }
+                        }
+                    });
                         deletebutton.setOnMouseClicked((MouseEvent event) -> {
                             dm = tab.getSelectionModel().getSelectedItem();
 
@@ -211,29 +234,73 @@ public class DdashboardController implements Initializable {
                                 }
                             }
                         });
+                        //pdf lena
+                        pdfbtn.setOnMouseClicked((MouseEvent event) -> {
+                            dm = tab.getSelectionModel().getSelectedItem();
+                            if (dm != null) {
+                                Document doc = new Document();
+                                try {
+                                    // Create a file chooser dialog
+                                    FileChooser fileChooser = new FileChooser();
+                                    fileChooser.setTitle("Save PDF File");
 
-                        Reponsebutton.setOnMouseClicked((MouseEvent event) -> {
-                        dm = tab.getSelectionModel().getSelectedItem();
-                        ServiceReclamation SM = new ServiceReclamation();
-        if (dm != null) {
-                        dm.setStatus(reclamation.Status.INPROGRESS); // set the status to in progress
-                        dm.setSeverityLevel(reclamation.SeverityLevel.LOW); // set severity level to low
-                        SeverityLevel severity = SeverityLevel.LOW;
-                        Label label = new Label();
-                        label.setStyle("-fx-text-fill: " + severity.getColor());
-                        SM.update(dm); // update the record in the database
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("EnvoyerReponse.fxml"));
-        try {
-            Parent root = loader.load();
-            EnvoyerReponseController rep = loader.getController();
-            rep.setelementtoupdate(dm);
-            tab.getScene().setRoot(root);
-        } catch (IOException ex) {
-            System.out.println("error :" + ex.getMessage());
-        }
-    }
-});
+                                    // Set the initial file name and extension filters
+                                    String defaultFilename = "Serviec Reclamation.pdf";
+                                    FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("PDF files (*.pdf)", "*.pdf");
+                                    fileChooser.setInitialFileName(defaultFilename);
+                                    fileChooser.getExtensionFilters().add(extFilter);
 
+                                    // Display the dialog and get the selected file
+                                    File selectedFile = fileChooser.showSaveDialog(pdfbtn.getScene().getWindow());
+                                    if (selectedFile != null) {
+                                        // Generate the PDF and save it to the selected file
+                                        PdfWriter.getInstance(doc, new FileOutputStream(selectedFile));
+                                        doc.open();
+
+                                        // Add a title to the PDF
+                                        Font titleFont = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 18, BaseColor.RED);
+                                        doc.add(new Phrase("Liste des réclamations", titleFont));
+                                        // Create a table to hold the data
+                                        PdfPTable table = new PdfPTable(new float[] { 3, 3, 3, 3, 5 });
+                                        table.setWidthPercentage(100f);
+                                        table.getDefaultCell().setPadding(3);
+                                        table.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
+                                        table.getDefaultCell().setVerticalAlignment(Element.ALIGN_MIDDLE);
+
+                                        // Add table headers
+                                        Font headerFont = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 12, BaseColor.WHITE);
+                                        PdfPCell headerCell;
+                                        headerCell = new PdfPCell(new Phrase("Nom et Prenom", headerFont));
+                                        headerCell.setBackgroundColor(BaseColor.BLUE);
+                                        table.addCell(headerCell);
+                                        headerCell = new PdfPCell(new Phrase("Email", headerFont));
+                                        headerCell.setBackgroundColor(BaseColor.BLUE);
+                                        table.addCell(headerCell);
+                                        headerCell = new PdfPCell(new Phrase("numero de telephone", headerFont));
+                                        headerCell.setBackgroundColor(BaseColor.BLUE);
+                                        table.addCell(headerCell);
+                                        headerCell = new PdfPCell(new Phrase("Sujet", headerFont));
+                                        headerCell.setBackgroundColor(BaseColor.BLUE);
+                                        table.addCell(headerCell);
+                                        headerCell = new PdfPCell(new Phrase("Message", headerFont));
+                                        headerCell.setBackgroundColor(BaseColor.BLUE);
+                                        table.addCell(headerCell);
+
+                                        // Add table data
+                                        Font dataFont = FontFactory.getFont(FontFactory.HELVETICA, 10, BaseColor.BLACK);
+                                            table.addCell(new Phrase(dm.getNom(), dataFont));
+                                            table.addCell(new Phrase(dm.getEmail(), dataFont));
+                                            table.addCell(new Phrase(dm.getNumtel(), dataFont));
+                                            table.addCell(new Phrase(dm.getSujet(), dataFont));
+                                            table.addCell(new Phrase(dm.getMessage(), dataFont));
+                                        doc.add(table);
+                                        doc.close();
+                                    }
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                });
                         HBox managebtn = new HBox(updatebutton, deletebutton, Reponsebutton, pdfbtn);
                         managebtn.setStyle("-fx-alignment:center");
                         HBox.setMargin(deletebutton, new Insets(2, 2, 0, 3));
