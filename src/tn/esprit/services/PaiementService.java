@@ -35,14 +35,15 @@ public PaiementService() {
 @Override
 public void ajouter(Paiement t) {
     try {
-        String sql = "insert into paiement(idContrat,montant,date,motif)"
-                + "values (?,?,?,?)";
+        String sql = "insert into paiement(idContrat,montant,date,motif,email)"
+                + "values (?,?,?,?,?)";
         System.out.println(sql);
         PreparedStatement ste = cnx.prepareStatement(sql);
         ste.setInt(1, t.getIdContrat());
         ste.setInt(2, t.getMontant());
         ste.setDate(3, (Date) t.getDate());
         ste.setString(4, t.getMotif());
+        ste.setString(5, t.getEmail());
         ste.executeUpdate();
         System.out.println("Paiement ajouté");
     } catch (SQLException ex) {
@@ -54,13 +55,14 @@ public ObservableList<Paiement> getPaiementList() throws SQLException {
     ObservableList<Paiement> paiementList = FXCollections.observableArrayList();
         
     Statement stm = cnx.createStatement();
-    String query = "select id_paiement, id_contrat, montant, date, motif from paiement";
+    String query = "select id_paiement, id_contrat, montant, date, motif , email from paiement";
 
     ResultSet rs = stm.executeQuery(query);
     Paiement paiement;
     while (rs.next()) {
         Date date = rs.getDate("date");
         paiement = new Paiement(rs.getInt("id_paiement"), rs.getInt("id_contrat"), rs.getInt("montant"), date, rs.getString("motif"));
+        paiement.setEmail(rs.getString("email"));
         paiementList.add(paiement);
     }
     return paiementList;
@@ -77,6 +79,8 @@ public List<Paiement> getAll() {
         while (s.next()) {
             Paiement p = new Paiement(s.getInt(1), s.getInt(4), s.getInt(2),
                     s.getDate(3), s.getString("motif"));
+                    p.setEmail(s.getString("email"));
+
             paiements.add(p);
         }
     } catch (SQLException ex) {
@@ -96,6 +100,8 @@ public List<Paiement> findById(int id) {
         while (rs.next()) {
             Paiement paiement = new Paiement(rs.getInt("idPaiement"), rs.getInt("idContrat"), 
                     rs.getInt("montant"), rs.getDate("date"), rs.getString("motif"));
+                    paiement.setEmail(rs.getString("email"));
+
             paiements.add(paiement);
         }
     } catch (SQLException ex) {
@@ -117,13 +123,14 @@ public void supprimer(int id) {
 
 public void modifier(Paiement paiement) {
     try {
-        String sql = "update paiement set idContrat=?, montant=?, date=?, motif=? where idPaiement=?";
+        String sql = "update paiement set idContrat=?, montant=?, date=?, motif=? , email=? where idPaiement=?";
         PreparedStatement ste = cnx.prepareStatement(sql);
         ste.setInt(1, paiement.getIdContrat());
         ste.setInt(2, paiement.getMontant());
         ste.setDate(3, (Date) paiement.getDate());
         ste.setString(4, paiement.getMotif());
-        ste.setInt(5, paiement.getIdPaiement());
+        ste.setInt(6, paiement.getIdPaiement());
+        ste.setString(5, paiement.getEmail());
         ste.executeUpdate();
     } catch (SQLException ex) {
                 System.out.println(ex.getMessage());

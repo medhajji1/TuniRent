@@ -5,8 +5,10 @@
  */
 package gui;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -15,7 +17,10 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
@@ -23,10 +28,12 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
 import tn.esprit.entity.Contrat;
 import tn.esprit.entity.Paiement;
 import tn.esprit.services.ContratService;
 import tn.esprit.services.PaiementService;
+import mailing.Mailing;
 
 /**
  * FXML Controller class
@@ -77,6 +84,8 @@ public class ContratController implements Initializable {
  //   ObservableList list ;
     @FXML
     private TableView<?> contratTable;
+    @FXML
+    private Button paiementButton;
 
     /**
      * Initializes the controller class.
@@ -87,7 +96,7 @@ public class ContratController implements Initializable {
          List<Contrat> list =  cs.getAll();
         ObservableList liste = FXCollections.observableList(list);
         
-        idContratColumn.setCellValueFactory(new PropertyValueFactory<>("idContrat"));
+        idContratColumn.setCellValueFactory(new PropertyValueFactory<>("idContract"));
        idReservationColumn.setCellValueFactory(new PropertyValueFactory<>("idReservation"));
 
         idProprietaireColumn.setCellValueFactory(new PropertyValueFactory<>("idProprietaire"));
@@ -100,31 +109,99 @@ public class ContratController implements Initializable {
     @FXML
     private void ajouterContrat(ActionEvent event) {
 
-                    int idReservation = Integer.parseInt(idReservationField.getText());
-                    int idProprietaire = Integer.parseInt(idProprietaireField.getText());
-                    int idLocataire = Integer.parseInt(idLocataireField.getText());
-            
-            String motif = motifField.getText();
-java.util.Date utilDate = new java.util.Date();
-        java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
-        Contrat contrat = new Contrat(idReservation, idProprietaire, idLocataire, sqlDate, motif);
-ContratService cs = new ContratService();
-cs.ajouter(contrat);
+           List<String> errors = new ArrayList<>();
 
-            try {
-              
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("Done");
-                alert.setContentText("Added!");
-                alert.show();
-                
-              
-                
-            } catch (Exception ee) {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Error!");
-                alert.show();
-            }
+    // Validate idReservation
+    String idReservationText = idReservationField.getText();
+    if (idReservationText.isEmpty()) {
+        errors.add("idReservation is required");
+    } else if (!idReservationText.matches("\\d+")) {
+        errors.add("idReservation should contain only digits");
+    }
+
+    // Validate idProprietaire
+    String idProprietaireText = idProprietaireField.getText();
+    if (idProprietaireText.isEmpty()) {
+        errors.add("idProprietaire is required");
+    } else if (!idProprietaireText.matches("\\d+")) {
+        errors.add("idProprietaire should contain only digits");
+    }
+
+    // Validate idLocataire
+    String idLocataireText = idLocataireField.getText();
+    if (idLocataireText.isEmpty()) {
+        errors.add("idLocataire is required");
+    } else if (!idLocataireText.matches("\\d+")) {
+        errors.add("idLocataire should contain only digits");
+    }
+
+    // Validate motif
+    String motif = motifField.getText();
+    if (motif.isEmpty()) {
+        errors.add("motif is required");
+    } else if (!motif.matches("[a-zA-Z0-9 ]+")) {
+        errors.add("motif should contain only letters, digits, and spaces");
+    }
+
+    if (!errors.isEmpty()) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Input validation failed");
+        alert.setHeaderText("Please fix the following errors:");
+        alert.setContentText(String.join("\n", errors));
+        alert.show();
+        return;
+    }
+
+    // Parse input values
+    int idReservation = 0;
+    int idProprietaire = 0;
+    int idLocataire = 0;
+    try {
+        idReservation = Integer.parseInt(idReservationText);
+    } catch (NumberFormatException e) {
+        errors.add("idReservation should contain only digits");
+    }
+    try {
+        idProprietaire = Integer.parseInt(idProprietaireText);
+    } catch (NumberFormatException e) {
+        errors.add("idProprietaire should contain only digits");
+    }
+    try {
+        idLocataire = Integer.parseInt(idLocataireText);
+    } catch (NumberFormatException e) {
+        errors.add("idLocataire should contain only digits");
+    }
+
+    if (!errors.isEmpty()) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Input validation failed");
+        alert.setHeaderText("Please fix the following errors:");
+        alert.setContentText(String.join("\n", errors));
+        alert.show();
+        return;
+    }
+
+    // Create Contrat object and save to database
+
+    java.util.Date utilDate = new java.util.Date();
+    java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
+    Contrat contrat = new Contrat(idReservation, idProprietaire, idLocataire, sqlDate, motif);
+    ContratService cs = new ContratService();
+    cs.ajouter(contrat);
+
+    try {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Done");
+        alert.setContentText("Added!");
+        alert.show();
+
+        // Mailing.mailing("zayani.fedi@esprit.tn");
+
+    } catch (Exception ee) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Error!");
+        alert.show();
+    }
         List<Contrat> list =  cs.getAll();
         ObservableList liste = FXCollections.observableList(list);
         contratTable.setItems(liste);
@@ -132,10 +209,41 @@ cs.ajouter(contrat);
 
     @FXML
     private void clearFields(ActionEvent event) {
+        
+      
+    idReservationField.clear();
+    idProprietaireField.clear();
+    idLocataireField.clear();
+    motifField.clear();
+    idContratField.clear();
+    idReservationField_2.clear();
+    idProprietaireField_2.clear();
+    idLocataireField_2.clear();
+    motifField_2.clear();
+    
+     
+        
+        
     }
-
     @FXML
     private void selectPaiement(MouseEvent event) {
+        
+          Object selectedItem = contratTable.getSelectionModel().getSelectedItem();
+    if (selectedItem == null) {
+        return; // No row selected, do nothing
+    }
+    // Cast the selected row data to a Paiement object
+    Contrat selectedContrat = (Contrat) selectedItem;
+    
+    // Set the values of the corresponding TextFields in the UI
+   idContratField.setText(String.valueOf(selectedContrat.getIdContract()));
+    idReservationField_2.setText(String.valueOf(selectedContrat.getIdReservation()));
+    idProprietaireField_2.setText(String.valueOf(selectedContrat.getIdProprietaire()));
+    idLocataireField_2.setText(String.valueOf(selectedContrat.getIdLocataire()));
+    motifField_2.setText(selectedContrat.getMotif());
+      
+        
+        
     }
 
     @FXML
@@ -175,7 +283,7 @@ List<Contrat> list =  cs.getAll();
         ObservableList liste = FXCollections.observableList(list);
         contratTable.setItems(liste);
             System.out.println("sar lajout");
-
+ clearFields(event);
             try {
               
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -197,7 +305,64 @@ List<Contrat> list =  cs.getAll();
     @FXML
     private void supprimerPaiement(ActionEvent event) {
 
-ContratService cs = new ContratService();
+
+        
+        
+         Object selectedItem = contratTable.getSelectionModel().getSelectedItem();
+    if (selectedItem == null) {
+        return; // No row selected, do nothing
+    }
+    // Cast the selected row data to a Paiement object
+    Contrat selectedContrat = (Contrat) selectedItem;
+            ContratService ps = new ContratService();
+        ps.supprimer(selectedContrat.getIdContract());
+
+    List<Contrat> list =  ps.getAll();
+        //List<Paiement> paiements = service.getAll();
+        //    System.out.println(paiements);
+        ObservableList liste = FXCollections.observableList(list);
+        contratTable.setItems(liste);
+        
+        // Clear the fields
+        clearFields(event);
+        
+        try {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Done");
+            alert.setContentText("Updated!");
+            alert.show();
+        } catch (Exception ee) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error!");
+            alert.show();
+        }}
+
+    @FXML
+    private void effectuerPaiement(ActionEvent event) throws IOException {
+         Object selectedItem = contratTable.getSelectionModel().getSelectedItem();
+    if (selectedItem == null) {
+        return; // No row selected, do nothing
+    }
+    // Cast the selected row data to a Paiement object
+    Contrat selectedContrat = (Contrat) selectedItem;
+            ContratService ps = new ContratService();
+        //ps.supprimer(selectedContrat.getIdContract());
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("paiement.fxml"));
+        Parent root = loader.load();
+        PaiementController paiementController = loader.getController();
+        System.out.println(String.valueOf(selectedContrat.getIdContract()));
+        paiementController.setIdContrat(String.valueOf(selectedContrat.getIdContract()) );
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root));
+        stage.show();
+    }
+}
+        
+        
+        
+        
+        
+        /*ContratService cs = new ContratService();
 cs.supprimer(Integer.parseInt(idContratField.getText()));
 List<Contrat> list =  cs.getAll();
         //List<Paiement> paiements = service.getAll();
@@ -219,6 +384,6 @@ List<Contrat> list =  cs.getAll();
         }
     // Set the values of the corresponding TextFields in the UI
    
-    }
+    }*/
     
-}
+

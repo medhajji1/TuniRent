@@ -2,14 +2,6 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group>
-            <file>file:/C:/Users/ASUS/Desktop/PiDev3A26/src/tn/esprit/tests/PiDev3A26.java</file>
-            <file>file:/C:/Users/ASUS/Desktop/PiDev3A26/src/gui/PaiementController.java</file>
-            <file>file:/C:/Users/ASUS/Desktop/PiDev3A26/src/tn/esprit/services/PaiementService.java</file>
-            <file>file:/C:/Users/ASUS/Desktop/PiDev3A26/src/tn/esprit/entity/Paiement.java</file>
-            <file>file:/C:/Users/ASUS/Desktop/PiDev3A26/src/tn/esprit/entity/Contrat.java</file>
-            <file>file:/C:/Users/ASUS/Desktop/PiDev3A26/src/gui/NewFXMain.java</file>
-            <file>file:/C:/Users/ASUS/Desktop/PiDev3A26/src/gui/PaiementsController.java</file>
-        </group>
+        <group/>
     </open-files>
 </project-private>

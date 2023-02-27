@@ -26,7 +26,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import tn.esprit.entity.Paiement;
 import tn.esprit.services.PaiementService;
-
 /**
  * FXML Controller class
  *
@@ -112,6 +111,13 @@ public class PaiementsController implements Initializable {
             service.ajouter(paiement);
 
             try {
+            //    TrayNotification tray = new TrayNotification(title, message, notification);
+       // tray.showAndWait();
+    //   Notifications.create()
+          //    .title("Title Text")
+           //   .text("Hello World 0!")
+            //  .showWarning();
+
               
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Done");

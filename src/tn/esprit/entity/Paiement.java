@@ -14,7 +14,7 @@ import java.util.Date;
 public class Paiement {
     int idPaiement , idContrat,montant;
     Date date;
-    String motif;
+    String motif,email;
 
     public Paiement(int idPaiement, int idContrat, int montant, Date date, String motif) {
         this.idPaiement = idPaiement;
@@ -74,6 +74,14 @@ public class Paiement {
     @Override
     public String toString() {
         return "Paiement{" + "idPaiement=" + idPaiement + ", idContrat=" + idContrat + ", montant=" + montant + ", date=" + date + ", motif=" + motif + '}';
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
     
     
