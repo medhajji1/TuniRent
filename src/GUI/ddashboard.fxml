@@ -41,7 +41,7 @@
       <Button fx:id="charts" layoutX="874.0" layoutY="108.0" mnemonicParsing="false" onAction="#charts" stylesheets="@charts.css" text="Statistique" />
       <Button fx:id="Triseverity" layoutX="1005.0" layoutY="100.0" mnemonicParsing="false" onAction="#Triseverity" prefHeight="40.0" prefWidth="46.0">
          <graphic>
-            <ImageView>
+            <ImageView onMouseClicked="#Triseverity">
                <image>
                   <Image url="@images/sort.png" />
                </image>

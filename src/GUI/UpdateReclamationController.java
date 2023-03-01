@@ -46,21 +46,22 @@ public class UpdateReclamationController implements Initializable {
     reclamation d =null; 
     private final Pattern nomPattern = Pattern.compile("[a-zA-Z]+\\s[a-zA-Z]+");
     private final Pattern emailPattern = Pattern.compile("\\b[\\w.%-]+@[-.\\w]+\\.[A-Za-z]{2,4}\\b");
-    private final Pattern sujetPattern = Pattern.compile("[a-zA-Z ]+");
-    private final Pattern messagePattern = Pattern.compile("[a-zA-Z ]+");
+    private final Pattern sujetPattern = Pattern.compile("[a-zA-Z0-9 ]+");
+    private final Pattern messagePattern = Pattern.compile("[a-zA-Z0-9 ]+");
     private final Pattern numtelPattern = Pattern.compile("[259]\\d{7}");
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+            btnUpdate.setDisable(true);
         txtNom.textProperty().addListener((observable, oldValue, newValue) -> {
             if (!nomPattern.matcher(newValue).matches()) {
                     txtNom.setStyle("-fx-border-color: red;-fx-text-fill: red;");
             } else {
                 txtNom.setStyle("-fx-text-fill: green;");
             }
-            
+           handleKeyType(); 
         });
 
         txtEmail.textProperty().addListener((observable, oldValue, newValue) -> {
@@ -69,7 +70,7 @@ public class UpdateReclamationController implements Initializable {
             } else {
                 txtEmail.setStyle("-fx-text-fill: green;");
             }
-            
+            handleKeyType();
         });
 
         txtSujet.textProperty().addListener((observable, oldValue, newValue) -> {
@@ -78,7 +79,7 @@ public class UpdateReclamationController implements Initializable {
             } else {
                 txtSujet.setStyle("-fx-text-fill: green;");
             }
-            
+           handleKeyType(); 
         });
 
         txtMessage.textProperty().addListener((observable, oldValue, newValue) -> {
@@ -87,7 +88,7 @@ public class UpdateReclamationController implements Initializable {
             } else {
                 txtMessage.setStyle("-fx-text-fill: green;");
             }
-            
+            handleKeyType();
         });
         
         txtNumtel.textProperty().addListener((observable, oldValue, newValue) -> {
@@ -96,7 +97,7 @@ public class UpdateReclamationController implements Initializable {
             } else {
                 txtNumtel.setStyle("-fx-text-fill: green;");
             }
-            
+            handleKeyType();    
         });
     }
     public void setelementtoupdate(reclamation d){
@@ -112,8 +113,8 @@ public class UpdateReclamationController implements Initializable {
     private void updateReclamation(ActionEvent event) throws SQLException, IOException {
         String nom = txtNom.getText();
             String email = txtEmail.getText();
-            String numtel = txtSujet.getText();
-              String sujet = txtNumtel.getText(); 
+            String numtel = txtNumtel.getText();
+              String sujet = txtSujet.getText(); 
               String message = txtMessage.getText();
             ServiceReclamation SM =new ServiceReclamation(); 
             this.d.setNom(nom);
@@ -134,6 +135,12 @@ public class UpdateReclamationController implements Initializable {
     }
 
     @FXML
-    private void handleKeyType(KeyEvent event) {
+    private void handleKeyType() {
+        boolean hasInvalidInput = !nomPattern.matcher(txtNom.getText()).matches()
+                    || !emailPattern.matcher(txtEmail.getText()).matches()
+                    || !sujetPattern.matcher(txtSujet.getText()).matches()
+                    || !messagePattern.matcher(txtMessage.getText()).matches()
+                    || !numtelPattern.matcher(txtNumtel.getText()).matches();
+                btnUpdate.setDisable(hasInvalidInput);
     }
 }

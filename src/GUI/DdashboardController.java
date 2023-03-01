@@ -363,24 +363,6 @@ public class DdashboardController implements Initializable {
         });
 
     }
-            
-    private void TrieNom(ActionEvent event) throws SQLException {
-
-        ServiceReclamation vs = new ServiceReclamation();
-
-        ObservableList<reclamation> observableList = null;
-        tab.setItems(observableList);
-        nid.setCellValueFactory(new PropertyValueFactory<reclamation, String>("nom"));
-        eid.setCellValueFactory(new PropertyValueFactory<reclamation, String>("email"));
-        numid.setCellValueFactory(new PropertyValueFactory<reclamation, Integer>("numtel"));
-        sid.setCellValueFactory(new PropertyValueFactory<reclamation, String>("sujet"));
-        mid.setCellValueFactory(new PropertyValueFactory<reclamation, String>("message"));
-        cat.setCellValueFactory(new PropertyValueFactory<reclamation, reclamation.Category>("category"));
-        status.setCellValueFactory(new PropertyValueFactory<reclamation, reclamation.Status>("status"));
-        severity.setCellValueFactory(new PropertyValueFactory<reclamation, reclamation.SeverityLevel>("severityLevel"));
-        date.setCellValueFactory(new PropertyValueFactory<reclamation, LocalDateTime>("dateSubmitted"));
-    }
-    
     @FXML
     private void charts(ActionEvent event) {
         try {
@@ -402,13 +384,27 @@ public class DdashboardController implements Initializable {
     @FXML
     private void Triseverity(ActionEvent event) {
         try {
-        cnx = bdd.getinstance().get_connection();
-        String req = "SELECT * FROM `reclamation` ORDER BY `reclamation`.`severity_level` ASC";
-        pst = cnx.prepareStatement(req);
-        ResultSet rs = pst.executeQuery();
-        // Process the sorted result set
-    } catch (SQLException ex) {
-        System.out.println("Error: " + ex.getMessage());
+    cnx = bdd.getinstance().get_connection();
+    String req = "SELECT * FROM reclamation ORDER BY severity_level ASC";
+    pst = cnx.prepareStatement(req);
+    ResultSet rs = pst.executeQuery();
+    // Process the sorted result set
+} catch (SQLException ex) {
+    System.out.println("Error: " + ex.getMessage());
+}
     }
+
+    @FXML
+    private void Triseverity(MouseEvent event) {
+        try {
+    cnx = bdd.getinstance().get_connection();
+    String req = "SELECT * FROM reclamation ORDER BY severity_level ASC";
+    pst = cnx.prepareStatement(req);
+    ResultSet rs = pst.executeQuery();
+    // Process the sorted result set
+} catch (SQLException ex) {
+    System.out.println("Error: " + ex.getMessage());
     }
-    }
+    
+            }
+}

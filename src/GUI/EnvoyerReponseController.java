@@ -10,6 +10,7 @@ import Services.ServiceReclamation;
 import Services.ServiceReponse;
 import entities.reclamation;
 import entities.reponse;
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -42,6 +43,7 @@ import javax.mail.Message;
 import javax.mail.Multipart;
 import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMultipart;
+import javax.mail.internet.MimeMessage;
 /**
  * FXML Controller class
  *
@@ -84,7 +86,9 @@ public class EnvoyerReponseController implements Initializable {
 private void ajout(ActionEvent event) throws SQLException, Exception {
         to =tfEmail.getText();
         content=obj.getText();
-        new Mail().sendMail("Service Reclamation Tunirent",content,to);
+        //mailing
+        File pdfFile = new File("C:/Users/Yaadiii/Documents/GitHub/TuniRent/src/GUI/Service de Reclamation.pdf");
+        new Mail().sendMail("Service Reclamation Tunirent", content, to, pdfFile);
         ServiceReclamation SM = new ServiceReclamation();
     if (d !=null){
         d.setStatus(reclamation.Status.RESOLVED); // set the status to in progress

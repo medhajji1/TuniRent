@@ -57,8 +57,8 @@ import javafx.scene.web.WebEngine;
          */
         private final Pattern nomPattern = Pattern.compile("[a-zA-Z]+\\s[a-zA-Z]+");
         private final Pattern emailPattern = Pattern.compile("\\b[\\w.%-]+@[-.\\w]+\\.[A-Za-z]{2,4}\\b");
-        private final Pattern sujetPattern = Pattern.compile("[a-zA-Z ]+");
-        private final Pattern messagePattern = Pattern.compile("[a-zA-Z ]+");
+        private final Pattern sujetPattern = Pattern.compile("[a-zA-Z0-9 ]+");
+        private final Pattern messagePattern = Pattern.compile("[a-zA-Z0-9 ]+");
         private final Pattern numtelPattern = Pattern.compile("[259]\\d{7}");
         @FXML
         private ComboBox<String> category;

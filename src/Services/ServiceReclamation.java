@@ -132,4 +132,20 @@ public class ServiceReclamation {
                 System.out.println(ex.getMessage());
             }
 }
+    public void tri(reclamation r){
+    String triseverity = "SELECT * FROM reclamation ORDER BY severity_level ASC";
+         try {
+        Statement st = connection.createStatement();
+        ResultSet rs = st.executeQuery(triseverity);
+
+        while (rs.next()) {
+            int id = rs.getInt("id_reclamation");
+            SeverityLevel severity = SeverityLevel.valueOf(rs.getString("severity_level"));
+            Status status = Status.valueOf(rs.getString("status"));
+            String description = rs.getString("description");
+        }
+    } catch (SQLException ex) {
+        System.out.println(ex.getMessage());
+    }
+    }
 }

@@ -35,9 +35,12 @@ import java.util.Collections;
 import java.util.Properties;
 import java.util.Set;
 import javax.mail.MessagingException;
+import javax.mail.Multipart;
 import javax.mail.Session;
 import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
+import javax.mail.internet.MimeMultipart;
 import org.apache.commons.codec.binary.Base64;
 
 
@@ -74,47 +77,51 @@ public class Mail {
     return credential;
   }
      
-  public void sendMail(String subject, String message, String receiver) throws IOException, GeneralSecurityException, MessagingException{
+  public void sendMail(String subject, String message, String receiver, File attachment) throws IOException, GeneralSecurityException, MessagingException {
+    // Encode as MIME message
+    Properties props = new Properties();
+    Session session = Session.getDefaultInstance(props, null);
+    MimeMessage email = new MimeMessage(session);
+    email.setFrom(new InternetAddress("mohamedhadji603@gmail.com"));
+    email.addRecipient(javax.mail.Message.RecipientType.TO, new InternetAddress(receiver));
+    email.setSubject(subject);
 
-          
-      
+    // Create the message body part for the text message
+    MimeBodyPart textPart = new MimeBodyPart();
+    textPart.setText(message);
 
-        // Encode as MIME message
-        Properties props = new Properties();
-        Session session = Session.getDefaultInstance(props, null);
-        MimeMessage email = new MimeMessage(session);
-        email.setFrom(new InternetAddress("mohamedhadji603@gmail.com"));
-        email.addRecipient(javax.mail.Message.RecipientType.TO,
-        new InternetAddress(receiver));
-        email.setSubject(subject);
-        email.setText(message);
+    // Create the message body part for the PDF attachment
+    MimeBodyPart pdfPart = new MimeBodyPart();
+    pdfPart.attachFile(attachment);
 
+    // Create a multipart message and add the text and PDF parts to it
+    Multipart multipart = new MimeMultipart();
+    multipart.addBodyPart(textPart);
+    multipart.addBodyPart(pdfPart);
 
-        // Encode and wrap the MIME message into a gmail message
-        ByteArrayOutputStream buffer = new ByteArrayOutputStream();
-        email.writeTo(buffer);
-        byte[] rawMessageBytes = buffer.toByteArray();
-        String encodedEmail = Base64.encodeBase64URLSafeString(rawMessageBytes);
-        Message msg = new Message();
-        msg.setRaw(encodedEmail);
+    // Set the multipart message as the email content
+    email.setContent(multipart);
 
-        try {
-          // Create the draft message
-          msg= service.users().messages().send("me", msg).execute();
-          //System.out.println("message id : "+msg.getId());
-         // System.out.println(msg.toPrettyString());
+    // Encode and wrap the MIME message into a gmail message
+    ByteArrayOutputStream buffer = new ByteArrayOutputStream();
+    email.writeTo(buffer);
+    byte[] rawMessageBytes = buffer.toByteArray();
+    String encodedEmail = Base64.encodeBase64URLSafeString(rawMessageBytes);
+    Message msg = new Message();
+    msg.setRaw(encodedEmail);
 
-        } catch (GoogleJsonResponseException e) {
-          // TODO(developer) - handle error appropriately
-          GoogleJsonError error = e.getDetails();
-          if (error.getCode() == 403) {
+    try {
+        // Send the message
+        msg = service.users().messages().send("me", msg).execute();
+        System.out.println("Message sent: " + msg.toPrettyString());
+    } catch (GoogleJsonResponseException e) {
+        // TODO(developer) - handle error appropriately
+        GoogleJsonError error = e.getDetails();
+        if (error.getCode() == 403) {
             System.err.println(e.getDetails());
-          } else {
+        } else {
             throw e;
-          }
         }
-  }
-  public static void main (String[] args) throws Exception{
-        new Mail().sendMail("test","tttttt","rouis1019@gmail.com");
+    }
 }
 }
