@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 
-<BorderPane id="AnchorPane" fx:id="bpid" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.MainpageController">
+<BorderPane id="AnchorPane" fx:id="bpid" prefHeight="786.0" prefWidth="1366.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.MainpageController">
    <top>
       <HBox alignment="TOP_CENTER" prefHeight="50.0" prefWidth="600.0" style="-fx-background-color: #6495ED;" BorderPane.alignment="CENTER">
          <children>
@@ -29,7 +29,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <Button fx:id="todashboardid" layoutX="160.0" layoutY="10.0" mnemonicParsing="false" onAction="#todashboard" prefHeight="68.0" prefWidth="176.0" style="-fx-background-color: transparent; -fx-border-color: white; -fx-border-width: 0px 2px 2px 2px;" text="Dashboard" textFill="WHITE">
+            <Button fx:id="todashboardid" layoutX="160.0" layoutY="10.0" mnemonicParsing="false" onAction="#todashboard" prefHeight="68.0" prefWidth="176.0" style="-fx-background-color: transparent; -fx-border-color: white; -fx-border-width: 0px 2px 2px 2px;" text="ADMIN" textFill="WHITE">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>

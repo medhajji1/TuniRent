@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.ContratController">
+<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.ContratController">
    <children>
       <AnchorPane layoutY="-3.0" prefHeight="400.0" prefWidth="600.0">
          <children>
@@ -75,7 +75,8 @@
                                              <children>
                                                 <Button fx:id="modifierButton" layoutX="97.0" layoutY="9.0" onAction="#modifierPaiement" text="Modifier" />
                                                 <Button fx:id="supprimerButton" layoutX="14.0" layoutY="9.0" onAction="#supprimerPaiement" text="Supprimer" />
-                                                <Button fx:id="paiementButton" layoutX="27.0" layoutY="56.0" onAction="#effectuerPaiement" text="effectuer paiement" />
+                                                <Button fx:id="paiementButton" layoutX="27.0" layoutY="44.0" onAction="#effectuerPaiement" text="effectuer paiement" />
+                                                <Button fx:id="pdfButton" layoutX="24.0" layoutY="77.0" mnemonicParsing="false" onAction="#genererContrat" text="generer contrat PDF" />
                                              </children>
                                           </Pane>
                                        </children>

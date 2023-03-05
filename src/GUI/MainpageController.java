@@ -48,6 +48,7 @@ public class MainpageController implements Initializable {
 
     @FXML
     private void acceuil(ActionEvent event) {
+        loadPage("contrat");
     }
 
     @FXML
