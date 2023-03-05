@@ -5,7 +5,7 @@
  */
 package GUI;
 
-import Services.Maile;
+import Services.Mail;
 import Services.ServiceUtilisateur;
 import com.mysql.jdbc.Connection;
 import entities.Utilisateur;
@@ -125,7 +125,7 @@ private static Utilisateur u ;
                                     List pass;
                                     try {
                                         pass = su.getPass(mail);
-                                        new Maile().sendMail("Votre mot de passe","Votre mot de passe est : \n\n\n\n\n\n\n\n"+(String)pass.get(0),mail);
+                                        new Mail().sendMail("Votre mot de passe","Votre mot de passe est : \n\n\n\n\n\n\n\n"+(String)pass.get(0),mail);
                                     } catch (Exception ex) {
                                         Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
                                     }

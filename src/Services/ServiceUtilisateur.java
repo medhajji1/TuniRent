@@ -231,7 +231,7 @@ public class ServiceUtilisateur implements IService<Utilisateur> {
         int max = 99999; 
         int code_random = (int)Math.floor(Math.random() * (max - min + 1) + min);
         String code="Votre code de verification est :  \n\n\n " +Integer.toString(code_random);
-        new Maile().sendMail("Mot de passe oublié",code,mail);
+        new Mail().sendMail("Mot de passe oublié",code,mail);
         return code_random;
     }
     
@@ -240,7 +240,7 @@ public class ServiceUtilisateur implements IService<Utilisateur> {
         int max = 99999; 
         int code_random = (int)Math.floor(Math.random() * (max - min + 1) + min);
         String code="Votre code de verification est :  \n\n\n " +Integer.toString(code_random);
-        new Maile().sendMail("Vérification d'inscription",code,mail);
+        new Mail().sendMail("Vérification d'inscription",code,mail);
         return code_random;
     }
     
