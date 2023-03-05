@@ -75,7 +75,8 @@
                                              <children>
                                                 <Button fx:id="modifierButton" layoutX="97.0" layoutY="9.0" onAction="#modifierPaiement" text="Modifier" />
                                                 <Button fx:id="supprimerButton" layoutX="14.0" layoutY="9.0" onAction="#supprimerPaiement" text="Supprimer" />
-                                                <Button fx:id="paiementButton" layoutX="27.0" layoutY="56.0" onAction="#effectuerPaiement" text="effectuer paiement" />
+                                                <Button fx:id="paiementButton" layoutX="27.0" layoutY="44.0" onAction="#effectuerPaiement" text="effectuer paiement" />
+                                                <Button fx:id="pdfButton" layoutX="25.0" layoutY="74.0" mnemonicParsing="false" onAction="#genererContrat" text="generer contrat PDF" />
                                              </children>
                                           </Pane>
                                        </children>

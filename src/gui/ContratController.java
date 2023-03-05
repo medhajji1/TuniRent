@@ -5,11 +5,14 @@
  */
 package gui;
 
+import java.awt.Desktop;
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -34,6 +37,14 @@ import tn.esprit.entity.Paiement;
 import tn.esprit.services.ContratService;
 import tn.esprit.services.PaiementService;
 import mailing.Mailing;
+
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.PdfWriter;
+import com.itextpdf.text.pdf.codec.Base64.OutputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
 
 /**
  * FXML Controller class
@@ -86,6 +97,8 @@ public class ContratController implements Initializable {
     private TableView<?> contratTable;
     @FXML
     private Button paiementButton;
+    @FXML
+    private Button pdfButton;
 
     /**
      * Initializes the controller class.
@@ -356,6 +369,47 @@ List<Contrat> list =  cs.getAll();
         stage.setScene(new Scene(root));
         stage.show();
     }
+
+    @FXML
+    private void genererContrat(ActionEvent event) {
+        Object selectedItem = contratTable.getSelectionModel().getSelectedItem();
+    if (selectedItem == null) {
+        return; // No row selected, do nothing
+    }
+    // Cast the selected row data to a Paiement object
+    Contrat selectedContract = (Contrat) selectedItem;
+
+    try (FileOutputStream outputStream = new FileOutputStream(new File("contract.pdf"))) {
+        // Create a new iText document
+        Document document = new Document();
+
+        // Create a PDF writer to write the document to the output stream
+        PdfWriter writer = PdfWriter.getInstance(document, outputStream);
+
+        // Open the document and add a paragraph with the contract details
+        document.open();
+        document.add(new Paragraph("Location Contract"));
+        document.add(new Paragraph("ID Contract: " + selectedContract.getIdContract()));
+        document.add(new Paragraph("ID Reservation: " + selectedContract.getIdReservation()));
+        document.add(new Paragraph("ID Locataire: " + selectedContract.getIdLocataire()));
+        document.add(new Paragraph("ID Proprietaire: " + selectedContract.getIdProprietaire()));
+        document.add(new Paragraph("Date: " + selectedContract.getDate().toString()));
+        document.add(new Paragraph("Motif: " + selectedContract.getMotif()));
+
+        // Close the document
+        document.close();
+
+        // Open the generated PDF in the default PDF viewer
+        Desktop.getDesktop().open(new File("contract.pdf"));
+    } catch (IOException | DocumentException ex) {
+        // Show an error message if there was a problem generating or opening the PDF
+        ex.printStackTrace();
+        return;
+    }
+    }
+    
+    
+
 }
         
         
