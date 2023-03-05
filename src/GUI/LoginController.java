@@ -171,7 +171,7 @@ void login(ActionEvent event) throws Exception {
         try {
 
             Class.forName("com.mysql.jdbc.Driver");
-            con = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/utilisateurs", "root", "");
+            con = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/tunirent", "root", "");
 
             pst = con.prepareStatement("select * from utilisateur where email=? and motDePasse=?");
 
@@ -201,7 +201,7 @@ void login(ActionEvent event) throws Exception {
                 System.out.println(u);
                 if (userType.equals("client")) {
                     // Rediriger vers la page interfaceUser.fxml
-                    FXMLLoader loader = new FXMLLoader(getClass().getResource("interfaceUser.fxml"));
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("mainpage.fxml"));
                     Parent root = loader.load();
                     Scene scene = new Scene(root);
                     Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();

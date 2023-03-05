@@ -124,4 +124,44 @@ public class Mail {
         }
     }
 }
+  public void sendMail(String subject, String message, String receiver) throws IOException, GeneralSecurityException, MessagingException{
+
+          
+      
+
+        // Encode as MIME message
+        Properties props = new Properties();
+        Session session = Session.getDefaultInstance(props, null);
+        MimeMessage email = new MimeMessage(session);
+        email.setFrom(new InternetAddress("karim.chabchoub@esprit.tn"));
+        email.addRecipient(javax.mail.Message.RecipientType.TO,
+        new InternetAddress(receiver));
+        email.setSubject(subject);
+        email.setText(message);
+
+
+        // Encode and wrap the MIME message into a gmail message
+        ByteArrayOutputStream buffer = new ByteArrayOutputStream();
+        email.writeTo(buffer);
+        byte[] rawMessageBytes = buffer.toByteArray();
+        String encodedEmail = Base64.encodeBase64URLSafeString(rawMessageBytes);
+        Message msg = new Message();
+        msg.setRaw(encodedEmail);
+
+        try {
+          // Create the draft message
+          msg= service.users().messages().send("me", msg).execute();
+          //System.out.println("message id : "+msg.getId());
+         // System.out.println(msg.toPrettyString());
+
+        } catch (GoogleJsonResponseException e) {
+          // TODO(developer) - handle error appropriately
+          GoogleJsonError error = e.getDetails();
+          if (error.getCode() == 403) {
+            System.err.println(e.getDetails());
+          } else {
+            throw e;
+          }
+        }
+  }
 }

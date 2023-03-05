@@ -65,6 +65,7 @@ public class SidebarController implements Initializable {
 
     @FXML
     private void profiles(ActionEvent event) {
+        loadPage("dashboard");
     }
 
 
