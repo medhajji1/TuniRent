@@ -40,6 +40,10 @@ public class Utilisateur {
         this.numeroTelephone = numeroTelephone;
         this.typeUtilisateur = typeUtilisateur;
     }
+
+    Utilisateur(String cin, String nom, String prenom, String email, String motDePasse, String numeroTelephone, String typeUtilisateur) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
     public int getCIN() {
         return CIN;
@@ -132,6 +136,9 @@ public class Utilisateur {
         }
         return true;
     }
+
+    
+    
     
     
 }

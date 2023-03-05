@@ -14,7 +14,7 @@ import java.util.List;
 public interface IService<T> {
     public void ajouter(T u);
     public void supprimer(int CIN);
-    public boolean modifier(T u);
+    public void modifier(T u);
     public List<T> getAll();
 }
 

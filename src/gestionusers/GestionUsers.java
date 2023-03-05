@@ -5,6 +5,7 @@
  */
 package gestionusers;
 
+import Services.ServiceUtilisateur;
 import java.io.IOException;
 import javafx.application.Application;
 import static javafx.application.Application.launch;
@@ -20,8 +21,8 @@ import javafx.stage.Stage;
 public class GestionUsers extends Application {
     
     @Override
-    public void start(Stage primaryStage) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("../GUI/sidebar.fxml"));
+    public void start(Stage primaryStage) throws IOException { 
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("../GUI/login.fxml"));
         Parent root = loader.load();
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);
@@ -33,7 +34,8 @@ public class GestionUsers extends Application {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
+
         launch(args);
     }
     
