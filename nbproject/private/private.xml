@@ -4,22 +4,24 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/Users/moham/Downloads/gestion_voiture/gestion_voiture/src/gestion_voiture/main.fxml</file>
-            <file>file:/C:/Users/moham/Downloads/gestion_voiture/gestion_voiture/nbproject/project.xml</file>
-            <file>file:/C:/Users/moham/Downloads/gestion_voiture/gestion_voiture/src/gestion_voiture/DeleteCategoryController.java</file>
-            <file>file:/C:/Users/moham/Downloads/gestion_voiture/gestion_voiture/src/gestion_voiture/CreateVoitureController.java</file>
+            <file>file:/C:/Users/moham/Downloads/gestion_voiture/gestion_voiture/src/gestion_voiture/v4.jpg</file>
             <file>file:/C:/Users/moham/Downloads/gestion_voiture/gestion_voiture/src/gestion_voiture/categorie.fxml</file>
-            <file>file:/C:/Users/moham/Downloads/gestion_voiture/gestion_voiture/src/gestion_voiture/reservation.fxml</file>
             <file>file:/C:/Users/moham/Downloads/gestion_voiture/gestion_voiture/src/gestion_voiture/all-categories.fxml</file>
-            <file>file:/C:/Users/moham/Downloads/gestion_voiture/gestion_voiture/nbproject/project.properties</file>
-            <file>file:/C:/Users/moham/Downloads/gestion_voiture/gestion_voiture/manifest.mf</file>
-            <file>file:/C:/Users/moham/Downloads/gestion_voiture/gestion_voiture/src/gestion_voiture/create-reservation.fxml</file>
-            <file>file:/C:/Users/moham/Downloads/gestion_voiture/gestion_voiture/src/gestion_voiture/CategorieController.java</file>
+            <file>file:/C:/Users/moham/Downloads/gestion_voiture/gestion_voiture/src/gestion_voiture/reservation.fxml</file>
+            <file>file:/C:/Users/moham/Downloads/gestion_voiture/gestion_voiture/src/gestion_voiture/entities/Voiture.java</file>
+            <file>file:/C:/Users/moham/Downloads/gestion_voiture/gestion_voiture/src/gestion_voiture/all-voiture.fxml</file>
+            <file>file:/C:/Users/moham/Downloads/gestion_voiture/gestion_voiture/src/gestion_voiture/grid.fxml</file>
+            <file>file:/C:/Users/moham/Downloads/gestion_voiture/gestion_voiture/src/gestion_voiture/voiture.fxml</file>
             <file>file:/C:/Users/moham/Downloads/gestion_voiture/gestion_voiture/src/gestion_voiture/services/ServiceVoiture.java</file>
-            <file>file:/C:/Users/moham/Downloads/gestion_voiture/gestion_voiture/src/CircleOptions.java</file>
-            <file>file:/C:/Users/moham/Downloads/gestion_voiture/gestion_voiture/src/gestion_voiture/CreateCategorieController.java</file>
+            <file>file:/C:/Users/moham/Downloads/gestion_voiture/gestion_voiture/src/gestion_voiture/GridController.java</file>
+            <file>file:/C:/Users/moham/Downloads/gestion_voiture/gestion_voiture/src/gestion_voiture/update-voiture.fxml</file>
+            <file>file:/C:/Users/moham/Downloads/gestion_voiture/gestion_voiture/src/gestion_voiture/MapViewController.java</file>
+            <file>file:/C:/Users/moham/Downloads/gestion_voiture/gestion_voiture/src/gestion_voiture/Gestion_voiture.java</file>
+            <file>file:/C:/Users/moham/Downloads/gestion_voiture/gestion_voiture/src/gestion_voiture/all-reservation.fxml</file>
+            <file>file:/C:/Users/moham/Downloads/gestion_voiture/gestion_voiture/src/gestion_voiture/services/ServiceReservation.java</file>
             <file>file:/C:/Users/moham/Downloads/gestion_voiture/gestion_voiture/src/gestion_voiture/entities/Reservation.java</file>
-            <file>file:/C:/Users/moham/Downloads/gestion_voiture/gestion_voiture/src/gestion_voiture/AllcategoriesController.java</file>
-            <file>file:/C:/Users/moham/Downloads/gestion_voiture/gestion_voiture/src/gestion_voiture/services/ServiceCategorie.java</file>
+            <file>file:/C:/Users/moham/Downloads/gestion_voiture/gestion_voiture/src/gestion_voiture/AllReservationController.java</file>
+            <file>file:/C:/Users/moham/Downloads/gestion_voiture/gestion_voiture/src/gestion_voiture/map-view.fxml</file>
         </group>
     </open-files>
 </project-private>

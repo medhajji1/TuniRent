@@ -13,10 +13,9 @@
           <TableColumn fx:id="categoryModeleCol" prefWidth="771.0" text="MODELE" />
         </columns>
       </TableView>
-      <Button layoutX="18.0" layoutY="61.0" mnemonicParsing="false" onAction="#refresh" text="Refresh" />
-      <Button layoutX="22.0" layoutY="490.0" mnemonicParsing="false" text="Export" />
-      <Button layoutX="1259.0" layoutY="61.0" mnemonicParsing="false" onAction="#openCreate" text="Create" />
-      <Button layoutX="1338.0" layoutY="61.0" mnemonicParsing="false" onAction="#openUpdate" text="Update" />
-      <Button layoutX="1420.0" layoutY="61.0" mnemonicParsing="false" onAction="#openDelete" text="Delete" />
+      <Button layoutY="92.0" mnemonicParsing="false" onAction="#refresh" text="Refresh" />
+      <Button layoutX="69.0" layoutY="92.0" mnemonicParsing="false" onAction="#openCreate" text="Create" />
+      <Button layoutX="132.0" layoutY="92.0" mnemonicParsing="false" onAction="#openUpdate" text="Update" />
+      <Button layoutX="201.0" layoutY="92.0" mnemonicParsing="false" onAction="#openDelete" text="Delete" />
    </children>
 </Pane>
