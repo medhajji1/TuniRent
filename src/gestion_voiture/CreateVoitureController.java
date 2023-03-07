@@ -9,29 +9,55 @@ import gestion_voiture.services.ServiceCategorie;
 import gestion_voiture.services.ServiceVoiture;
 import gestion_voiture.entities.Voiture;
 import gestion_voiture.entities.Categorie;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Properties;
+import java.util.ResourceBundle;
 
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
+import javafx.util.Duration;
+import javax.mail.Authenticator;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
+import tray.animations.AnimationType;
+import tray.notification.NotificationType;
+import tray.notification.TrayNotification;
 
 /**
  *
  * @author moham
  */
-public class CreateVoitureController {
+public class CreateVoitureController implements Initializable {
     
     ServiceVoiture sv = new ServiceVoiture();
     ServiceCategorie sc = new ServiceCategorie();
     
-    @FXML TextField coulour, kilometrage, categorie, immatriculation;
+    @FXML TextField coulour, kilometrage, immatriculation, image;
     
-    public void submit() {
+    @FXML ComboBox<Categorie> categoriebox;
+    
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        List<Categorie> all = sc.tout();
+        categoriebox.getItems().addAll(all);
+    }
+    
+    public void submit() throws MessagingException {
         
         String clr = coulour.getText();
         String imt = immatriculation.getText();
         String klm = kilometrage.getText();
-        String ctg = categorie.getText();
-        
+        Categorie ctg = (Categorie)categoriebox.getValue();
+        String img = image.getText();
         
         
         if (clr.length() == 0) {
@@ -48,20 +74,19 @@ public class CreateVoitureController {
             alert(Alert.AlertType.ERROR, "Kilometrage is required");
             return;
         }
-        if (ctg.length() == 0) {
+        
+        if (ctg == null) {
             alert(Alert.AlertType.ERROR, "Categorie is required");
             return;
         }
         
-        
-        int categorie;
-        try {
-            categorie = Integer.parseInt(ctg);
-        }
-        catch (Exception e) {
-            alert(Alert.AlertType.ERROR, "Categorie shouold be number");
+        if (img.length() == 0) {
+            alert(Alert.AlertType.ERROR, "Image is required");
             return;
         }
+        
+        
+        int categorie = ctg.getId();
         
         int km;
         try {
@@ -88,10 +113,19 @@ public class CreateVoitureController {
             return;
         }
         
-        v = new Voiture(imt, c, km, clr);
+        v = new Voiture(imt, c, km, clr, img);
         
         sv.ajouter(v);
+            TrayNotification tray = new TrayNotification();
+            AnimationType type = AnimationType.SLIDE;
+            tray.setAnimationType(type);
+            tray.setTitle("Ajouté avec succés");
+            tray.setMessage("Ajouté avec succés");
+            tray.setNotificationType(NotificationType.SUCCESS);
+            tray.showAndDismiss(Duration.millis(3000));
         alert(Alert.AlertType.INFORMATION, "Voiture Added successfully");
+         sendMail("mohamedali.lassoued@esprit.tn", "Dépense ajouté avec succées", "Ajouté avec succées");
+        
         reset();
     }
     
@@ -99,9 +133,45 @@ public class CreateVoitureController {
         coulour.setText("");
         immatriculation.setText("");
         kilometrage.setText("");
-        categorie.setText("");
+        categoriebox.setValue(null);
+        image.setText("");
     }
     
+    public static void sendMail(String recipient,String Subject,String Text) throws MessagingException {
+        System.out.println("Preparing to send email");
+        Properties properties = new Properties();
+        properties.put("mail.smtp.auth", "true");
+        properties.put("mail.smtp.starttls.enable", "true");
+        properties.put("mail.smtp.host", "smtp.gmail.com");
+        properties.put("mail.smtp.port", "587");
+        String myAccountEmail = "mohamedali.lassoued@esprit.tn";
+        String password = "201JMT4319dali";
+        Session session = Session.getInstance(properties, new Authenticator() {
+             @Override
+                        protected PasswordAuthentication getPasswordAuthentication() {
+            return new PasswordAuthentication(myAccountEmail, password);
+            }
+        });
+            
+        Message message = prepareMessage(session, myAccountEmail, recipient,Subject,Text);
+
+        javax.mail.Transport.send(message);
+        System.out.println("Message sent successfully");
+    }  
+   
+    
+    private static Message prepareMessage(Session session, String myAccountEmail, String recipient,String Subject,String Text) {
+        try {
+            Message message = new MimeMessage(session);
+            message.setFrom(new InternetAddress(myAccountEmail));
+            message.setRecipient(Message.RecipientType.TO, new InternetAddress(recipient));
+            message.setSubject(Subject);
+            message.setText(Text);
+            return message;
+        } catch (MessagingException ex) {
+          
+        }
+        return null;} 
     
     
     

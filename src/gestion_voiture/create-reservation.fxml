@@ -1,25 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-
-<Pane fx:controller="gestion_voiture.CreateReservationController" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="503.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gestion_voiture.CreateReservationController">
    <children>
-      <Button layoutX="358.0" layoutY="295.0" mnemonicParsing="false" onAction="#submit" text="Ajouter" />
-      <TextField fx:id="marque" layoutX="243.0" layoutY="183.0" />
-      <TextField fx:id="modele" layoutX="243.0" layoutY="240.0" />
-      <Label layoutX="171.0" layoutY="96.0" text="Create Reservation" textFill="#650707">
+      <Button layoutX="513.0" layoutY="371.0" mnemonicParsing="false" onAction="#submit" text="Ajouter" />
+      <Label layoutX="359.0" layoutY="42.0" text="Create Reservation" textFill="#650707">
          <font>
             <Font size="34.0" />
          </font>
       </Label>
-      <Text layoutX="171.0" layoutY="204.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Marque" />
-      <Text layoutX="171.0" layoutY="261.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Modele" />
-      <Button layoutX="264.0" layoutY="295.0" mnemonicParsing="false" text="Annuler" onAction="#reset" />
+      <Text layoutX="338.0" layoutY="216.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date Debut" />
+      <Button layoutX="419.0" layoutY="371.0" mnemonicParsing="false" onAction="#reset" text="Annuler" />
+      <DatePicker fx:id="dd" layoutX="426.0" layoutY="195.0" />
+      <Text layoutX="338.0" layoutY="269.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date Fin" />
+      <DatePicker fx:id="df" layoutX="426.0" layoutY="248.0" />
+      <ComboBox fx:id="voiture" layoutX="426.0" layoutY="144.0" prefHeight="31.0" prefWidth="217.0" />
+      <Text layoutX="348.0" layoutY="165.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Voiture" />
    </children>
 </Pane>

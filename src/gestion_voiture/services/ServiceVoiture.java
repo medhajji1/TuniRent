@@ -12,6 +12,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
+
 import java.util.logging.Logger;
 
 /**
@@ -24,12 +25,13 @@ public class ServiceVoiture implements IService<Voiture, String> {
     @Override
     public void ajouter(Voiture o) {
        try {
-            String req = "INSERT INTO voiture (immatriculation, kilometrage, couleur, categorie) VALUES (?,?,?,?)";
+            String req = "INSERT INTO voiture (immatriculation, kilometrage, couleur, categorie, image) VALUES (?,?,?,?,?)";
             PreparedStatement st = cnx.prepareStatement(req);
             st.setString(1, o.getImmatriculation());
             st.setInt(2, o.getKilometrage());
             st.setString(3, o.getCouleur());
             st.setInt(4, o.getCategorie().getId());
+            st.setString(5, o.getImage());
             st.executeUpdate();
             System.out.println("Voiture created !");
         } catch (SQLException ex) {
@@ -75,7 +77,8 @@ public class ServiceVoiture implements IService<Voiture, String> {
                     rs.getString("immatriculation"),
                     new Categorie(rs.getInt("id"), rs.getString("marque"), rs.getString("modele")),
                     rs.getInt("kilometrage"),
-                    rs.getString("couleur")
+                    rs.getString("couleur"),
+                    rs.getString("image")
                 );
                 list.add(o);
             }
@@ -97,7 +100,8 @@ public class ServiceVoiture implements IService<Voiture, String> {
                     rs.getString("immatriculation"),
                     new Categorie(rs.getInt("id"), rs.getString("marque"), rs.getString("modele")),
                     rs.getInt("kilometrage"),
-                    rs.getString("couleur")
+                    rs.getString("couleur"),
+                    rs.getString("image")
                 );
                 return o;
             }

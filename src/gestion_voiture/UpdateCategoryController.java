@@ -7,41 +7,56 @@ package gestion_voiture;
 
 import gestion_voiture.entities.Categorie;
 import gestion_voiture.services.ServiceCategorie;
+import java.net.URL;
+import java.util.ResourceBundle;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
+import javafx.util.Duration;
+import tray.animations.AnimationType;
+import tray.notification.NotificationType;
+import tray.notification.TrayNotification;
 
 /**
  *
  * @author moham
  */
-public class UpdateCategoryController {
+public class UpdateCategoryController implements Initializable {
     
     ServiceCategorie sc = new ServiceCategorie();
     
-    Alert _alert = new Alert(Alert.AlertType.NONE);
     
     
-    @FXML TextField marque, modele, id;
     
+    @FXML ComboBox<Categorie> id;
+    @FXML TextField marque, modele;
     
-    public void find() {
-        Categorie o = getCategory();
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        id.getItems().addAll(sc.tout());
         
-        if (o == null) {
-            return;
-        }
-        
-        marque.setText(o.getMarque());
-        modele.setText(o.getModele());
-        
+        id.setOnAction(e -> {
+            Categorie c = id.getSelectionModel().getSelectedItem();
+            
+            if (c != null) {
+                marque.setText(c.getMarque());
+                modele.setText(c.getModele());
+            } else {
+                marque.setText("");
+                modele.setText("");
+            }
+            
+        });
         
     }
     
     public void submit() {
-        Categorie o = getCategory();
+        Categorie o = id.getValue();
         
         if (o == null) {
+            alert(Alert.AlertType.ERROR, "Choose a Category First");
             return;
         }
         
@@ -61,14 +76,21 @@ public class UpdateCategoryController {
         o.setMarque(mq);
         o.setModele(md);
         sc.modifier(o);
-        
+                               TrayNotification tray = new TrayNotification();
+            AnimationType type = AnimationType.SLIDE;
+            tray.setAnimationType(type);
+            tray.setTitle("Modifié avec succés");
+            tray.setMessage("Modifié avec succés");
+            tray.setNotificationType(NotificationType.SUCCESS);
+            tray.showAndDismiss(Duration.millis(3000));
         alert(Alert.AlertType.INFORMATION, "Category updated successfully");
         
-        id.setText("");
+        id.setValue(null);
         marque.setText("");
         modele.setText("");
     }
     
+    Alert _alert = new Alert(Alert.AlertType.NONE);
     
     void alert(Alert.AlertType type, String msg) {
         _alert.setAlertType(type);
@@ -77,34 +99,8 @@ public class UpdateCategoryController {
         _alert.show();
     }
     
-    
-    private Categorie getCategory() {
-        String x = id.getText();
-        if (x.length() == 0) {
-            alert(Alert.AlertType.ERROR, "ID is required");
-            return null;
-        }
-        
-        int _id ;
-        try {
-            _id = Integer.parseInt(x);
-        }
-        catch (Exception e) {
-            alert(Alert.AlertType.ERROR, "ERROR ID");
-            return null;
-        }
-        Categorie o = sc.one(_id);
-        
-        if (o == null) {
-            alert(Alert.AlertType.ERROR, "Category does not exist");
-            return null;
-        }
-        
-        return o;
-    }
-    
     public void reset() {
-        id.setText("");
+        id.setValue(null);
         marque.setText("");
         modele.setText("");
     }

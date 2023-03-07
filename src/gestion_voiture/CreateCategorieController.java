@@ -11,6 +11,10 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.TextField;
+import javafx.util.Duration;
+import tray.animations.AnimationType;
+import tray.notification.NotificationType;
+import tray.notification.TrayNotification;
 
 /**
  *
@@ -42,6 +46,13 @@ public class CreateCategorieController {
       
       Categorie c = new Categorie(mq, md);
       sc.ajouter(c);
+                               TrayNotification tray = new TrayNotification();
+            AnimationType type = AnimationType.SLIDE;
+            tray.setAnimationType(type);
+            tray.setTitle("Ajouté avec succés");
+            tray.setMessage("Ajouté avec succés");
+            tray.setNotificationType(NotificationType.SUCCESS);
+            tray.showAndDismiss(Duration.millis(3000));
       alert(AlertType.INFORMATION, "successfully ");
       marque.setText("");
       modele.setText("");

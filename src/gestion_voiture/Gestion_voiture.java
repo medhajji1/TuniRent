@@ -199,7 +199,8 @@ public class Gestion_voiture extends Application {
             DesignController controller = new DesignController();
             loader.setController(controller);
             Parent root = loader.load();
-            Scene scene = new Scene(root, 600, 736);
+            Scene scene = new Scene(root, 1545, 1080);
+            
             stage.setTitle("Tunirent");
             stage.setScene(scene);
             stage.show();

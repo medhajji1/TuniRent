@@ -7,6 +7,7 @@ package gestion_voiture;
 import gestion_voiture.entities.Categorie;
 import javafx.fxml.Initializable;
 import gestion_voiture.services.ServiceCategorie;
+import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -18,10 +19,14 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.stage.Stage;
 import javafx.util.Callback;
 
 
@@ -29,14 +34,11 @@ import javafx.util.Callback;
  *
  * @author moham
  */
-public class AllCategoriesController implements Initializable {
+public class AllcategoriesController implements Initializable {
     ServiceCategorie sc = new ServiceCategorie();
     
     @FXML
     public TableView<Categorie> table;
-    
-    @FXML 
-    public TableColumn<Categorie, Number> categoryIdCol;
     
     @FXML 
     public TableColumn<Categorie, String> categoryMarqueCol;
@@ -47,7 +49,6 @@ public class AllCategoriesController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         fetchCategories();
-        categoryIdCol.setCellValueFactory(cell -> parseInt(cell.getValue().getId()));
         categoryMarqueCol.setCellValueFactory(cell -> parseString(cell.getValue().getMarque()));
         categoryModeleCol.setCellValueFactory(cell -> parseString(cell.getValue().getModele()));
     }
@@ -72,4 +73,30 @@ public class AllCategoriesController implements Initializable {
         return new ReadOnlyStringWrapper(s);
     }
     
+    public void openCreate() throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader();
+        fxmlLoader.setLocation(getClass().getResource("create-categorie.fxml"));
+        Stage stage = new Stage();
+        stage.setTitle("Create Categorie");
+        stage.setScene(new Scene(fxmlLoader.load(), 1000, 700));
+        stage.show();
+    }
+    
+    public void openDelete() throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader();
+        fxmlLoader.setLocation(getClass().getResource("delete-category.fxml"));
+        Stage stage = new Stage();
+        stage.setTitle("Delete Categorie");
+        stage.setScene(new Scene(fxmlLoader.load(), 1000, 700));
+        stage.show();
+    }
+    
+    public void openUpdate() throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader();
+        fxmlLoader.setLocation(getClass().getResource("update-category.fxml"));
+        Stage stage = new Stage();
+        stage.setTitle("Update Categorie");
+        stage.setScene(new Scene(fxmlLoader.load(), 1000, 700));
+        stage.show();
+    }
 }

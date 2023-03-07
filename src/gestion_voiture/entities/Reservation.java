@@ -5,7 +5,7 @@ import java.util.Date;
  *
  * @author moham
  */
-public class Reservation {
+ public class Reservation {
     
     private int id;
     private Voiture voiture;
@@ -63,7 +63,7 @@ public class Reservation {
 
     @Override
     public String toString() {
-        return "Reservation{id=" +id   + ", voiture=" + voiture + ", date_d=" + date_d + ", date_f=" + date_f + '}';
+        return voiture + ", date_d=" + date_d + ", date_f=" + date_f;
     }    
         
     @Override

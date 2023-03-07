@@ -1,2 +1,0 @@
-# TuniRent
-Projet PIDEV

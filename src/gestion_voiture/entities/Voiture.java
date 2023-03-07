@@ -10,12 +10,15 @@ public class Voiture {
     private Categorie categorie;
     private int kilometrage;
     private String couleur;
+    private String image;
+    
 
-    public Voiture(String immatriculation, Categorie categorie, int kilometrage, String couleur) {
+    public Voiture(String immatriculation, Categorie categorie, int kilometrage, String couleur, String image) {
         this.immatriculation = immatriculation;
         this.categorie = categorie;
         this.kilometrage = kilometrage;
         this.couleur = couleur;
+        this.image = image;
     }
 
     public String getImmatriculation() {
@@ -34,6 +37,10 @@ public class Voiture {
     public String getCouleur() {
         return couleur;
     }
+    
+    public String getImage() {
+        return this.image;
+    }
 
     public void setImmatriculation(String immatriculation) {
         this.immatriculation = immatriculation;
@@ -50,10 +57,14 @@ public class Voiture {
     public void setCouleur(String couleur) {
         this.couleur = couleur;
     }
-
+    
+    public void setImage(String image) {
+        this.image = image;
+    }
+    
     @Override
     public String toString() {
-        return "Voiture{" + "immatriculation=" + immatriculation + ", categorie=" + categorie + ", kilometrage=" + kilometrage + ", couleur=" + couleur + '}';
+        return immatriculation + "(" + categorie + ", " + kilometrage + "km, couleur=" + couleur + ")" ;
     }
 
 

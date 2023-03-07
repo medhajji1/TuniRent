@@ -7,62 +7,55 @@ package gestion_voiture;
 
 import gestion_voiture.entities.Categorie;
 import gestion_voiture.services.ServiceCategorie;
+import java.net.URL;
+import java.util.ResourceBundle;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
+import javafx.util.Duration;
+import tray.animations.AnimationType;
+import tray.notification.NotificationType;
+import tray.notification.TrayNotification;
 
 /**
  *
  * @author moham
  */
-public class DeleteCategoryController {
+public class DeleteCategoryController implements Initializable {
     
     ServiceCategorie sc = new ServiceCategorie();
     
     Alert _alert = new Alert(Alert.AlertType.NONE);
     
+    @FXML ComboBox<Categorie> id;
     
-    
-    @FXML TextField id;
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        id.getItems().addAll(sc.tout());
+    }
     
     public void submit() {
     
-        Categorie o = getCategory();
+        Categorie o = id.getValue();
         
         if (o == null) {
+            alert(Alert.AlertType.ERROR, "Choose Category First");
             return;
         }
     
         sc.supprimer(o.getId());
-        
+                                       TrayNotification tray = new TrayNotification();
+            AnimationType type = AnimationType.SLIDE;
+            tray.setAnimationType(type);
+            tray.setTitle("Supprimé avec succés");
+            tray.setMessage("Supprimé avec succés");
+            tray.setNotificationType(NotificationType.ERROR);
+            tray.showAndDismiss(Duration.millis(3000));
         alert(Alert.AlertType.INFORMATION, "Category Deleted Successfully");
-        id.setText("");
+        id.setValue(null);
         
-    }
-    
-    private Categorie getCategory() {
-        String x = id.getText();
-        if (x.length() == 0) {
-            alert(Alert.AlertType.ERROR, "ID is required");
-            return null;
-        }
-        
-        int _id ;
-        try {
-            _id = Integer.parseInt(x);
-        }
-        catch (Exception e) {
-            alert(Alert.AlertType.ERROR, "ERROR ID");
-            return null;
-        }
-        Categorie o = sc.one(_id);
-        
-        if (o == null) {
-            alert(Alert.AlertType.ERROR, "Category does not exist");
-            return null;
-        }
-        
-        return o;
     }
     
     void alert(Alert.AlertType type, String msg) {
@@ -74,6 +67,6 @@ public class DeleteCategoryController {
  
     
     public void reset() {
-        id.setText("");
+        id.setValue(null);
     }
 }
