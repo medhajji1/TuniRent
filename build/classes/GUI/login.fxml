@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="699.0" prefWidth="953.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.LoginController">
+   <children>
+      <AnchorPane layoutY="-16.0" prefHeight="716.0" prefWidth="281.0" style="-fx-background-color: BLUE;" />
+      <Label layoutX="503.0" layoutY="49.0" text="login " textFill="#001824">
+         <font>
+            <Font name="System Bold" size="51.0" />
+         </font>
+      </Label>
+      <Label layoutX="392.0" layoutY="231.0" prefHeight="21.0" prefWidth="100.0" text="email">
+         <font>
+            <Font name="System Bold Italic" size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="392.0" layoutY="324.0" text="motDePasse">
+         <font>
+            <Font name="System Bold Italic" size="18.0" />
+         </font>
+      </Label>
+      <TextField fx:id="txtEmail" layoutX="392.0" layoutY="271.0" prefHeight="31.0" prefWidth="388.0" promptText="entrez votre email" />
+      <PasswordField fx:id="txtMotDePasse" layoutX="392.0" layoutY="370.0" prefHeight="31.0" prefWidth="388.0" promptText="entrez votre mot de passe" />
+      <Button fx:id="btnok" layoutX="668.0" layoutY="527.0" mnemonicParsing="false" onAction="#login" prefHeight="64.0" prefWidth="117.0" style="-fx-background-color: #001824;" text="login" textFill="#fcfafa" />
+      <Line endX="63.0" layoutX="492.0" layoutY="440.0" startX="-100.0" />
+      <Line endX="63.0" layoutX="721.0" layoutY="440.0" startX="-100.0" />
+      <Label layoutX="576.0" layoutY="420.0" text="ou" textFill="#001824">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Label>
+      <Hyperlink fx:id="forgetPass_id" layoutX="392.0" layoutY="455.0" onAction="#forgetPass" text="Mot de passe oublié" underline="true" />
+      <Button fx:id="btnok1" layoutX="386.0" layoutY="527.0" mnemonicParsing="false" onAction="#creerCompte" prefHeight="64.0" prefWidth="117.0" style="-fx-background-color: #001824;" text="Créer compte" textFill="#fcfafa" />
+   </children>
+</AnchorPane>
