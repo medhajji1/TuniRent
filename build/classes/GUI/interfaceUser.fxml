@@ -9,9 +9,15 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
+<<<<<<< HEAD
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="786.0" prefWidth="1366.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.InterfaceUserController">
    <children>
       <AnchorPane layoutY="-1.0" prefHeight="786.0" prefWidth="300.0" style="-fx-background-color: #6495ED;">
+=======
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="786.0" prefWidth="1366.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.InterfaceUserController">
+   <children>
+      <AnchorPane layoutY="-1.0" prefHeight="786.0" prefWidth="300.0" style="-fx-background-color: #1e90ff;">
+>>>>>>> a9f2272f143766b9ac53dfea451dfae668a5dc1c
          <children>
             <ImageView fx:id="id_image" fitHeight="150.0" fitWidth="200.0" layoutX="50.0" layoutY="48.0" pickOnBounds="true" preserveRatio="true" />
             <Button fx:id="button_changer" layoutX="71.0" layoutY="208.0" mnemonicParsing="false" onAction="#changerImage" style="-fx-background-color: white;" text="Changer votre image">
@@ -50,7 +56,11 @@
                   </ImageView>
                </graphic>
             </Button>
+<<<<<<< HEAD
             <Button fx:id="button_deconnecter" layoutX="76.0" layoutY="505.0" mnemonicParsing="false" onAction="#deconnecter" prefHeight="41.0" prefWidth="149.0" style="-fx-background-color: white;" text="Déconnecter">
+=======
+            <Button fx:id="button_deconnecter" layoutX="59.0" layoutY="720.0" mnemonicParsing="false" onAction="#deconnecter" prefHeight="31.0" prefWidth="182.0" style="-fx-background-color: white;" text="Déconnecter">
+>>>>>>> a9f2272f143766b9ac53dfea451dfae668a5dc1c
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
@@ -64,7 +74,11 @@
             </Button>
          </children>
       </AnchorPane>
+<<<<<<< HEAD
       <AnchorPane layoutX="479.0" layoutY="21.0" prefHeight="600.0" prefWidth="700.0" style="-fx-background-color: white;">
+=======
+      <AnchorPane layoutX="333.0" layoutY="14.0" prefHeight="600.0" prefWidth="700.0" style="-fx-background-color: white;">
+>>>>>>> a9f2272f143766b9ac53dfea451dfae668a5dc1c
          <children>
             <Label layoutX="243.0" layoutY="57.0" text="Votre profil :">
                <font>
@@ -81,10 +95,22 @@
             <TextField fx:id="cin_id" editable="false" layoutX="399.0" layoutY="299.0" />
             <Label layoutX="42.0" layoutY="394.0" text="Votre num tel :" />
             <TextField fx:id="tel_id" editable="false" layoutX="42.0" layoutY="431.0" />
+<<<<<<< HEAD
             <Label layoutX="402.0" layoutY="391.0" opacity="0.0" text="Type d'utilisateur" />
             <TextField fx:id="type_id" disable="true" editable="false" layoutX="402.0" layoutY="428.0" opacity="0.0" />
             <Label layoutX="42.0" layoutY="502.0" opacity="0.0" text="Votre mot de passe :" />
             <TextField fx:id="mdp_id" editable="false" layoutX="42.0" layoutY="539.0" opacity="0.0" />
+=======
+            <Label layoutX="402.0" layoutY="391.0" text="Type d'utilisateur" />
+            <TextField fx:id="type_id" editable="false" layoutX="402.0" layoutY="428.0" />
+            <Label layoutX="42.0" layoutY="502.0" text="Votre mot de passe :" />
+            <TextField fx:id="mdp_id" editable="false" layoutX="42.0" layoutY="539.0" />
+            <ImageView fitHeight="200.0" fitWidth="200.0" layoutX="-3.0" layoutY="-30.0">
+               <image>
+                  <Image url="@../../../../../Downloads/logo.png" />
+               </image>
+            </ImageView>
+>>>>>>> a9f2272f143766b9ac53dfea451dfae668a5dc1c
          </children>
       </AnchorPane>
       <ImageView fitHeight="235.0" fitWidth="258.0" layoutX="277.0">

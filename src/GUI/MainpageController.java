@@ -53,7 +53,10 @@ public class MainpageController implements Initializable {
 
     @FXML
     private void voitures(ActionEvent event) {
+<<<<<<< HEAD
         loadPage("main");
+=======
+>>>>>>> a9f2272f143766b9ac53dfea451dfae668a5dc1c
     }
 
     @FXML

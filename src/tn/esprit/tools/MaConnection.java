@@ -17,7 +17,11 @@ import java.util.logging.Logger;
  */
 public class MaConnection {
        private Connection cnx;
+<<<<<<< HEAD
         String url = "jdbc:mysql://localhost:3306/tesr";
+=======
+        String url = "jdbc:mysql://localhost:3306/tunirent";
+>>>>>>> a9f2272f143766b9ac53dfea451dfae668a5dc1c
         String user = "root";
         String pwd = "";
         public static MaConnection ct;

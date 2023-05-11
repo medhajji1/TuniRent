@@ -42,8 +42,13 @@ public class Mailing {
     public static void mailing(String recipient, int montant) throws Exception {
 
         Properties prop = new Properties();
+<<<<<<< HEAD
         final String moncompteEmail = "mohamedhadji603@gmail.com";
         final String psw = "svjhlzjcnxisriga";
+=======
+        final String moncompteEmail = "zayanifadi2001@gmail.com";
+        final String psw = "ksfoxkyvqwcreibc";
+>>>>>>> a9f2272f143766b9ac53dfea451dfae668a5dc1c
         prop.put("mail.smtp.host", "smtp.gmail.com");
         prop.put("mail.smtp.port", "587");
         prop.put("mail.smtp.auth", "true");

@@ -57,7 +57,11 @@ public class Maile {
      private static Credential getCredentials(final NetHttpTransport HTTP_TRANSPORT, GsonFactory json_factory)
       throws IOException {
     
+<<<<<<< HEAD
     File clientSecretsFile = new File("C:/Users/DELL/Desktop/java pi/TuniRent/src/Services/Gmail_credentials.json");
+=======
+    File clientSecretsFile = new File("C:/Users/Yaadiii/Documents/GitHub/TuniRent/src/Services/Gmail_credentials.json");
+>>>>>>> a9f2272f143766b9ac53dfea451dfae668a5dc1c
     InputStream inputStream = new FileInputStream(clientSecretsFile);
     GoogleClientSecrets clientSecrets = GoogleClientSecrets.load(json_factory, new InputStreamReader(inputStream));
 

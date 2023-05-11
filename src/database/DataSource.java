@@ -21,7 +21,11 @@ public class DataSource {
     
     private final String USER = "root";
     private final String PWD = "";
+<<<<<<< HEAD
     private final String URL = "jdbc:mysql://localhost:3306/tesr";
+=======
+    private final String URL = "jdbc:mysql://localhost:3306/tunirent";
+>>>>>>> a9f2272f143766b9ac53dfea451dfae668a5dc1c
 
     private DataSource() {
         try {

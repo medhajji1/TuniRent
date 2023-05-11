@@ -35,21 +35,34 @@ public class PiDev3A26 {
         java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
         
         
+<<<<<<< HEAD
         //Paiement p1 = new Paiement(1,200,sqlDate,"motif");
         //Paiement p2 = new Paiement(3,1,5500,sqlDate,"fedi");
+=======
+        Paiement p1 = new Paiement(1,200,sqlDate,"motif");
+        Paiement p2 = new Paiement(3,1,5500,sqlDate,"fedi");
+>>>>>>> a9f2272f143766b9ac53dfea451dfae668a5dc1c
         ///Contrat c1 = new Contrat(1,1,1,sqlDate,"motif");
         
         
         
        //cs.ajouter(c1);
+<<<<<<< HEAD
        //ps.ajouter(p2);
+=======
+       ps.ajouter(p2);
+>>>>>>> a9f2272f143766b9ac53dfea451dfae668a5dc1c
         
         
         
         System.out.println(ps.getAll());
         //System.out.println(cs.getAll());
            // ps.modifier(p2);      
+<<<<<<< HEAD
         //ps.supprimer(3);
+=======
+        ps.supprimer(3);
+>>>>>>> a9f2272f143766b9ac53dfea451dfae668a5dc1c
     }
 
 }

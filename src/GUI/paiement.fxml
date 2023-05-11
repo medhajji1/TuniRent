@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.PaiementController">
+<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.PaiementController">
     <children>
       <Pane layoutY="6.0" prefHeight="594.0" prefWidth="800.0">
          <children>
@@ -31,7 +31,7 @@
                                              <children>
                                                 <HBox spacing="10.0">
                                                    <children>
-                                                      <TextField fx:id="idContratField" editable="false" prefWidth="150.0" promptText="Contrat" />
+                                                      <TextField fx:id="idContratField" editable="false" prefWidth="150.0" promptText="ID Contrat" />
                                                       <TextField fx:id="montantField" prefWidth="150.0" promptText="Montant" />
                                                    </children>
                                                 </HBox>
@@ -61,8 +61,8 @@
                                 <items>
                                     <TableView fx:id="paiementTable" onMouseClicked="#selectPaiement" prefHeight="346.0" prefWidth="663.0">
                                        <columns>
-                                          <TableColumn fx:id="idPaiementColumn" prefWidth="100.0" text="Paiement" />
-                                          <TableColumn fx:id="idContratColumn" prefWidth="100.0" text="Contrat" />
+                                          <TableColumn fx:id="idPaiementColumn" prefWidth="100.0" text="ID Paiement" />
+                                          <TableColumn fx:id="idContratColumn" prefWidth="100.0" text="ID Contrat" />
                                           <TableColumn fx:id="montantColumn" prefWidth="100.0" text="Montant" />
                                           <TableColumn fx:id="dateColumn" prefWidth="118.39996337890625" text="Date" />
                                           <TableColumn fx:id="motifColumn" prefWidth="103.99996948242188" text="Motif" />
@@ -73,9 +73,9 @@
                                        <children>
                                           <FlowPane prefHeight="113.0" prefWidth="452.0">
                                              <children>
-                                                <TextField fx:id="idPaiementField" prefHeight="26.0" prefWidth="132.0" promptText="Paiement" />
+                                                <TextField fx:id="idPaiementField" prefHeight="26.0" prefWidth="132.0" promptText="ID Paiement" />
                                                 <TextField fx:id="montantField_2" prefWidth="75.0" promptText="Montant" />
-                                                <TextField fx:id="idContratField_2" prefHeight="26.0" prefWidth="146.0" promptText="Contrat" />
+                                                <TextField fx:id="idContratField_2" prefHeight="26.0" prefWidth="146.0" promptText="ID Contrat" />
                                                 <TextField fx:id="motifField_2" prefWidth="75.0" promptText="motif" />
                                                 <HBox prefHeight="28.0" prefWidth="362.0" />
                                                 <TextField fx:id="emailField1" prefWidth="150.0" promptText="email@esprit.tn" />
