@@ -87,8 +87,8 @@ private void ajout(ActionEvent event) throws SQLException, Exception {
         to =tfEmail.getText();
         content=obj.getText();
         //mailing
-        File pdfFile = new File("C:/Users/Yaadiii/Documents/GitHub/TuniRent/src/GUI/Service de Reclamation.pdf");
-        new Mail().sendMail("Service Reclamation Tunirent", content, to, pdfFile);
+        //File pdfFile = new File("C:/Users/Yaadiii/Documents/GitHub/TuniRent/src/GUI/Service de Reclamation.pdf");
+        //new Mail().sendMail("Service Reclamation Tunirent", content, to, pdfFile);
         ServiceReclamation SM = new ServiceReclamation();
     if (d !=null){
         d.setStatus(reclamation.Status.RESOLVED); // set the status to in progress

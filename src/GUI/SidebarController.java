@@ -53,7 +53,7 @@ public class SidebarController implements Initializable {
 
     @FXML
     private void tolandingpage(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("AjouterReclamation.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("mainpage.fxml"));
                         Parent root = loader.load(); 
                         Scene scene = new Scene(root);
                         Stage stage = new Stage();
@@ -65,6 +65,7 @@ public class SidebarController implements Initializable {
 
     @FXML
     private void profiles(ActionEvent event) {
+        loadPage("dashboard");
     }
 
 

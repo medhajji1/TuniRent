@@ -5,7 +5,7 @@
  */
 package GUI;
 
-import Services.Mail;
+import Services.Maile;
 import Services.ServiceUtilisateur;
 import com.mysql.jdbc.Connection;
 import entities.Utilisateur;
@@ -39,6 +39,7 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
+import org.mindrot.jbcrypt.BCrypt;
 
 /**
  * FXML Controller class
@@ -125,7 +126,7 @@ private static Utilisateur u ;
                                     List pass;
                                     try {
                                         pass = su.getPass(mail);
-                                        new Mail().sendMail("Votre mot de passe","Votre mot de passe est : \n\n\n\n\n\n\n\n"+(String)pass.get(0),mail);
+                                        new Maile().sendMail("Votre mot de passe","Votre mot de passe est : \n\n\n\n\n\n\n\n"+(String)pass.get(0),mail);
                                     } catch (Exception ex) {
                                         Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
                                     }
@@ -171,12 +172,11 @@ void login(ActionEvent event) throws Exception {
         try {
 
             Class.forName("com.mysql.jdbc.Driver");
-            con = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/utilisateurs", "root", "");
+            con = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/tesr", "root", "");
 
-            pst = con.prepareStatement("select * from utilisateur where email=? and motDePasse=?");
+            pst = con.prepareStatement("SELECT * FROM `utilisateur` WHERE `email` LIKE ?");
 
             pst.setString(1, email);
-            pst.setString(2, motDePasseCrypter);
 
             rs = pst.executeQuery();
 
@@ -189,8 +189,8 @@ void login(ActionEvent event) throws Exception {
                 String uemail = rs.getString("email");
                 String umotDePasse = rs.getString("motDePasse");
                 String numeroTelephone = rs.getString("numeroTelephone");
-                
-                u.setCIN(CIN);
+                if (BCrypt.checkpw(motDePasseDecrypter, umotDePasse)){
+                    u.setCIN(CIN);
                 u.setNom(nom);
                 u.setPrenom(prenom);
                 u.setEmail(uemail);
@@ -199,15 +199,15 @@ void login(ActionEvent event) throws Exception {
                
                 u.setTypeUtilisateur(userType); 
                 System.out.println(u);
-                if (userType.equals("client")) {
+                if (userType.equals("Client")) {
                     // Rediriger vers la page interfaceUser.fxml
-                    FXMLLoader loader = new FXMLLoader(getClass().getResource("interfaceUser.fxml"));
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("mainpage.fxml"));
                     Parent root = loader.load();
                     Scene scene = new Scene(root);
                     Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
                     stage.setScene(scene);
                     stage.show();
-                } else if (userType.equals("admin")) {
+                } else if (userType.equals("Admin")) {
                     // Rediriger vers la page dashboard.fxml
                     FXMLLoader loader = new FXMLLoader(getClass().getResource("sidebar.fxml"));
                     Parent root = loader.load();
@@ -219,6 +219,8 @@ void login(ActionEvent event) throws Exception {
                     // Si le type d'utilisateur n'est pas client ou admin, afficher un message d'erreur
                     JOptionPane.showMessageDialog(null, "Type d'utilisateur non valide.");
                 }
+                }
+                
             } else {
                 JOptionPane.showMessageDialog(null, "Login failed");
                 txtEmail.setText("");

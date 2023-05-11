@@ -4,39 +4,67 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.InterfaceUserController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="786.0" prefWidth="1366.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.InterfaceUserController">
    <children>
-      <AnchorPane layoutY="-1.0" prefHeight="600.0" prefWidth="300.0" style="-fx-background-color: #CD5C5C;">
+      <AnchorPane layoutY="-1.0" prefHeight="786.0" prefWidth="300.0" style="-fx-background-color: #6495ED;">
          <children>
             <ImageView fx:id="id_image" fitHeight="150.0" fitWidth="200.0" layoutX="50.0" layoutY="48.0" pickOnBounds="true" preserveRatio="true" />
             <Button fx:id="button_changer" layoutX="71.0" layoutY="208.0" mnemonicParsing="false" onAction="#changerImage" style="-fx-background-color: white;" text="Changer votre image">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
+               <graphic>
+                  <ImageView fitHeight="29.0" fitWidth="27.0">
+                     <image>
+                        <Image url="@../images/icons8-change-user-48.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
             </Button>
             <Button fx:id="button_modifier" layoutX="59.0" layoutY="365.0" mnemonicParsing="false" onAction="#modifier" prefHeight="31.0" prefWidth="182.0" style="-fx-background-color: white;" text="Modifier votre compte">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
+               <graphic>
+                  <ImageView fitHeight="31.0" fitWidth="25.0">
+                     <image>
+                        <Image url="@../images/update.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
             </Button>
-            <Button fx:id="button_supprimer" layoutX="59.0" layoutY="436.0" mnemonicParsing="false" onAction="#supprimer" style="-fx-background-color: white;" text="Supprimer votre compte">
+            <Button fx:id="button_supprimer" layoutX="59.0" layoutY="436.0" mnemonicParsing="false" onAction="#supprimer" prefHeight="25.0" prefWidth="182.0" style="-fx-background-color: white;" text="Supprimer votre compte">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
+               <graphic>
+                  <ImageView fitHeight="27.0" fitWidth="27.0">
+                     <image>
+                        <Image url="@../images/trash.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
             </Button>
-            <Button fx:id="button_deconnecter" layoutX="59.0" layoutY="561.0" mnemonicParsing="false" onAction="#deconnecter" prefHeight="31.0" prefWidth="182.0" style="-fx-background-color: white;" text="Déconnecter">
+            <Button fx:id="button_deconnecter" layoutX="76.0" layoutY="505.0" mnemonicParsing="false" onAction="#deconnecter" prefHeight="41.0" prefWidth="149.0" style="-fx-background-color: white;" text="Déconnecter">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
+               <graphic>
+                  <ImageView fitHeight="33.0" fitWidth="29.0">
+                     <image>
+                        <Image url="@../images/logout.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
             </Button>
          </children>
       </AnchorPane>
-      <AnchorPane layoutX="300.0" layoutY="-4.0" prefHeight="600.0" prefWidth="700.0" style="-fx-background-color: white;">
+      <AnchorPane layoutX="479.0" layoutY="21.0" prefHeight="600.0" prefWidth="700.0" style="-fx-background-color: white;">
          <children>
             <Label layoutX="243.0" layoutY="57.0" text="Votre profil :">
                <font>
@@ -53,11 +81,16 @@
             <TextField fx:id="cin_id" editable="false" layoutX="399.0" layoutY="299.0" />
             <Label layoutX="42.0" layoutY="394.0" text="Votre num tel :" />
             <TextField fx:id="tel_id" editable="false" layoutX="42.0" layoutY="431.0" />
-            <Label layoutX="402.0" layoutY="391.0" text="Type d'utilisateur" />
-            <TextField fx:id="type_id" editable="false" layoutX="402.0" layoutY="428.0" />
-            <Label layoutX="42.0" layoutY="502.0" text="Votre mot de passe :" />
-            <TextField fx:id="mdp_id" editable="false" layoutX="42.0" layoutY="539.0" />
+            <Label layoutX="402.0" layoutY="391.0" opacity="0.0" text="Type d'utilisateur" />
+            <TextField fx:id="type_id" disable="true" editable="false" layoutX="402.0" layoutY="428.0" opacity="0.0" />
+            <Label layoutX="42.0" layoutY="502.0" opacity="0.0" text="Votre mot de passe :" />
+            <TextField fx:id="mdp_id" editable="false" layoutX="42.0" layoutY="539.0" opacity="0.0" />
          </children>
       </AnchorPane>
+      <ImageView fitHeight="235.0" fitWidth="258.0" layoutX="277.0">
+         <image>
+            <Image url="@../../../../../Downloads/logo.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>

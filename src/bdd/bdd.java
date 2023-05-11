@@ -17,7 +17,7 @@ public class bdd {
     private Connection connection;
         private bdd(){
             try {
-                connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/tunirent","root", "");
+                connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/tesr","root", "");
                 System.out.println("*****connected to database*****");
             }  catch (SQLException e) {
                 e.getMessage();

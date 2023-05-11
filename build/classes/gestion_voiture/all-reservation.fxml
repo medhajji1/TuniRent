@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1545" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gestion_voiture.AllReservationController">
+   <children>
+      <TableView fx:id="table" layoutY="82.0" prefHeight="504.0" prefWidth="1545">
+        <columns>
+          <TableColumn fx:id="voitureCol" prefWidth="739.0" text="Voiture" />
+            <TableColumn fx:id="ddCol" prefWidth="415.0" text="Date Debut" />
+            <TableColumn fx:id="dfCol" prefWidth="388.0" text="Date Fin" />
+        </columns>
+      </TableView>
+      <Button layoutX="1475.0" layoutY="51.0" mnemonicParsing="false" onAction="#refresh" text="Refresh" />
+      <Button layoutX="1257.0" layoutY="51.0" mnemonicParsing="false" onAction="#openCreate" text="Ajouter" />
+      <Button layoutX="1394.0" layoutY="51.0" mnemonicParsing="false" onAction="#openDelete" text="Supprimer" />
+      <Text fill="#830808" layoutX="14.0" layoutY="60.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Réservation">
+         <font>
+            <Font size="42.0" />
+         </font>
+      </Text>
+      <ImageView fitHeight="71.0" fitWidth="63.0" layoutX="237.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@5a4525f5546ddca7e1fcbc86.png" />
+         </image>
+      </ImageView>
+      <Button layoutX="1317.0" layoutY="51.0" mnemonicParsing="false" onAction="#openUpdate" text="Modifier" />
+   </children>
+</Pane>

@@ -5,9 +5,11 @@
  */
 package tunirentreclamation;
 
+import Services.ServiceUtilisateur;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.application.Application;
-import static javafx.application.Application.launch;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -21,7 +23,7 @@ public class FXMain extends Application {
     
     @Override
     public void start(Stage primaryStage) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("../GUI/sidebar.fxml"));
+       FXMLLoader loader = new FXMLLoader(getClass().getResource("../GUI/mainpage.fxml"));
         Parent root = loader.load();
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);
@@ -34,6 +36,7 @@ public class FXMain extends Application {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+ 
         launch(args);
     }
     

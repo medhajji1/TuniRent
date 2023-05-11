@@ -22,6 +22,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
+import org.mindrot.jbcrypt.BCrypt;
 
 /**
  *
@@ -38,18 +39,11 @@ public class ServiceUtilisateur implements IService<Utilisateur> {
      
      public static String cryptage(String plainText) throws Exception{
          
-        MessageDigest digest = MessageDigest.getInstance("SHA-256");
-        byte[] key = digest.digest(secretKey.getBytes(StandardCharsets.UTF_8));
-        key = java.util.Arrays.copyOf(key, 16);
-        SecretKeySpec secretKeyy = new SecretKeySpec(key, ALGORITHM);
-
-        Cipher cipher = Cipher.getInstance(ALGORITHM);
-        cipher.init(Cipher.ENCRYPT_MODE, secretKeyy);
-
-        byte[] encrypted = cipher.doFinal(plainText.getBytes());
-        return Base64.getEncoder().encodeToString(encrypted);
+        String hashedPassword = BCrypt.hashpw(plainText, BCrypt.gensalt());
+        return hashedPassword;
      }
      
+
          //-------------------------------------Decrypter mot de passe------------------------------------------------------------
      public static String decryptage(String encryptedText) throws Exception {
         MessageDigest digest = MessageDigest.getInstance("SHA-256");
@@ -149,8 +143,8 @@ public class ServiceUtilisateur implements IService<Utilisateur> {
                   R.setNom(rs.getString("nom"));
                   R.setPrenom(rs.getString("prenom"));
                   R.setEmail(rs.getString("email"));
-                  String mdpDeCrypte=decryptage(rs.getString("motDePasse"));
-                  R.setMotDePasse(mdpDeCrypte);
+                  //String mdpDeCrypte=decryptage(rs.getString("motDePasse"));
+                  //R.setMotDePasse(mdpDeCrypte);
                   R.setNumeroTelephone(rs.getString("numeroTelephone"));
                   R.setTypeUtilisateur(rs.getString("typeUtilisateur"));
                   myList.add(R);

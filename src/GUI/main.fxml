@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+
+<TabPane fx:id="tabPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1745.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+  <tabs>
+      <Tab text="TuniRent">
+          <fx:include source="grid.fxml" />
+      </Tab>
+      
+    <Tab text="Categorie">
+        <fx:include source="categorie.fxml" />
+    </Tab>
+    <Tab text="Voiture">
+      <fx:include source="voiture.fxml" />
+    </Tab>
+      <Tab text="Reservation">
+          <fx:include source="reservation.fxml" />
+      </Tab>
+      
+  </tabs>
+</TabPane>

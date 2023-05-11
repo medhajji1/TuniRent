@@ -25,6 +25,7 @@ import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
@@ -69,7 +70,7 @@ public class CreerCompteController implements Initializable {
         String email = emailField.getText();
         String password = motDePassePasswordField.getText();
         String telephone = numeroTelephoneField.getText();
-        String type = "client";
+        String type = "Client";
 
          
         if(!email.matches("^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$") || telephone.length() != 8 || !telephone.matches("[0-9]+") || 

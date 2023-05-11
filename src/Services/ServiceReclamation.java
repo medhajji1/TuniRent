@@ -46,7 +46,7 @@ public class ServiceReclamation {
     }
     public void update(reclamation rec) {
     try {
-        String req = "UPDATE reclamation SET status=?, severity_level=? WHERE id_reclamation=?";
+        String req = "UPDATE reclamation SET status=?, severity_level=? WHERE id=?";
         PreparedStatement ps = connection.prepareStatement(req);
         ps.setString(1, rec.getStatus().toString());
         ps.setString(2, rec.getSeverityLevel().toString());
@@ -65,7 +65,7 @@ public class ServiceReclamation {
               while(rs.next())
               {
                   reclamation R = new reclamation();
-                  R.setId(rs.getInt("id_reclamation"));
+                  R.setId(rs.getInt("id"));
                   R.setNom(rs.getString("nom"));
                   R.setEmail(rs.getString("email"));
                   R.setNumtel(rs.getString("numtel"));
@@ -86,7 +86,7 @@ public class ServiceReclamation {
          return myList;
 }
     public boolean modifier(reclamation r) {
-         String requeteUpdate = "UPDATE reclamation SET nom=?, email=?, numtel=?, sujet=?, message=?, category=?, status=? WHERE id_reclamation=?";
+         String requeteUpdate = "UPDATE reclamation SET nom=?, email=?, numtel=?, sujet=?, message=?, category=?, status=? WHERE id=?";
 
                     try {
                         PreparedStatement st = connection.prepareStatement(requeteUpdate);
@@ -109,7 +109,7 @@ public class ServiceReclamation {
     public void supprimer(reclamation rec) {
         
         try {
-            String req = "DELETE from reclamation where id_reclamation="+rec.getId();
+            String req = "DELETE from reclamation where id="+rec.getId();
             ps=connection.prepareStatement(req);
             ps.executeUpdate(req);
             System.out.println("reclamation a ete supprimer !");
@@ -119,7 +119,7 @@ public class ServiceReclamation {
         
     }
     public void modifer2(reclamation rec) {
-       String requeteUpdate = "UPDATE reclamation SET severity_level=? status=? WHERE id_reclamation=?";
+       String requeteUpdate = "UPDATE reclamation SET severity_level=? status=? WHERE id=?";
 
                     try {
                         PreparedStatement st = connection.prepareStatement(requeteUpdate);         
@@ -139,7 +139,7 @@ public class ServiceReclamation {
         ResultSet rs = st.executeQuery(triseverity);
 
         while (rs.next()) {
-            int id = rs.getInt("id_reclamation");
+            int id = rs.getInt("id");
             SeverityLevel severity = SeverityLevel.valueOf(rs.getString("severity_level"));
             Status status = Status.valueOf(rs.getString("status"));
             String description = rs.getString("description");

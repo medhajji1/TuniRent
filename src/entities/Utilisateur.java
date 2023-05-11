@@ -22,7 +22,7 @@ public class Utilisateur {
     public Utilisateur() {
     }
     public Utilisateur(int CIN, String nom, String prenom, String email, String motDePasse, String numeroTelephone, String typeUtilisateur) {
-        if (!typeUtilisateur.equals("client") && !typeUtilisateur.equals("admin")) {
+        if (!typeUtilisateur.equals("Client") && !typeUtilisateur.equals("Admin")) {
         throw new IllegalArgumentException("Le type d'utilisateur doit être soit 'client' soit 'admin'");
         }
         if (numeroTelephone.length() != 8 || !numeroTelephone.matches("[0-9]+")) {
@@ -103,9 +103,9 @@ public class Utilisateur {
     }
 
     public void setTypeUtilisateur(String typeUtilisateur) {
-        if (!typeUtilisateur.equals("client") && !typeUtilisateur.equals("admin")) {
+        /*if (!typeUtilisateur.equals("client") && !typeUtilisateur.equals("admin")) {
             throw new IllegalArgumentException("Le type d'utilisateur doit être soit 'client' soit 'admin'");
-        }
+        }*/
         this.typeUtilisateur = typeUtilisateur;
     }
     @Override
@@ -135,10 +135,5 @@ public class Utilisateur {
             return false;
         }
         return true;
-    }
-
-    
-    
-    
-    
+    }   
 }

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.effect.ColorInput?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="640.0" prefWidth="1545" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.AllVoitureController">
+   <children>
+      <TableView fx:id="table" layoutX="-8.0" layoutY="205.0" prefHeight="421.0" prefWidth="1327.0">
+        <columns>
+          <TableColumn fx:id="voitureImmatriculationCol" prefWidth="242.0" text="Immatriculation" />
+            <TableColumn fx:id="voitureCategorieCol" prefWidth="235.0" text="categorie" />
+          <TableColumn fx:id="voiturekilometrageCol" prefWidth="249.0" text="kilometrage" />
+            <TableColumn fx:id="voiturecouleurCol" prefWidth="232.0" text="couleur" />
+            <TableColumn fx:id="voitureimageCol" prefWidth="367.0" text="Image" />
+        </columns>
+      </TableView>
+      <Button layoutX="236.0" layoutY="170.0" mnemonicParsing="false" onAction="#refresh" text="Refresh" />
+      <Button layoutX="2.0" layoutY="170.0" mnemonicParsing="false" onAction="#openCreate" text="Ajouter" />
+      <Button layoutX="71.0" layoutY="170.0" mnemonicParsing="false" onAction="#openUpdate" text="Modifier" />
+      <Button layoutX="147.0" layoutY="170.0" mnemonicParsing="false" onAction="#openDelete" text="Supprimer" />
+      <Text fill="#860909" fontSmoothingType="LCD" layoutX="117.0" layoutY="38.0" strokeType="OUTSIDE" strokeWidth="0.0" text="TuniRent">
+         <font>
+            <Font name="Calibri Light Italic" size="37.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="MOVE" />
+         </cursor>
+         <effect>
+            <ColorInput />
+         </effect>
+      </Text>
+      <Text fill="#ff0404" fontSmoothingType="LCD" layoutX="2.0" layoutY="48.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Vous cherchez un véhicule ? Vous êtes au bon endroit." wrappingWidth="493.65576171875">
+         <font>
+            <Font size="35.0" />
+         </font>
+      </Text>
+   </children>
+   <cursor>
+      <Cursor fx:constant="S_RESIZE" />
+   </cursor>
+</Pane>

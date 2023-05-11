@@ -26,7 +26,7 @@ public class ServiceReponse {
         }
         PreparedStatement ps=null;
     public void ajouter( reponse p) throws SQLException {
-        String requete = "INSERT INTO reponse (id_reclamation, message) VALUES (?,?)";
+        String requete = "INSERT INTO reponse (id_reclamation_id, message) VALUES (?,?)";
         PreparedStatement pst = connection.prepareStatement(requete);
         pst.setInt(1, p.getRec().getId());
         pst.setString(2, p.getMessage());
@@ -45,7 +45,7 @@ public class ServiceReponse {
     }
 
     public void modifier(reponse p) throws SQLException {
-        String requete = "UPDATE reponse SET id_reclamation=?, message=? WHERE id_rep=?";
+        String requete = "UPDATE reponse SET id_reclamation_id=?, message=? WHERE id_rep=?";
         PreparedStatement pst = connection.prepareStatement(requete);
         pst.setInt(1, p.getRec().getId());
         pst.setString(2, p.getMessage());
@@ -56,15 +56,15 @@ public class ServiceReponse {
     public List<reponse> getAll() {
         List<reponse> list = new ArrayList<>();
         try {       
-            String req ="SELECT reponse.id_rep, reponse.id_reclamation, reponse.message, reclamation.email FROM reponse JOIN reclamation ON reponse.id_reclamation = reclamation.id_reclamation";
+            String req ="SELECT reponse.id_rep, reponse.id_reclamation_id, reponse.message, reclamation.email FROM reponse JOIN reclamation ON reponse.id_reclamation_id = reclamation.id_reclamation_id";
             ps=connection.prepareStatement(req);
             try (ResultSet rs = ps.executeQuery(req)) {
                 while(rs.next()){
                     String email = rs.getString("email");                    
-                    int id_reclamation = rs.getInt("id_reclamation");                    
+                    int id_reclamation_id = rs.getInt("id_reclamation_id");                    
                     String message = rs.getString("message"); 
                     System.out.println("----Reponse-----");
-                    System.out.println("id_reclamation: " + id_reclamation);
+                    System.out.println("id_reclamation_id: " + id_reclamation_id);
                     System.out.println("Email du Client : " + email);
                     System.out.println("message: " + message);
                     System.out.println("------------------------");
